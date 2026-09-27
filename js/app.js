@@ -5,6 +5,7 @@ import * as srs from './srs.js';
 import { OBLASTI, DOKONCENI } from './engine.js';
 import { spustLov } from './rezimy/lov.js';
 import { spustMost } from './rezimy/most.js';
+import { avatar } from './postavy.js';
 
 const KLIC = 'fajn-slovni-druhy:v1';
 const MOTIVY = { light: 'Světlý', dark: 'Tmavý', girl: 'Dívčí' };
@@ -43,7 +44,7 @@ function mapa() {
       ${PLNA ? '' : '<p class="ukazka">Ukázková verze: hraješ s malým výběrem vět. Plnou verzi najdeš ve FajnCvičebně.</p>'}
       <div class="volba-hrdiny" role="group" aria-label="S kým vyrazíš?">
         <span>S kým vyrazíš?</span>
-        ${HRDINOVE.map(h => `<button type="button" data-h="${h}" aria-pressed="${stav.hrdina === h}"><span class="avatar">${h[0]}</span>${h}</button>`).join('')}
+        ${HRDINOVE.map(h => `<button type="button" data-h="${h}" aria-pressed="${stav.hrdina === h}">${avatar(h)}${h}</button>`).join('')}
       </div>
       <ol class="svety">
         ${Object.entries(SVETY).map(([n, s]) => kartaSveta(+n, s)).join('')}

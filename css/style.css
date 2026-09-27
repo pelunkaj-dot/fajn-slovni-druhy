@@ -57,9 +57,11 @@ h1, h2 { font-family: "Baloo 2", "Atkinson Hyperlegible", system-ui, sans-serif;
 }
 [data-theme="dark"] .num { color: #10140f; }
 .avatar {
-  display: inline-grid; place-items: center; width: 1.7em; height: 1.7em; border-radius: 50%;
-  background: var(--accent); color: var(--accent-ink); font-weight: 700; font-size: .85em; margin-right: 6px;
+  display: inline-block; width: 1.9em; height: 1.9em; border-radius: 50%; overflow: hidden; flex: none;
+  border: 2px solid #fff; box-shadow: 0 2px 6px rgba(0,0,0,.15); margin-right: 6px;
 }
+.avatar svg { display: block; width: 100%; height: 100%; }
+.avatar.velky { width: 52px; height: 52px; margin-right: 10px; }
 
 /* ---------- mapa ---------- */
 .mapa { display: flex; flex-direction: column; gap: 18px; }
@@ -163,16 +165,16 @@ h1, h2 { font-family: "Baloo 2", "Atkinson Hyperlegible", system-ui, sans-serif;
 .most-hra .slovo { cursor: default; }
 .most-hra .slovo:not(.sede):hover { transform: none; border-color: var(--line); }
 .most-hra .slovo.ted { border-color: var(--ink); box-shadow: 0 4px 0 var(--accent); transform: translateY(-3px); }
-.stavba { position: relative; height: 70px; border-radius: 12px; overflow: hidden;
-  background: linear-gradient(180deg, transparent 0 55%, #6fb7e0 55% 100%); }
-.stavba::before, .stavba::after { content: ""; position: absolute; bottom: 0; width: 14%; height: 60%; background: #7a9a55; }
+.stavba { position: relative; height: 96px; border-radius: 12px; overflow: hidden;
+  background: linear-gradient(180deg, transparent 0 66%, #6fb7e0 66% 100%); }
+.stavba::before, .stavba::after { content: ""; position: absolute; bottom: 0; width: 14%; height: 45%; background: #7a9a55; }
 .stavba::before { left: 0; border-top-right-radius: 10px; }
 .stavba::after { right: 0; border-top-left-radius: 10px; }
-.prkna { position: absolute; left: 14%; right: 14%; top: 40%; display: flex; gap: 3px; height: 14px; }
+.prkna { position: absolute; left: 14%; right: 14%; top: 55%; display: flex; gap: 3px; height: 14px; }
 .prkna i { flex: 1; border-radius: 3px; border: 2px dashed color-mix(in srgb, var(--ink) 30%, transparent); }
 .prkna i.polozene { background: var(--c); border: 0; animation: chyceno .35s; }
 .prkna i.prasknute { background: repeating-linear-gradient(45deg, var(--c) 0 5px, transparent 5px 9px); border: 0; }
-.postava { position: absolute; top: calc(40% - 30px); left: calc(7% + var(--pozice, 0) * 72%); transition: left .4s; margin: 0; }
+.postava { position: absolute; width: 44px; height: 44px; top: calc(55% - 48px); left: calc(7% + var(--pozice, 0) * 72%); transition: left .4s; margin: 0; }
 .volby { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; }
 .volby button { display: flex; align-items: center; gap: 8px; text-align: left; padding: 10px 12px; border-radius: 10px;
   border: 2px solid var(--line); background: var(--panel); color: var(--ink); font-size: 1rem; }

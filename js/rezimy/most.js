@@ -4,6 +4,7 @@ import { DRUHY } from '../druhy.js';
 import * as eng from '../engine.js';
 import * as srs from '../srs.js';
 import { esc, cislo, vysledekSerie } from './spolecne.js';
+import { avatar } from '../postavy.js';
 
 export function spustMost(koren, { data, opakovani, hrdina, ulozit, serieHotova, konec }) {
   const pocetSlov = v => v.slova.filter(s => data.aktivni.includes(s.d)).length;
@@ -24,7 +25,7 @@ export function spustMost(koren, { data, opakovani, hrdina, ulozit, serieHotova,
       <div class="ukol"></div>
       <div class="casovac" aria-hidden="true"><i></i></div>
       <p class="veta"></p>
-      <div class="stavba" aria-hidden="true"><div class="prkna"></div><span class="avatar postava">${esc(hrdina[0])}</span></div>
+      <div class="stavba" aria-hidden="true"><div class="prkna"></div>${avatar(hrdina, 'postava')}</div>
       <div class="volby" role="group" aria-label="Slovní druhy">
         ${data.aktivni.map(d => `<button type="button" data-d="${d}">${cislo(d)}<span>${DRUHY[d].nazev}</span></button>`).join('')}
       </div>

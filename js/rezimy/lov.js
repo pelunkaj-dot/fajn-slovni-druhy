@@ -3,6 +3,7 @@ import { DRUHY } from '../druhy.js';
 import * as eng from '../engine.js';
 import * as srs from '../srs.js';
 import { esc, cislo, vysledekSerie } from './spolecne.js';
+import { avatar } from '../postavy.js';
 
 export function spustLov(koren, { data, opakovani, hrdina, ulozit, serieHotova, konec }) {
   const vety = srs.vyberVety(opakovani, data.vety, data.aktivni, eng.DELKA_SERIE);
@@ -25,7 +26,7 @@ export function spustLov(koren, { data, opakovani, hrdina, ulozit, serieHotova, 
         <button type="button" class="napoveda" hidden>Nápověda</button>
         <button type="button" class="dalsi" hidden>Další věta →</button>
       </div>
-      <p class="hrdina"><span class="avatar">${esc(hrdina[0])}</span>${esc(hrdina)} ti fandí!</p>
+      <p class="hrdina">${avatar(hrdina, 'velky')}${esc(hrdina)} ti fandí!</p>
     </section>`;
   const $ = s => koren.querySelector(s);
 
