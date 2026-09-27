@@ -61,3 +61,104 @@
 0058| Divoký/2 vítr/1 fouká/5 .
 0059| Chytrá/2 opice/1 loupe/5 banán/1 .
 0060| Pan/1 doktor/1 léčí/5 nemocné/2 děti/1 .
+# --- várka 2 ---
+0061| Terezka/1 krmí/5 hladová/2 koťata/1 .
+0062| Matýsek/1 staví/5 papírového/2 draka/1 .
+0063| Dědeček/1 pouští/5 draka/1 na/7 louce/1 .
+0064| Vysoký/2 strom/1 roste/5 u/7 řeky/1 .
+0065| Zajíc/1 skáče/5 přes/7 pole/1 .
+0066| Maminka/1 žehlí/5 bílou/2 košili/1 .
+0067| Starý/2 mlynář/1 mele/5 mouku/1 .
+0068| Kamarádka/1 píše/5 dlouhý/2 dopis/1 .
+0069| Malá/2 holčička/1 hledá/5 panenku/1 .
+0070| Pilný/2 žák/1 čte/5 zajímavou/2 knihu/1 .
+0071| Tatínek/1 myje/5 špinavé/2 auto/1 .
+0072| Kos/1 zpívá/5 na/7 zahradě/1 .
+0073| Terezka/1 vypráví/5 veselou/2 pohádku/1 .
+0074| Hladový/2 vlk/1 vyje/5 .
+0075| Učitel/1 kontroluje/5 domácí/2 úkoly/1 .
+0076| Na/7 louce/1 kvetou/5 žluté/2 pampelišky/1 .
+0077| Matýsek/1 trhá/5 sladké/2 třešně/1 .
+0078| Babička/1 vaří/5 jahodovou/2 marmeládu/1 .
+0079| Kapr/1 plave/5 v/7 rybníce/1 .
+0080| Malíř/1 maluje/5 velký/2 obraz/1 .
+0081| Terezka/1 nese/5 plný/2 košík/1 .
+0082| Dědeček/1 opravuje/5 starou/2 židli/1 .
+0083| Pes/1 hlídá/5 zahradu/1 .
+0084| Liška/1 číhá/5 na/7 zajíce/1 .
+0085| Sluníčko/1 hřeje/5 .
+0086| Mladý/2 kůň/1 běží/5 po/7 louce/1 .
+0087| Matýsek/1 čistí/5 zablácené/2 boty/1 .
+0088| Pekařka/1 prodává/5 čerstvé/2 housky/1 .
+0089| Děti/1 zpívají/5 veselou/2 písničku/1 .
+0090| Moře/1 je/5 slané/2 .
+0091| Citron/1 je/5 kyselý/2 .
+0092| Med/1 je/5 sladký/2 .
+0093| Zmrzlina/1 je/5 studená/2 .
+0094| Kámen/1 je/5 tvrdý/2 .
+0095| Polštář/1 je/5 měkký/2 .
+0096| Terezka/1 je/5 unavená/2 .
+0097| Matýsek/1 je/5 zvědavý/2 .
+0098| Ježek/1 sbírá/5 jablka/1 .
+0099| Sýkorka/1 klove/5 zrní/1 .
+0100| Tatínek/1 řídí/5 nové/2 auto/1 .
+0101| Maminka/1 zalévá/5 pokojové/2 květiny/1 .
+0102| Hasič/1 leze/5 po/7 žebříku/1 .
+0103| Zedník/1 staví/5 pevnou/2 zeď/1 .
+0104| Kuchařka/1 krájí/5 zeleninu/1 .
+0105| Doktorka/1 vyšetřuje/5 malého/2 pacienta/1 .
+0106| Terezka/1 hraje/5 na/7 klavír/1 .
+0107| Matýsek/1 kope/5 do/7 míče/1 .
+0108| Brankář/1 chytá/5 míč/1 .
+0109| Černý/2 havran/1 sedí/5 na/7 plotě/1 .
+0110| Motýl/1 létá/5 nad/7 loukou/1 .
+0111| Včelka/1 sedí/5 na/7 květu/1 .
+0112| Velká/2 loď/1 pluje/5 po/7 moři/1 .
+0113| Námořník/1 drží/5 kormidlo/1 .
+0114| Pilot/1 řídí/5 letadlo/1 .
+0115| Dlouhý/2 vlak/1 odjíždí/5 .
+0116| Autobus/1 veze/5 děti/1 .
+0117| Terezka/1 jede/5 autobusem/1 .
+0118| Matýsek/1 jezdí/5 na/7 koloběžce/1 .
+0119| Dědeček/1 sekal/5 trávu/1 .
+0120| Babička/1 upekla/5 dobrý/2 dort/1 .
+0121| Pes/1 vyhrabal/5 kost/1 .
+0122| Kocour/1 spal/5 na/7 peci/1 .
+0123| Terezka/1 našla/5 zlatý/2 prstýnek/1 .
+0124| Matýsek/1 rozbil/5 hrnek/1 .
+0125| Sněhulák/1 roztál/5 .
+0126| Vítr/1 shodil/5 jablka/1 .
+0127| Maminka/1 koupila/5 nové/2 boty/1 .
+0128| Učitelka/1 pochválila/5 Terezku/1 .
+0129| Kluci/1 postavili/5 hrad/1 z/7 písku/1 .
+0130| Žába/1 kváká/5 u/7 rybníka/1 .
+0131| Kráva/1 žere/5 trávu/1 .
+0132| Ovce/1 mají/5 hustou/2 vlnu/1 .
+0133| Koza/1 okusuje/5 keř/1 .
+0134| Kohout/1 budí/5 ospalé/2 slepice/1 .
+0135| Slepice/1 snáší/5 vejce/1 .
+0136| Pes/1 olizuje/5 štěňátko/1 .
+0137| Terezka/1 češe/5 dlouhé/2 vlasy/1 .
+0138| Matýsek/1 čistí/5 zuby/1 .
+0139| Tatínek/1 čte/5 ranní/2 noviny/1 .
+0140| Maminka/1 píše/5 nákupní/2 seznam/1 .
+0141| Babička/1 vypráví/5 strašidelný/2 příběh/1 .
+0142| Dědeček/1 pěstuje/5 červená/2 rajčata/1 .
+0143| Soused/1 seká/5 trávník/1 .
+0144| Pošťák/1 nese/5 balík/1 .
+0145| Prodavač/1 váží/5 jablka/1 .
+0146| Hodinář/1 opravuje/5 hodiny/1 .
+0147| Švadlena/1 šije/5 kabát/1 .
+0148| Houbař/1 hledá/5 hříbky/1 .
+0149| Veverka/1 skáče/5 po/7 stromech/1 .
+0150| Sova/1 houká/5 v/7 noci/1 .
+0151| Jezevec/1 spí/5 v/7 noře/1 .
+0152| Medvídě/1 hledá/5 maminku/1 .
+0153| Liška/1 má/5 huňatý/2 ocas/1 .
+0154| Slon/1 má/5 dlouhý/2 chobot/1 .
+0155| Žirafa/1 má/5 dlouhý/2 krk/1 .
+0156| Zebra/1 má/5 pruhované/2 tělo/1 .
+0157| Tygr/1 loví/5 antilopu/1 .
+0158| Papoušek/1 opakuje/5 slova/1 .
+0159| Terezka/1 a/8 Matýsek/1 staví/5 sněhuláka/1 .
+0160| Naše/3 třída/1 jede/5 na/7 výlet/1 .
