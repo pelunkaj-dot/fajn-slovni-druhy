@@ -1,0 +1,68 @@
+// Testy herní logiky. Spuštění: node --test tests/
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import * as eng from '../js/engine.js';
+import * as srs from '../js/srs.js';
+
+const veta = { id: 's1-0001', slova: [{ t: 'Malý', d: 2 }, { t: 'pes', d: 1 }, { t: 'na', d: 7 }, { t: 'dvoře', d: 1 }, { t: 'štěká', d: 5 }] };
+const AKT = [1, 2, 5];
+
+test('zásahy dokončí větu', () => {
+  const st = eng.novaVeta(veta, 1, AKT);
+  assert.equal(eng.klik(st, 1).typ, 'zasah');
+  assert.equal(eng.zbyva(st), 1);
+  assert.equal(eng.klik(st, 1).typ, 'nic');
+  assert.equal(eng.klik(st, 3).typ, 'zasah');
+  assert.ok(st.hotovo);
+  assert.equal(eng.vysledekVety(st), 'ciste');
+});
+
+test('zašedlé slovo nic neudělá', () => {
+  const st = eng.novaVeta(veta, 1, AKT);
+  assert.equal(eng.klik(st, 2).typ, 'nic');
+  assert.equal(st.chyby, 0);
+});
+
+test('postup při chybě: nabídka, nápověda, odhalení', () => {
+  const st = eng.novaVeta(veta, 1, AKT);
+  assert.deepEqual(eng.klik(st, 0), { typ: 'chyba', krok: 1 });
+  assert.deepEqual(eng.klik(st, 4), { typ: 'chyba', krok: 2 });
+  assert.equal(st.hotovo, false);
+  assert.deepEqual(eng.klik(st, 0), { typ: 'chyba', krok: 3 });
+  assert.ok(st.hotovo && st.odhaleno);
+  assert.equal(eng.vysledekVety(st), 'odhaleno');
+  assert.equal(eng.bodyZaVetu(st, 1, 10), 0);
+});
+
+test('úspěšnost série nejde proklikat', () => {
+  assert.ok(eng.serieUspesna(Array(8).fill('ciste')));
+  assert.ok(eng.serieUspesna([...Array(6).fill('ciste'), 'chyba', 'chyba']));
+  assert.ok(!eng.serieUspesna([...Array(6).fill('ciste'), 'odhaleno', 'odhaleno']));
+  assert.ok(!eng.serieUspesna(Array(8).fill('chyba')));
+  assert.ok(!eng.serieUspesna(Array(5).fill('ciste')));
+});
+
+test('opakování: chyba vrací slovo hned, úspěch ho odkládá', () => {
+  const st = srs.novyStav(), t = 1e12, k = srs.klic(veta.slova[1]);
+  assert.equal(k, 'pes|1');
+  assert.equal(srs.naleha(st, k, t), 1);
+  srs.uspech(st, k, t);
+  assert.equal(srs.naleha(st, k, t + 1000), 0);
+  srs.chyba(st, k, t);
+  assert.ok(srs.naleha(st, k, t) > 2);
+});
+
+test('výběr vět upřednostní slabá slova a vynechá nedávné', () => {
+  const st = srs.novyStav(), t = 1e12;
+  const a = { id: 'a', slova: [{ t: 'kočka', d: 1 }] }, b = { id: 'b', slova: [{ t: 'pes', d: 1 }] }, c = { id: 'c', slova: [{ t: 'myš', d: 1 }] };
+  [a, b, c].forEach(v => srs.uspech(st, srs.klic(v.slova[0]), t));
+  srs.chyba(st, 'pes|1', t);
+  assert.deepEqual(srs.vyberVety(st, [a, b, c], AKT, 1, () => 0, t + 1).map(v => v.id), ['b']);
+  srs.zapamatujVetu(st, 'b');
+  assert.notEqual(srs.vyberVety(st, [a, b, c], AKT, 1, () => 0, t + 1)[0].id, 'b');
+});
+
+test('cíl je druh, který ve větě opravdu je', () => {
+  const st = srs.novyStav();
+  for (let i = 0; i < 20; i++) assert.ok([1, 2, 5].includes(srs.vyberCil(st, veta, AKT)));
+});

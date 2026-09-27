@@ -61,3 +61,5 @@ Věty nejsou procedurálně generované, jde o korpus. Cíl: spíš tisíce než
 - Věty se píšou v textovém zdroji `korpus/svetN.txt`, JSON pro hru generuje `tools/sestav.py`.
 - Plná data leží veřejně na GitHub Pages; bez `?mode=full` hra načte jen `data/ukazka.json`. Schování dat za Vercel proxy se řeší později.
 - Sporná jazyková pojetí: rozhodnuta v `docs/sporna-pojeti.md`. Zásada: když druh slova nejde spolehlivě určit z kontextu, věta do korpusu nepatří.
+- První herní režim: lov (`js/rezimy/lov.js`). Série = 8 vět, území se získá při úspěšnosti ≥ 80 % (čistá věta 1, s chybou 0,5, s ukázanou odpovědí 0). Svět má 20 oblastí, dokončen při 13 (65 %), zbylých 7 jsou skryté oblasti.
+- Testy: `node --test tests/*.mjs` (logika hry), `python -m unittest discover tests` (nástroje). Náhled pro claude.ai: `python tools/nahled.py cil.html`.
