@@ -181,3 +181,20 @@ h1, h2 { font-family: "Baloo 2", "Atkinson Hyperlegible", system-ui, sans-serif;
 .volby button:hover:not(:disabled) { border-color: var(--ink); }
 .volby button:disabled { opacity: .5; cursor: default; }
 @media (prefers-reduced-motion: reduce) { .postava { transition: none; } .prkna i.polozene { animation: none; } }
+
+/* ---------- postavička s bublinou ---------- */
+.parta { display: flex; align-items: center; gap: 4px; min-height: 64px; }
+.parta .avatar.velky { width: 60px; height: 60px; transition: transform .2s; }
+.bublina {
+  position: relative; flex: 1; margin: 0 0 0 10px; padding: 10px 14px; min-height: 2.9em;
+  background: var(--panel); border: 2px solid var(--line); border-radius: 16px;
+}
+.bublina::before {
+  content: ""; position: absolute; left: -9px; top: 50%; width: 14px; height: 14px; margin-top: -7px;
+  background: inherit; border-left: 2px solid var(--line); border-bottom: 2px solid var(--line); transform: rotate(45deg);
+}
+.bublina:empty { visibility: hidden; }
+.zprava.bublina.pozor, .zprava.bublina.odhaleni { background: var(--warn-bg); }
+.zprava.bublina.rada { background: var(--hint-bg); }
+.zprava.bublina.hura { background: var(--panel); color: var(--ok); font-size: 1.1rem; }
+.vysledek .parta { margin-bottom: 4px; }

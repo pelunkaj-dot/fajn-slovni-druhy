@@ -2,8 +2,8 @@
 import { DRUHY } from '../druhy.js';
 import * as eng from '../engine.js';
 import * as srs from '../srs.js';
-import { esc, cislo, vysledekSerie } from './spolecne.js';
-import { avatar } from '../postavy.js';
+import { esc, cislo, vysledekSerie, parta } from './spolecne.js';
+import { HLASKY, nahodna } from '../hlasky.js';
 
 export function spustLov(koren, { data, opakovani, hrdina, ulozit, serieHotova, konec }) {
   const vety = srs.vyberVety(opakovani, data.vety, data.aktivni, eng.DELKA_SERIE);
@@ -21,14 +21,14 @@ export function spustLov(koren, { data, opakovani, hrdina, ulozit, serieHotova, 
       <div class="cil"></div>
       <div class="casovac" aria-hidden="true"><i></i></div>
       <p class="veta"></p>
-      <p class="zprava" aria-live="polite"></p>
+      <div class="parta"></div>
       <div class="ovladani">
         <button type="button" class="napoveda" hidden>Nápověda</button>
         <button type="button" class="dalsi" hidden>Další věta →</button>
       </div>
-      <p class="hrdina">${avatar(hrdina, 'velky')}${esc(hrdina)} ti fandí!</p>
     </section>`;
   const $ = s => koren.querySelector(s);
+  const rekni = parta($('.parta'), hrdina);
 
   $('.zpet').onclick = () => { zastav(); konec(null); };
   $('button.napoveda').onclick = () => ukazNapovedu();
@@ -49,8 +49,7 @@ export function spustLov(koren, { data, opakovani, hrdina, ulozit, serieHotova, 
       return `<span class="skup"><button type="button" class="slovo${aktivni ? '' : ' sede'}" data-i="${i}"${aktivni ? '' : ' tabindex="-1" aria-disabled="true"'}>`
         + `<span class="nad"></span><span class="t">${esc(s.t)}</span></button>${s.i ? `<span class="interp">${esc(s.i)}</span>` : ''}</span>`;
     }).join(' ');
-    $('.zprava').textContent = '';
-    $('.zprava').className = 'zprava';
+    if (poradi === 0) rekni(nahodna(HLASKY.uvodLov));
     $('button.napoveda').hidden = true;
     $('.dalsi').hidden = true;
     koren.querySelectorAll('.tecky li').forEach((li, i) => li.classList.toggle('ted', i === poradi));
@@ -81,6 +80,7 @@ export function spustLov(koren, { data, opakovani, hrdina, ulozit, serieHotova, 
       btn.style.setProperty('--c', `var(--d${st.cil})`);
       btn.querySelector('.nad').innerHTML = cislo(st.cil);
       aktualizujZbyva();
+      if (!st.hotovo && Math.random() < 0.5) rekni(nahodna(HLASKY.zasah), 'radost');
       if (st.hotovo) dokonciVetu();
       return;
     }
@@ -91,9 +91,9 @@ export function spustLov(koren, { data, opakovani, hrdina, ulozit, serieHotova, 
     chybnaSlova.set(k, st.veta.slova[i]);
     const m = DRUHY[st.cil].nazev;
     if (r.krok === 1) {
-      zprava(`„${st.veta.slova[i].t}“ není ${m}. Zkus to znovu.`, 'pozor');
+      zprava(`„${st.veta.slova[i].t}“ není ${m}. ${nahodna(HLASKY.chyba1)}`, 'pozor');
     } else if (r.krok === 2) {
-      zprava(`„${st.veta.slova[i].t}“ není ${m}. Zkus to znovu, nebo si vezmi nápovědu.`, 'pozor');
+      zprava(`„${st.veta.slova[i].t}“ není ${m}. ${nahodna(HLASKY.chyba2)}`, 'pozor');
       $('button.napoveda').hidden = false;
     } else {
       dokonciVetu();
@@ -102,14 +102,12 @@ export function spustLov(koren, { data, opakovani, hrdina, ulozit, serieHotova, 
 
   function ukazNapovedu() {
     const d = DRUHY[st.cil];
-    zprava(`Nápověda: ${d.otazka} ${d.popis}`, 'rada');
+    zprava(`${nahodna(HLASKY.napoveda)} ${d.otazka} ${d.popis}`, 'rada');
     $('button.napoveda').hidden = true;
   }
 
   function zprava(text, druh) {
-    const z = $('.zprava');
-    z.textContent = text;
-    z.className = `zprava ${druh}`;
+    rekni(text, { pozor: 'premysli', hura: 'radost' }[druh] || 'zakladni', druh);
   }
 
   function dokonciVetu() {
@@ -141,11 +139,11 @@ export function spustLov(koren, { data, opakovani, hrdina, ulozit, serieHotova, 
         b.style.setProperty('--c', `var(--d${st.cil})`);
         b.querySelector('.nad').innerHTML = cislo(st.cil);
       }
-      zprava(`Tady jsou všechna ${DRUHY[st.cil].mnozne}. Podívej se na ně a jdeme dál.`, 'odhaleni');
+      zprava(`Tady jsou všechna ${DRUHY[st.cil].mnozne}. ${nahodna(HLASKY.odhaleniLov)}`, 'odhaleni');
       $('.dalsi').hidden = false;
       $('.dalsi').focus();
     } else {
-      zprava(vysl === 'ciste' ? `Výborně! +${ziskano}` : `Máš je všechna! +${ziskano}`, 'hura');
+      zprava(`${nahodna(vysl === 'ciste' ? HLASKY.vetaCista : HLASKY.vetaSChybou)} +${ziskano}`, 'hura');
       dalsiTimeout = setTimeout(dalsiVeta, 1100);
     }
   }
@@ -158,7 +156,7 @@ export function spustLov(koren, { data, opakovani, hrdina, ulozit, serieHotova, 
   }
 
   function vyhodnot() {
-    vysledekSerie(koren, { vysledky, body, chybnaSlova, serieHotova, konec });
+    vysledekSerie(koren, { vysledky, body, chybnaSlova, hrdina, serieHotova, konec });
   }
 
   if (!vety.length) { koren.innerHTML = '<p class="chyba">V tomto světě zatím nejsou žádné věty.</p>'; return; }

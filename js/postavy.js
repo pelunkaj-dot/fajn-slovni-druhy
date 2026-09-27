@@ -11,3 +11,27 @@ export function avatar(jmeno, trida = '') {
   const p = POSTAVY[jmeno] || POSTAVY['Terezka'];
   return `<span class="avatar ${trida}" style="background:${p.pozadi}" aria-hidden="true">${p.svg}</span>`;
 }
+
+// Výrazy: 'zakladni' (úsměv), 'radost' (otevřená pusa), 'premysli' (oči nahoru, pusa „hmm“).
+const USTA = /<path d="M3[34] ([\d.]+) Q40 [\d.]+ 4[67] [\d.]+" fill="white"[^>]*\/> <path d="M3[34] [\d.]+ Q40 [\d.]+ 4[67] [\d.]+" fill="#F5CFA0"\/>/;
+const ZORNICE = /<circle cx="([\d.]+)" cy="([\d.]+)" (r="(?:3\.5|2\.2|3\.2|1\.4)" fill="(?:#5A7055|#3A4E35|#18090A|white)"\/>)/g;
+
+function sVyrazem(svg, vyraz) {
+  if (vyraz === 'radost') {
+    return svg.replace(USTA, (_, y) => {
+      y = +y;
+      return `<path d="M33 ${y} Q40 ${y + 11} 47 ${y} Z" fill="#7A2323" stroke="#2A1408" stroke-width="1.5" stroke-linejoin="round"/>`
+        + `<ellipse cx="40" cy="${y + 5.5}" rx="3.6" ry="2" fill="#F07A8A"/>`;
+    });
+  }
+  if (vyraz === 'premysli') {
+    return svg
+      .replace(USTA, (_, y) => `<path d="M36 ${+y + 2} Q39 ${+y + 0.5} 44 ${+y + 2.5}" fill="none" stroke="#2A1408" stroke-width="1.5" stroke-linecap="round"/>`)
+      .replace(ZORNICE, (_, cx, cy, zbytek) => `<circle cx="${+cx + 1.2}" cy="${+cy - 1.6}" ${zbytek}`);
+  }
+  return svg;
+}
+
+export function obrazek(jmeno, vyraz = 'zakladni') {
+  return sVyrazem((POSTAVY[jmeno] || POSTAVY['Terezka']).svg, vyraz);
+}
