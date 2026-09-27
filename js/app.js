@@ -7,7 +7,7 @@ import { spustLov } from './rezimy/lov.js';
 import { spustMost } from './rezimy/most.js';
 import { avatar } from './postavy.js';
 import { KRAJINY } from './krajiny.js';
-import { hlaska } from './hlasky.js';
+import { hlaska, nastavHrace } from './hlasky.js';
 import { parta } from './rezimy/spolecne.js';
 
 const KLIC = 'fajn-slovni-druhy:v1';
@@ -30,6 +30,7 @@ const stav = { hrdina: HRDINOVE[0], motiv: 'light', rezim: 'lov', svety: {}, opa
 const DEN = 864e5;
 let pozdrav = !stav.naposledy ? 'pozdravPrvni' : Date.now() - stav.naposledy > 3 * DEN ? 'pozdravPoDlouhe' : 'pozdravZnovu';
 stav.naposledy = Date.now();
+nastavHrace(stav.hrac);
 
 function ulozit() {
   try { localStorage.setItem(KLIC, JSON.stringify(stav)); } catch { /* bez úložiště se postup neuchová */ }
@@ -46,13 +47,34 @@ function nastavMotiv(m) {
 const svetStav = n => (stav.svety[n] ||= { uzemi: 0, serie: 0 });
 const odemceno = n => n === 1 || svetStav(n - 1).uzemi >= DOKONCENI;
 
+// Při prvním spuštění se postavička zeptá, kdo hraje.
+function otazkaHrac() {
+  app.innerHTML = `
+    <section class="mapa uvitani">
+      <div class="parta"></div>
+      <div class="volba-hrace" role="group" aria-label="Kdo hraje?">
+        <button type="button" data-k="holka">Jsem holka</button>
+        <button type="button" data-k="kluk">Jsem kluk</button>
+      </div>
+    </section>`;
+  parta(app.querySelector('.parta'), stav.hrdina)(hlaska(stav.hrdina, 'otazkaHrac'));
+  app.querySelectorAll('.volba-hrace button').forEach(b => b.onclick = () => {
+    stav.hrac = b.dataset.k; nastavHrace(stav.hrac); ulozit(); mapa();
+  });
+}
+
 function mapa() {
+  if (!stav.hrac) { otazkaHrac(); return; }
   app.innerHTML = `
     <section class="mapa">
       ${PLNA ? '' : '<p class="ukazka">Ukázková verze: hraješ s malým výběrem vět. Plnou verzi najdeš ve FajnCvičebně.</p>'}
       <div class="volba-hrdiny" role="group" aria-label="S kým vyrazíš?">
         <span>S kým vyrazíš?</span>
         ${HRDINOVE.map(h => `<button type="button" data-h="${h}" aria-pressed="${stav.hrdina === h}">${avatar(h)}${h}</button>`).join('')}
+        <span class="hraje">Hraje:
+          <button type="button" data-k="holka" aria-pressed="${stav.hrac === 'holka'}">holka</button>
+          <button type="button" data-k="kluk" aria-pressed="${stav.hrac === 'kluk'}">kluk</button>
+        </span>
       </div>
       <div class="parta"></div>
       <ol class="svety">
@@ -62,7 +84,10 @@ function mapa() {
   const rekni = parta(app.querySelector('.parta'), stav.hrdina);
   if (pozdrav) { rekni(hlaska(stav.hrdina, pozdrav)); pozdrav = ''; }
   else app.querySelector('.parta').hidden = true;
-  app.querySelectorAll('.volba-hrdiny button').forEach(b => b.onclick = () => {
+  app.querySelectorAll('.hraje button').forEach(b => b.onclick = () => {
+    stav.hrac = b.dataset.k; nastavHrace(stav.hrac); ulozit(); mapa();
+  });
+  app.querySelectorAll('.volba-hrdiny button[data-h]').forEach(b => b.onclick = () => {
     if (stav.hrdina === b.dataset.h) return;
     stav.hrdina = b.dataset.h; ulozit();
     pozdrav = 'predstaveni';

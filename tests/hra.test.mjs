@@ -109,3 +109,12 @@ test('hlášky: obě postavičky mají všechny skupiny', async () => {
   const { HLASKY } = await import('../js/hlasky.js');
   assert.deepEqual(Object.keys(HLASKY['Matýsek']).sort(), Object.keys(HLASKY['Terezka']).sort());
 });
+
+test('hlášky: tvary podle toho, kdo hraje', async () => {
+  const { HLASKY, tvar } = await import('../js/hlasky.js');
+  assert.equal(tvar('{Zvládl|Zvládla} jsi to!', 'kluk'), 'Zvládl jsi to!');
+  assert.equal(tvar('{Zvládl|Zvládla} jsi to!', 'holka'), 'Zvládla jsi to!');
+  for (const hrdina of Object.values(HLASKY)) for (const seznam of Object.values(hrdina)) for (const t of seznam) {
+    for (const kdo of ['kluk', 'holka']) assert.ok(!/[{}|]/.test(tvar(t, kdo)), `nevyřešený tvar: ${t}`);
+  }
+});
