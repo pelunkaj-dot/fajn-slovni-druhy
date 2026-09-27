@@ -1,7 +1,8 @@
 """Sestaví jednosouborový náhled hry (pro claude.ai Artifact): CSS a JS vložené do stránky.
 
 Data zůstávají v data/*.json a publikují se vedle stránky.
-Použití: python tools/nahled.py cil.html
+Použití: python tools/nahled.py cil.html [--vse]
+  --vse  plná verze a všechny světy odemčené (jen pro Janovo zkoušení)
 """
 import posixpath
 import re
@@ -26,17 +27,21 @@ def modul(nazev):
     return f'const {jmeno} = (() => {{\n{kod}\nreturn {{ {", ".join(exporty)} }};\n}})();'
 
 
-def main(cil):
+def main(cil, vse=False):
     html = (KOREN / 'index.html').read_text(encoding='utf-8')
     telo = html.split('<body>', 1)[1].split('</body>', 1)[0]
     telo = re.sub(r'<script type="module".*?</script>', '', telo, flags=re.S)
     fonty = re.search(r'<link rel="stylesheet" href="https://fonts[^>]+>', html)[0]
     css = (KOREN / 'css' / 'style.css').read_text(encoding='utf-8')
     js = '\n'.join(modul(m) for m in PORADI)
+    if vse:
+        for a, b in [("parametry.get('mode') === 'full'", 'true'), ('const odemceno = n => n === 1 ||', 'const odemceno = n => true ||')]:
+            assert a in js, a
+            js = js.replace(a, b)
     stranka = (f'<title>FajnSlovní druhy</title>\n{fonty}\n<style>\n{css}\n</style>\n{telo}\n'
                f'<script>\ndocument.documentElement.dataset.theme="light";\n{js}\n</script>\n')
     Path(cil).write_text(stranka, encoding='utf-8')
 
 
 if __name__ == '__main__':
-    main(sys.argv[1])
+    main(sys.argv[1], '--vse' in sys.argv)
