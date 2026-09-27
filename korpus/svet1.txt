@@ -1,0 +1,63 @@
+# Svět 1 – určují se jen podstatná jména (1), přídavná jména (2) a slovesa (5).
+# Ostatní slova jsou ve hře zašedlá, ale druh mají uvedený také.
+# Jednoduché věty, jen jednoznačná slova. Formát: docs/format-dat.md
+0001| Malý/2 pes/1 štěká/5 .
+0002| Terezka/1 čte/5 knihu/1 .
+0003| Matýsek/1 staví/5 vysokou/2 věž/1 .
+0004| Černá/2 kočka/1 spí/5 na/7 gauči/1 .
+0005| Babička/1 peče/5 voňavý/2 koláč/1 .
+0006| Velký/2 slon/1 pije/5 vodu/1 .
+0007| Terezka/1 má/5 novou/2 tašku/1 .
+0008| Zelená/2 žába/1 skáče/5 do/7 rybníka/1 .
+0009| Tatínek/1 opravuje/5 staré/2 kolo/1 .
+0010| Maminka/1 vaří/5 dobrou/2 polévku/1 .
+0011| Matýsek/1 maluje/5 barevný/2 obrázek/1 .
+0012| Malá/2 myška/1 hledá/5 sýr/1 .
+0013| Děti/1 stavějí/5 sněhuláka/1 .
+0014| Rychlý/2 vlak/1 projíždí/5 tunelem/1 .
+0015| Učitelka/1 píše/5 na/7 tabuli/1 .
+0016| Liška/1 běží/5 lesem/1 .
+0017| Terezka/1 zalévá/5 červené/2 kytky/1 .
+0018| Pejsek/1 hlídá/5 dům/1 .
+0019| Dědeček/1 čte/5 noviny/1 .
+0020| Žlutý/2 míč/1 leží/5 v/7 trávě/1 .
+0021| Matýsek/1 jede/5 na/7 kole/1 .
+0022| Moudrá/2 sova/1 houká/5 .
+0023| Veselý/2 klaun/1 žongluje/5 .
+0024| Kuchař/1 krájí/5 čerstvý/2 chléb/1 .
+0025| Tráva/1 je/5 zelená/2 .
+0026| Obloha/1 je/5 modrá/2 .
+0027| Polévka/1 je/5 horká/2 .
+0028| Terezka/1 je/5 veselá/2 .
+0029| Náš/3 kocour/1 chytá/5 myši/1 .
+0030| Hnědý/2 medvěd/1 miluje/5 med/1 .
+0031| Pilná/2 včela/1 sbírá/5 pyl/1 .
+0032| Ptáček/1 zpívá/5 krásnou/2 píseň/1 .
+0033| Matýsek/1 hraje/5 fotbal/1 .
+0034| Kamarádi/1 sedí/5 na/7 lavičce/1 .
+0035| Terezka/1 kreslí/5 modrého/2 koně/1 .
+0036| Starý/2 rybář/1 chytá/5 ryby/1 .
+0037| Holub/1 sedí/5 na/7 střeše/1 .
+0038| Malý/2 Matýsek/1 tleská/5 .
+0039| Krtek/1 hrabe/5 hlubokou/2 díru/1 .
+0040| Veverka/1 schovává/5 oříšky/1 .
+0041| Teplé/2 slunce/1 svítí/5 .
+0042| Bílý/2 sníh/1 padá/5 .
+0043| Terezka/1 nosí/5 žluté/2 šaty/1 .
+0044| Hasiči/1 hasí/5 velký/2 požár/1 .
+0045| Kůň/1 táhne/5 těžký/2 vůz/1 .
+0046| Malé/2 kotě/1 pije/5 mléko/1 .
+0047| Maminka/1 čte/5 pohádku/1 .
+0048| Matýsek/1 nese/5 těžký/2 batoh/1 .
+0049| Kohout/1 kokrhá/5 .
+0050| Babička/1 plete/5 teplou/2 šálu/1 .
+0051| Dědeček/1 sází/5 mladé/2 stromky/1 .
+0052| Žáci/1 píší/5 diktát/1 .
+0053| Hodný/2 pes/1 nese/5 klacek/1 .
+0054| Zlatá/2 rybka/1 plave/5 v/7 akváriu/1 .
+0055| Kluci/1 hrají/5 hokej/1 .
+0056| Terezka/1 a/8 Matýsek/1 jdou/5 do/7 školy/1 .
+0057| Pekař/1 peče/5 křupavé/2 rohlíky/1 .
+0058| Divoký/2 vítr/1 fouká/5 .
+0059| Chytrá/2 opice/1 loupe/5 banán/1 .
+0060| Pan/1 doktor/1 léčí/5 nemocné/2 děti/1 .

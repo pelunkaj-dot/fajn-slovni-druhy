@@ -1,0 +1,3 @@
+# Jen pro kontrolu s lokálním modelem (python tools/kontrola.py --model ...).
+# Bez modelu skript používá REST API LINDAT a nic instalovat nemusíš.
+ufal.morphodita

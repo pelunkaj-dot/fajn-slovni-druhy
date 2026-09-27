@@ -42,7 +42,7 @@ Značky za číslem:
 |--------------|------------------------------------------------------------|
 | `/5`         | slovní druh 1–10                                           |
 | `*`          | víceznačné slovo (druh určuje kontext)                     |
-| `+`          | část složeného tvaru; sousední slova s `+` tvoří skupinu   |
+| `+`          | část složeného tvaru (skupina 1); `+2` = druhá skupina ve větě, slova nemusí stát vedle sebe |
 | `:osobni`    | poddruh (jen svět 5), např. `jeho/3:privlastnovaci`        |
 | `{text}`     | vlastní nápověda, např. `ráno/6*{Kdy? – ráno.}`            |
 
@@ -82,3 +82,14 @@ Opakování s rozestupy sleduje dvojice *lemma + druh* a štítky `jevy`.
 ID vět jsou stálá, aby se po úpravě korpusu neztratil postup hráčů:
 `sestav.py` nové větě dopíše ID na začátek řádku (`0001| Malý/2 pes/1 …`)
 a to se už nemění.
+
+## Nástroje
+
+```
+python tools/sestav.py                 # zdroj → data/*.json, doplní čísla vět
+python tools/kontrola.py --svet 1      # neshody s MorphoDiTou → tools/vystup/neshody_svet1.csv
+python -m unittest discover tests      # testy nástrojů
+```
+
+`kontrola.py` bez parametru `--model` volá REST API LINDAT (potřebuje internet).
+Po kontrole spusť znovu `sestav.py`, aby se do dat dostala lemmata.

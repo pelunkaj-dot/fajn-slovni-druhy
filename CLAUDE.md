@@ -60,4 +60,4 @@ Věty nejsou procedurálně generované, jde o korpus. Cíl: spíš tisíce než
 - Samostatný repozitář `fajn-slovni-druhy`, vanilla JS bez build kroku, struktura a datový formát viz `docs/format-dat.md`.
 - Věty se píšou v textovém zdroji `korpus/svetN.txt`, JSON pro hru generuje `tools/sestav.py`.
 - Plná data leží veřejně na GitHub Pages; bez `?mode=full` hra načte jen `data/ukazka.json`. Schování dat za Vercel proxy se řeší později.
-- Sporná jazyková pojetí: `docs/sporna-pojeti.md` (čeká na rozhodnutí).
+- Sporná jazyková pojetí: rozhodnuta v `docs/sporna-pojeti.md`. Zásada: když druh slova nejde spolehlivě určit z kontextu, věta do korpusu nepatří.

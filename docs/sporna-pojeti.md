@@ -4,7 +4,7 @@ U každého bodu je můj **návrh** a poznámka, kde se může lišit analyzáto
 (MorphoDiTa, značky PDT). Jak se MorphoDiTa skutečně chová, ověří kontrolní
 skript. Tady jde o to, co bude ve hře považováno za správně.
 
-Stačí odpovědět číslem bodu a „OK“, nebo napsat jiné rozhodnutí.
+**Stav: rozhodnuto (27. 9. 2026).** Body bez výhrady platí podle návrhu.
 Sloupec **Svět** říká, odkud se jev smí objevit; do té doby se takové věty nepoužijí.
 
 ## A. Slovesa a jejich části
@@ -15,8 +15,8 @@ Sloupec **Svět** říká, odkud se jev smí objevit; do té doby se takové vě
 | 2 | Budoucí čas | *budu psát* | obě 5, skupina | 3 | shodně |
 | 3 | Podmiňovací způsob | *psal bych*, *by* | *by/bych* = 5 (součást slovesa), skupina | 3 | *by* značí jako sloveso (Vc) |
 | 4 | *aby, kdyby* | *Přišel, aby pomohl.* | 8 spojka | 4 | spojka (J,) |
-| 5 | Zvratné *se/si* u sloves | *smát se, myje si ruce* | ? — varianty: (a) 5 jako součást slovesa, (b) 3 zvratné zájmeno | 3 | značí jako zájmeno (P7) |
-| 6 | *se* v trpném rodě | *Staví se dům.* | stejně jako bod 5 | 3 | zájmeno |
+| 5 | Zvratné *se/si* u sloves | *smát se, myje si ruce* | **3** zvratné zájmeno | 3 | značí jako zájmeno (P7) |
+| 6 | *se* v trpném rodě | *Staví se dům.* | **3** | 3 | zájmeno |
 | 7 | *se/ke/ve* jako předložka | *se sestrou* | 7 | 3 | předložka (RV) — kolize s bodem 5 je dobrá záludnost |
 | 8 | Trpný rod | *byl postaven* | obě 5, skupina | 3 | *postaven* jako sloveso (Vs) |
 | 9 | Infinitiv po modálním slovesu | *musím jít* | obě 5, dvě samostatná slovesa (ne skupina) | 3 | shodně |
@@ -28,7 +28,7 @@ Sloupec **Svět** říká, odkud se jev smí objevit; do té doby se takové vě
 | # | Jev | Příklad | Návrh | Svět | Poznámka |
 |---|-----|---------|-------|------|----------|
 | 12 | *sto, tisíc* | *tisíc lidí* | 4 | 2 | *sto* jako číslovka; *tisíc* možná jako podstatné jméno |
-| 13 | *milion, miliarda* | | 4 (nebo 1?) | 3 | pravděpodobně podstatné jméno |
+| 13 | *milion, miliarda* | | **4** (vyjadřuje množství) | 3 | pravděpodobně podstatné jméno |
 | 14 | Neurčité číslovky | *mnoho, málo, několik, pár* | 4 | 2 | *pár* může být podstatné jméno (*pár bot*) |
 | 15 | *hodně, moc* | *hodně lidí* × *hodně běhá* | 4 × 6 podle kontextu | 3 | často vždy příslovce |
 | 16 | *moc* jako podstatné jméno | *moc krále* | 1 | 3 | |
@@ -46,7 +46,7 @@ Sloupec **Svět** říká, odkud se jev smí objevit; do té doby se takové vě
 | 23 | Zpodstatnělá přídavná jména | *vrátný, hajný, pokojská* | 1 | 3 | značí jako přídavné jméno |
 | 24 | Víceslovná vlastní jména | *Nový Jičín, Česká republika* | každé slovo zvlášť (2 + 1) | 2 | |
 | 25 | *ráno, večer* | *Ráno vstávám.* × *krásné ráno* | 6 × 1 | 3 | kontext |
-| 26 | *jiný* | *jiný kluk* | 2 nebo 3? (učebnice se liší) | 3 | přídavné jméno |
+| 26 | *jiný* | *jiný kluk* | záleží na kontextu → věty s *jiný* do korpusu nedávat | 3 | přídavné jméno |
 | 27 | *každý, všechen, sám, žádný* | | 3 | 2 | *každý* někdy jako přídavné jméno |
 
 ## D. Zájmena, příslovce, spojky, částice
@@ -56,8 +56,8 @@ Sloupec **Svět** říká, odkud se jev smí objevit; do té doby se takové vě
 | 28 | *co* v souvětí | *Vím, co chceš.* | 3 (vztažné/tázací zájmeno), ne spojka | 4 | zájmeno |
 | 29 | *kde, kdy, jak, proč* v souvětí | *Nevím, kde bydlí.* | 6 (vztažné příslovce), ne spojka | 4 | příslovce |
 | 30 | *když, že, protože* | | 8 | 4 | shodně |
-| 31 | *jak* při porovnání | *větší jak já* | 8 (nebo takové věty vynechat, spisovně *než*) | 4 | |
-| 32 | *ať* | *Ať přijde.* × *Ať žije!* | 8 × 9? (nebo vždy 9) | 4 | |
+| 31 | *jak* při porovnání | *větší jak já* | **vynechat**, používat *větší než já* (*než* = 8) | 4 | |
+| 32 | *ať* | *Ať přijde.* × *Ať žije!* | **8** v souvětí za čárkou (*Řekni mu, ať přijde.*) × **9** (*Tak ať.*, *Ať žije!*) | 4 | |
 | 33 | *ano, ne* jako odpověď | *Ano, půjdu.* | 9 | 2 | *ano* možná jako citoslovce |
 | 34 | *i* | *pes i kočka* × *i ty?* | 8 × 9 | 4 | |
 | 35 | Částice | *prý, asi, jen, kéž, copak, snad* | 9 | 2 (jen jednoznačné: *prý, kéž*) | *asi, jen* často jako příslovce |
@@ -72,7 +72,7 @@ Sloupec **Svět** říká, odkud se jev smí objevit; do té doby se takové vě
 | # | Jev | Příklad | Návrh | Svět | Poznámka |
 |---|-----|---------|-------|------|----------|
 | 41 | Citoslovce jako přísudek | *A on bác do vody.* | 10 | 3 | |
-| 42 | *Pozor!, Hele!* | | *pozor* 1 nebo 10? *hele* 10 | 3 | *hele* možná jako sloveso |
+| 42 | *Pozor!, Hele!* | | *Pozor!* **10** × *Dávala pozor.* **1**; *hele* 10 | 3 | *hele* možná jako sloveso |
 | 43 | Zvuky zvířat | *haf, mňau, kykyryký* | 10 | 1 (zašedlé) / 2 | shodně |
 
 ## F. Obecná pravidla korpusu
@@ -83,3 +83,4 @@ Sloupec **Svět** říká, odkud se jev smí objevit; do té doby se takové vě
 | 45 | Víceslovné tvary ve hře | skupina se vyznačí společně a určuje se jednou (body 1–3, 8) |
 | 46 | Délka vět ve světě 1 | 3–7 slov |
 | 47 | Slovní zásoba | běžná pro 3.–5. třídu, bez archaismů a slangu |
+| 48 | Nejistý kontext | když druh slova nejde spolehlivě určit z kontextu věty, věta do korpusu nepatří |
