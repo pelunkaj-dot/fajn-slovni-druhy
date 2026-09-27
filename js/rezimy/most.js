@@ -5,7 +5,7 @@ import * as eng from '../engine.js';
 import * as srs from '../srs.js';
 import { esc, cislo, vysledekSerie, parta } from './spolecne.js';
 import { avatar } from '../postavy.js';
-import { HLASKY, nahodna } from '../hlasky.js';
+import { hlaska } from '../hlasky.js';
 
 export function spustMost(koren, { data, krajina = '', opakovani, hrdina, ulozit, serieHotova, konec }) {
   const pocetSlov = v => v.slova.filter(s => data.aktivni.includes(s.d)).length;
@@ -57,8 +57,8 @@ export function spustMost(koren, { data, krajina = '', opakovani, hrdina, ulozit
     $('.veta').innerHTML = v.slova.map((s, i) => `<span class="skup"><span class="slovo${data.aktivni.includes(s.d) ? '' : ' sede'}" data-i="${i}">`
       + `<span class="nad"></span><span class="t">${esc(s.t)}</span></span>${s.i ? `<span class="interp">${esc(s.i)}</span>` : ''}</span>`).join(' ');
     $('.prkna').innerHTML = m.poradi.map(() => '<i></i>').join('');
-    if (boss) rekni(nahodna(HLASKY.boss));
-    else if (poradi === 0) rekni(nahodna(HLASKY.uvodMost));
+    if (boss) rekni(hlaska(hrdina, 'boss'));
+    else if (poradi === 0) rekni(hlaska(hrdina, 'uvodMost'));
     $('button.napoveda').hidden = true;
     $('.dalsi').hidden = true;
     koren.querySelectorAll('.volby button').forEach(b => { b.disabled = false; });
@@ -103,20 +103,20 @@ export function spustMost(koren, { data, krajina = '', opakovani, hrdina, ulozit
       polozDilek(i, false);
       if (!m.spatne.includes(i)) srs.uspech(opakovani, srs.klic(s));
       $('button.napoveda').hidden = true;
-      if (!m.hotovo && !$('.zprava').classList.contains('odhaleni')) zprava(nahodna(HLASKY.dilek), 'dilek');
+      if (!m.hotovo && !$('.zprava').classList.contains('odhaleni')) zprava(hlaska(hrdina, 'dilek'), 'dilek');
     } else {
       const el = koren.querySelector(`.slovo[data-i="${i}"]`);
       el.classList.remove('vedle'); void el.offsetWidth; el.classList.add('vedle');
       srs.chyba(opakovani, srs.klic(s));
       chybnaSlova.set(srs.klic(s), s);
-      if (r.krok === 1) zprava(`„${s.t}“ není ${DRUHY[druh].nazev}. ${nahodna(HLASKY.chyba1)}`, 'pozor');
+      if (r.krok === 1) zprava(`„${s.t}“ není ${DRUHY[druh].nazev}. ${hlaska(hrdina, 'chyba1')}`, 'pozor');
       else if (r.krok === 2) {
-        zprava(`„${s.t}“ není ${DRUHY[druh].nazev}. ${nahodna(HLASKY.chyba2)}`, 'pozor');
+        zprava(`„${s.t}“ není ${DRUHY[druh].nazev}. ${hlaska(hrdina, 'chyba2')}`, 'pozor');
         $('button.napoveda').hidden = false;
       } else {
         polozDilek(i, true);
         $('button.napoveda').hidden = true;
-        zprava(`„${s.t}“ je ${DRUHY[s.d].nazev}. ${DRUHY[s.d].otazka} ${nahodna(HLASKY.odhaleniMost)}`, 'odhaleni');
+        zprava(`„${s.t}“ je ${DRUHY[s.d].nazev}. ${DRUHY[s.d].otazka} ${hlaska(hrdina, 'odhaleniMost')}`, 'odhaleni');
       }
     }
     oznacAktualni();
@@ -126,7 +126,7 @@ export function spustMost(koren, { data, krajina = '', opakovani, hrdina, ulozit
   function ukazNapovedu() {
     const s = m.veta.slova[eng.aktualniSlovo(m)];
     const text = s.n || data.aktivni.map(d => `${DRUHY[d].otazka} (${DRUHY[d].nazev})`).join(' · ');
-    zprava(`${nahodna(HLASKY.napoveda)} ${text}`, 'rada');
+    zprava(`${hlaska(hrdina, 'napoveda')} ${text}`, 'rada');
     $('button.napoveda').hidden = true;
   }
 
@@ -138,7 +138,8 @@ export function spustMost(koren, { data, krajina = '', opakovani, hrdina, ulozit
     zastav();
     const vysl = eng.vysledekMostu(m);
     vysledky.push(vysl);
-    const ziskano = eng.bodyZaMost(m, (performance.now() - start) / 1000, limit);
+    const sekund = (performance.now() - start) / 1000;
+    const ziskano = eng.bodyZaMost(m, sekund, limit);
     body += ziskano;
     $('.body').textContent = body;
     koren.querySelectorAll('.tecky li')[poradi].className = vysl;
@@ -150,7 +151,8 @@ export function spustMost(koren, { data, krajina = '', opakovani, hrdina, ulozit
       $('.dalsi').hidden = false;
       $('.dalsi').focus();
     } else {
-      zprava(`${nahodna(vysl === 'ciste' ? HLASKY.vetaCista : HLASKY.vetaSChybou)} +${ziskano}`, 'hura');
+      const skupina = vysl !== 'ciste' ? 'vetaSChybou' : sekund < limit / 2 ? 'rychle' : 'vetaCista';
+      zprava(`${hlaska(hrdina, skupina)} +${ziskano}`, 'hura');
       dalsiTimeout = setTimeout(dalsiVeta, 1200);
     }
   }

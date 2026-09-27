@@ -7,6 +7,8 @@ import { spustLov } from './rezimy/lov.js';
 import { spustMost } from './rezimy/most.js';
 import { avatar } from './postavy.js';
 import { KRAJINY } from './krajiny.js';
+import { hlaska } from './hlasky.js';
+import { parta } from './rezimy/spolecne.js';
 
 const KLIC = 'fajn-slovni-druhy:v1';
 const MOTIVY = { light: 'Světlý', dark: 'Tmavý', girl: 'Dívčí' };
@@ -24,6 +26,11 @@ function nacti() {
   try { return JSON.parse(localStorage.getItem(KLIC)) || {}; } catch { return {}; }
 }
 const stav = { hrdina: HRDINOVE[0], motiv: 'light', rezim: 'lov', svety: {}, opakovani: srs.novyStav(), ...nacti() };
+// Pozdrav podle toho, kdy hráč hrál naposledy (zjistí se jednou při načtení stránky).
+const DEN = 864e5;
+let pozdrav = !stav.naposledy ? 'pozdravPrvni' : Date.now() - stav.naposledy > 3 * DEN ? 'pozdravPoDlouhe' : 'pozdravZnovu';
+stav.naposledy = Date.now();
+
 function ulozit() {
   try { localStorage.setItem(KLIC, JSON.stringify(stav)); } catch { /* bez úložiště se postup neuchová */ }
 }
@@ -47,12 +54,19 @@ function mapa() {
         <span>S kým vyrazíš?</span>
         ${HRDINOVE.map(h => `<button type="button" data-h="${h}" aria-pressed="${stav.hrdina === h}">${avatar(h)}${h}</button>`).join('')}
       </div>
+      <div class="parta"></div>
       <ol class="svety">
         ${Object.entries(SVETY).map(([n, s]) => kartaSveta(+n, s)).join('')}
       </ol>
     </section>`;
+  const rekni = parta(app.querySelector('.parta'), stav.hrdina);
+  if (pozdrav) { rekni(hlaska(stav.hrdina, pozdrav)); pozdrav = ''; }
+  else app.querySelector('.parta').hidden = true;
   app.querySelectorAll('.volba-hrdiny button').forEach(b => b.onclick = () => {
-    stav.hrdina = b.dataset.h; ulozit(); mapa();
+    if (stav.hrdina === b.dataset.h) return;
+    stav.hrdina = b.dataset.h; ulozit();
+    pozdrav = 'predstaveni';
+    mapa();
   });
   app.querySelectorAll('.svety button[data-svet]').forEach(b => b.onclick = () => hraj(+b.dataset.svet));
 }
@@ -103,9 +117,11 @@ async function hraj(n) {
     serieHotova(uspesna) {
       const st = svetStav(n);
       st.serie += 1;
+      const predtim = st.uzemi;
       if (uspesna) st.uzemi = Math.min(OBLASTI, st.uzemi + 1);
       stav.rezim = stav.rezim === 'lov' ? 'most' : 'lov'; // režimy se střídají po sérii
       ulozit();
+      return predtim < DOKONCENI && st.uzemi >= DOKONCENI ? 'dokonceno' : '';
     },
     konec(v) { if (v && v.znovu) hraj(n); else mapa(); },
   });
@@ -116,4 +132,5 @@ document.querySelector('.motivy').innerHTML = Object.entries(MOTIVY)
 document.querySelectorAll('.motivy button').forEach(b => b.onclick = () => nastavMotiv(b.dataset.m));
 document.querySelector('.znacka').onclick = mapa;
 nastavMotiv(MOTIVY[parametry.get('theme')] ? parametry.get('theme') : stav.motiv);
+ulozit();
 mapa();

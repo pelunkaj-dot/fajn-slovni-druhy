@@ -3,7 +3,7 @@ import { DRUHY } from '../druhy.js';
 import * as eng from '../engine.js';
 import * as srs from '../srs.js';
 import { esc, cislo, vysledekSerie, parta } from './spolecne.js';
-import { HLASKY, nahodna } from '../hlasky.js';
+import { hlaska } from '../hlasky.js';
 
 export function spustLov(koren, { data, krajina = '', opakovani, hrdina, ulozit, serieHotova, konec }) {
   const vety = srs.vyberVety(opakovani, data.vety, data.aktivni, eng.DELKA_SERIE);
@@ -50,7 +50,7 @@ export function spustLov(koren, { data, krajina = '', opakovani, hrdina, ulozit,
       return `<span class="skup"><button type="button" class="slovo${aktivni ? '' : ' sede'}" data-i="${i}"${aktivni ? '' : ' tabindex="-1" aria-disabled="true"'}>`
         + `<span class="nad"></span><span class="t">${esc(s.t)}</span></button>${s.i ? `<span class="interp">${esc(s.i)}</span>` : ''}</span>`;
     }).join(' ');
-    if (poradi === 0) rekni(nahodna(HLASKY.uvodLov));
+    if (poradi === 0) rekni(hlaska(hrdina, 'uvodLov'));
     $('button.napoveda').hidden = true;
     $('.dalsi').hidden = true;
     koren.querySelectorAll('.tecky li').forEach((li, i) => li.classList.toggle('ted', i === poradi));
@@ -81,7 +81,7 @@ export function spustLov(koren, { data, krajina = '', opakovani, hrdina, ulozit,
       btn.style.setProperty('--c', `var(--d${st.cil})`);
       btn.querySelector('.nad').innerHTML = cislo(st.cil);
       aktualizujZbyva();
-      if (!st.hotovo && Math.random() < 0.5) rekni(nahodna(HLASKY.zasah), 'radost');
+      if (!st.hotovo && Math.random() < 0.5) rekni(hlaska(hrdina, 'zasah'), 'radost');
       if (st.hotovo) dokonciVetu();
       return;
     }
@@ -92,9 +92,9 @@ export function spustLov(koren, { data, krajina = '', opakovani, hrdina, ulozit,
     chybnaSlova.set(k, st.veta.slova[i]);
     const m = DRUHY[st.cil].nazev;
     if (r.krok === 1) {
-      zprava(`„${st.veta.slova[i].t}“ není ${m}. ${nahodna(HLASKY.chyba1)}`, 'pozor');
+      zprava(`„${st.veta.slova[i].t}“ není ${m}. ${hlaska(hrdina, 'chyba1')}`, 'pozor');
     } else if (r.krok === 2) {
-      zprava(`„${st.veta.slova[i].t}“ není ${m}. ${nahodna(HLASKY.chyba2)}`, 'pozor');
+      zprava(`„${st.veta.slova[i].t}“ není ${m}. ${hlaska(hrdina, 'chyba2')}`, 'pozor');
       $('button.napoveda').hidden = false;
     } else {
       dokonciVetu();
@@ -103,7 +103,7 @@ export function spustLov(koren, { data, krajina = '', opakovani, hrdina, ulozit,
 
   function ukazNapovedu() {
     const d = DRUHY[st.cil];
-    zprava(`${nahodna(HLASKY.napoveda)} ${d.otazka} ${d.popis}`, 'rada');
+    zprava(`${hlaska(hrdina, 'napoveda')} ${d.otazka} ${d.popis}`, 'rada');
     $('button.napoveda').hidden = true;
   }
 
@@ -140,11 +140,12 @@ export function spustLov(koren, { data, krajina = '', opakovani, hrdina, ulozit,
         b.style.setProperty('--c', `var(--d${st.cil})`);
         b.querySelector('.nad').innerHTML = cislo(st.cil);
       }
-      zprava(`Tady jsou všechna ${DRUHY[st.cil].mnozne}. ${nahodna(HLASKY.odhaleniLov)}`, 'odhaleni');
+      zprava(`Tady jsou všechna ${DRUHY[st.cil].mnozne}. ${hlaska(hrdina, 'odhaleniLov')}`, 'odhaleni');
       $('.dalsi').hidden = false;
       $('.dalsi').focus();
     } else {
-      zprava(`${nahodna(vysl === 'ciste' ? HLASKY.vetaCista : HLASKY.vetaSChybou)} +${ziskano}`, 'hura');
+      const skupina = vysl !== 'ciste' ? 'vetaSChybou' : sekund < limit / 2 ? 'rychle' : 'vetaCista';
+      zprava(`${hlaska(hrdina, skupina)} +${ziskano}`, 'hura');
       dalsiTimeout = setTimeout(dalsiVeta, 1100);
     }
   }

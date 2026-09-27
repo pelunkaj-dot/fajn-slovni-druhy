@@ -87,3 +87,25 @@ test('most: třetí chyba ukáže odpověď a pokračuje dál', () => {
   assert.ok(m.hotovo);
   assert.equal(eng.vysledekMostu(m), 'odhaleno');
 });
+
+test('hlášky: celé kolo bez opakování a bez stejné hlášky na přelomu kol', async () => {
+  const { HLASKY, hlaska } = await import('../js/hlasky.js');
+  for (const hrdina of ['Matýsek', 'Terezka']) {
+    const n = HLASKY[hrdina].vetaCista.length;
+    let predchozi = null;
+    for (let kolo = 0; kolo < 5; kolo++) {
+      const videne = new Set();
+      for (let i = 0; i < n; i++) {
+        const h = hlaska(hrdina, 'vetaCista');
+        assert.ok(!videne.has(h), `${hrdina}: opakování v kole`);
+        assert.notEqual(h, predchozi);
+        videne.add(h); predchozi = h;
+      }
+    }
+  }
+});
+
+test('hlášky: obě postavičky mají všechny skupiny', async () => {
+  const { HLASKY } = await import('../js/hlasky.js');
+  assert.deepEqual(Object.keys(HLASKY['Matýsek']).sort(), Object.keys(HLASKY['Terezka']).sort());
+});

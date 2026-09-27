@@ -195,3 +195,10 @@ h1, h2 { font-family: "Baloo 2", "Atkinson Hyperlegible", system-ui, sans-serif;
 .zprava.bublina.rada { background: var(--hint-bg); }
 .zprava.bublina.hura { background: var(--panel); color: var(--ok); font-size: 1.1rem; }
 .vysledek .parta { margin-bottom: 4px; }
+
+/* ---------- oslava dokončeného světa ---------- */
+.vysledek { position: relative; overflow: hidden; }
+.konfety { position: absolute; inset: 0; pointer-events: none; }
+.konfety i { position: absolute; top: -12px; width: 8px; height: 12px; border-radius: 2px; opacity: 0; animation: konfeta 3s ease-in 1 forwards; }
+@keyframes konfeta { 0% { opacity: 1; transform: translateY(0) rotate(0); } 100% { opacity: 0; transform: translateY(420px) rotate(540deg); } }
+@media (prefers-reduced-motion: reduce) { .konfety { display: none; } }
