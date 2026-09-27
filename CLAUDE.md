@@ -1,0 +1,63 @@
+# FajnSlovní druhy – zadání projektu
+
+Komunikuj se mnou česky. Šetři tokeny: neopakuj celé soubory, měň jen to, co je potřeba, a nevysvětluj samozřejmosti. Před velkými rozhodnutími (architektura, herní mechanika, sporná jazyková pojetí) se zeptej, nehádej.
+
+## O mně a platformě
+Jan, učitel a doučovatel (12+ let praxe), vývojář platformy fajndoucko.cz (sekce FajnCvičebna).
+- Moduly jsou samostatné HTML stránky na GitHub Pages (`pelunkaj-dot.github.io/fdc-plugin/`), backend je Vercel proxy (`fajndoucko.vercel.app`, repo `fdc-gateway`). API klíče nikdy nesmí být viditelné v klientovi a nesmí existovat žádný panel pro zadávání klíčů.
+- Přístup řídí WordPress/FAPI přes URL parametr `?mode=full`. Bez něj běží omezená ukázková verze.
+- Tři motivy vždy: světlý (výchozí, nikdy ne tmavý jako výchozí), tmavý a „dívčí“ (pastelově růžový).
+- Pedagogický postup při chybě: 1. chyba → nový pokus + nabídnutá nápověda; 2. chyba → nápověda se zobrazí sama; 3. chyba → ukáže se správná odpověď.
+- Skládání větších souborů z částí dělej Pythonem, nikdy ne `sed`.
+- Postavičky platformy: Matýsek a Terezka (lze využít jako hrdiny hry).
+- Veškerý český jazykový obsah kontroluju sám. Na správnost značení od LLM se nespoléhej.
+
+## Cíl
+Hra na procvičování určování slovních druhů. Určování slovních druhů je základ, bez kterého dítě nenajde přísudek, podmět ani nezvládne shodu. Hra musí být o mnoho zábavnější než školní aplikace a musí nabídnout obrovské množství příkladů: některé děti potřebují stovky až tisíce opakování.
+
+## Školní konvence
+Slovní druhy se označují čísly 1–10 (jako nad slovy v sešitě), v UI číslo + barva:
+1 podstatná jména, 2 přídavná jména, 3 zájmena, 4 číslovky, 5 slovesa, 6 příslovce, 7 předložky, 8 spojky, 9 částice, 10 citoslovce.
+Nápovědy formou pomocných otázek („Zeptej se: kdo, co?“, „Co dělá?“, „Jaký?“), aby dítě učilo postup, ne tipování.
+
+## Struktura: 5 světů podle obtížnosti (ne podle ročníků)
+Hráč si svět vybírá. Každý svět má vlastní prostředí.
+1. Jen podstatná jména, přídavná jména a slovesa; ostatní slova ve větě jsou zašedlá. Jednoduché věty, jen jednoznačná slova.
+2. Všech 10 druhů. Jednoduché věty, jednoznačná slova.
+3. Záludnosti v jednoduché větě: druh určený kontextem (ráno, dobře, tři – číslovka × sloveso třít, po, ten), složené slovesné tvary (psal jsem, budu psát), zvratné se, infinitiv.
+4. Souvětí: spojky × příslovce × vztažná a tázací zájmena (co, kdy, kde, jak), částice.
+5. Mistrovský svět: druh + poddruh (přídavné jméno tvrdé/měkké/přivlastňovací; zájmeno osobní/přivlastňovací/ukazovací/tázací/vztažné/neurčité/záporné; číslovka základní/řadová/druhová/násobná; přesný rozsah poddruhů potvrdím).
+
+Pohyb mezi světy: dolů kdykoli bez postihu, nahoru po odemčení (případně „výprava na zkoušku“).
+Dokončení světa: cca 60–70 % území, počítané z úspěšnosti v sériích, ne z počtu pokusů (nesmí jít proklikat).
+Bonusy pro jedničkáře: zbytek do 100 % jako skryté oblasti, zlatá varianta světa, časovka.
+
+## Herní režimy
+Rychlá herní smyčka vhodná pro dril. Režimy se mají střídat, aby to neomrzelo. Kandidáti:
+- tower defense – slova přicházejí jako nepřátelé, každý druh chce správnou „zbraň“,
+- stavba mostu – správně určené slovo = dílek mostu, boss = dlouhé souvětí,
+- lov – najdi ve větě všechna slova daného druhu na čas.
+Začni jedním režimem; který, s tebou vyberu.
+
+## Opakování
+Opakování s rozestupy: slova a jevy, ve kterých dítě chybuje, se vrací častěji, zvládnuté řidčeji. Postup ukládej do localStorage.
+
+## Data
+Věty nejsou procedurálně generované, jde o korpus. Cíl: spíš tisíce než stovky vět na svět.
+- Ukládej je do JSON souborů po světech, oddělených od kódu hry.
+- Každé slovo: text, slovní druh (1–10), poddruh (svět 5), příznak víceznačnosti, volitelně vlastní nápověda.
+- Kontrolní skript v Pythonu: nechá věty označkovat morfologickým analyzátorem MorphoDiTa (ÚFAL MFF UK, knihovna `ufal.morphodita` nebo REST API LINDAT), převede značky na školní slovní druhy a vypíše neshody do CSV, které projdu ručně.
+- Než začneš značit, dohodneme se na sporných školních pojetích (sto/tisíc, rád, jsem ve složeném tvaru, se u zvratných sloves, by v podmiňovacím způsobu apod.). Tam se analyzátor a škola mohou rozcházet.
+
+## Postup práce
+1. Navrhni strukturu repozitáře a datový formát a počkej na schválení.
+2. Seznam sporných pojetí k rozhodnutí.
+3. Kontrolní skript a první vzorek dat pro svět 1.
+4. Jádro hry se světem 1 a jedním herním režimem.
+5. Další světy, režimy, bonusy.
+
+## Schválená rozhodnutí
+- Samostatný repozitář `fajn-slovni-druhy`, vanilla JS bez build kroku, struktura a datový formát viz `docs/format-dat.md`.
+- Věty se píšou v textovém zdroji `korpus/svetN.txt`, JSON pro hru generuje `tools/sestav.py`.
+- Plná data leží veřejně na GitHub Pages; bez `?mode=full` hra načte jen `data/ukazka.json`. Schování dat za Vercel proxy se řeší později.
+- Sporná jazyková pojetí: `docs/sporna-pojeti.md` (čeká na rozhodnutí).
