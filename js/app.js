@@ -8,7 +8,8 @@ import { spustLov } from './rezimy/lov.js';
 const KLIC = 'fajn-slovni-druhy:v1';
 const MOTIVY = { light: 'Světlý', dark: 'Tmavý', girl: 'Dívčí' };
 const HRDINOVE = ['Terezka', 'Matýsek'];
-const DOSTUPNE = [1]; // světy, které už mají data
+const DOSTUPNE = [1, 2]; // světy, které už mají data
+const V_UKAZCE = [1];     // světy hratelné bez ?mode=full
 const parametry = new URLSearchParams(location.search);
 const PLNA = parametry.get('mode') === 'full';
 
@@ -63,6 +64,7 @@ function kartaSveta(n, s) {
   let akce;
   if (!odemceno(n)) akce = `<span class="zamek">Odemkneš dokončením světa ${n - 1}</span>`;
   else if (!DOSTUPNE.includes(n)) akce = '<span class="zamek">Připravujeme</span>';
+  else if (!PLNA && !V_UKAZCE.includes(n)) akce = '<span class="zamek">Jen v plné verzi</span>';
   else akce = `<button type="button" data-svet="${n}">${st.serie ? 'Pokračovat v lovu' : 'Vyrazit na lov'}</button>`;
   const procent = Math.round(st.uzemi / OBLASTI * 100);
   return `

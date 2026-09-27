@@ -1,0 +1,110 @@
+# Svět 2 – všech 10 slovních druhů. Jednoduché věty, jen jednoznačná slova.
+# Bez se/si, složených tvarů, jak/když/že. Formát: docs/format-dat.md
+0001| Dnes/6 jdeme/5 do/7 kina/1 .
+0002| Můj/3 bratr/1 má/5 dva/4 psy/1 .
+0003| Au/10 , to/3 bolí/5 !
+0004| Hurá/10 , máme/5 prázdniny/1 !
+0005| Terezka/1 a/8 Matýsek/1 běží/5 rychle/6 domů/6 .
+0006| Na/7 stole/1 leží/5 pět/4 jablek/1 .
+0007| Kočka/1 spí/5 pod/7 postelí/1 .
+0008| Ten/3 velký/2 pes/1 hlasitě/6 štěká/5 .
+0009| Babička/1 nám/3 upekla/5 buchty/1 .
+0010| Venku/6 prší/5 .
+0011| Včera/6 pršelo/5 .
+0012| Zítra/6 pojedeme/5 k/7 babičce/1 .
+0013| Tatínek/1 pracuje/5 na/7 zahradě/1 .
+0014| Ano/9 , půjdu/5 s/7 tebou/3 .
+0015| Ne/9 , nemám/5 hlad/1 .
+0016| Fuj/10 , to/3 je/5 ošklivý/2 pavouk/1 !
+0017| Kohout/1 zpívá/5 : kykyryký/10 !
+0018| Haf/10 , haf/10 , štěká/5 pejsek/1 .
+0019| Mňau/10 , mňouká/5 kotě/1 .
+0020| Deset/4 ptáků/1 sedí/5 na/7 drátě/1 .
+0021| Matýsek/1 má/5 sedm/4 let/1 .
+0022| Terezka/1 je/5 první/4 ve/7 třídě/1 .
+0023| Naše/3 škola/1 má/5 velkou/2 tělocvičnu/1 .
+0024| Kdo/3 zazvonil/5 ?
+0025| Co/3 děláš/5 ?
+0026| Kde/6 bydlíš/5 ?
+0027| Nikdo/3 nepřišel/5 .
+0028| Nikdy/6 nelžu/5 .
+0029| Nic/3 nevidím/5 .
+0030| Všichni/3 zpívají/5 vesele/6 .
+0031| Každý/3 žák/1 má/5 penál/1 .
+0032| Moje/3 kamarádka/1 krásně/6 kreslí/5 .
+0033| Chceš/5 jablko/1 nebo/8 hrušku/1 ?
+0034| Pejsek/1 je/5 malý/2 , ale/8 statečný/2 .
+0035| Dědeček/1 čte/5 noviny/1 u/7 okna/1 .
+0036| Prý/9 přijde/5 teta/1 .
+0037| Prý/9 máme/5 nového/2 učitele/1 .
+0038| Sto/4 korun/1 leží/5 v/7 peněžence/1 .
+0039| Několik/4 dětí/1 hraje/5 fotbal/1 .
+0040| Mnoho/4 lidí/1 čeká/5 na/7 autobus/1 .
+0041| Babička/1 volala/5 dvakrát/4 .
+0042| Rychlé/2 auto/1 jede/5 po/7 silnici/1 .
+0043| Opatrně/6 přecházíme/5 silnici/1 .
+0044| Ptáci/1 odlétají/5 na/7 jih/1 .
+0045| Kluci/1 hrají/5 hokej/1 na/7 rybníce/1 .
+0046| On/3 je/5 můj/3 nejlepší/2 kamarád/1 .
+0047| Ona/3 kreslí/5 barevnými/2 pastelkami/1 .
+0048| Oni/3 bydlí/5 v/7 Praze/1 .
+0049| Já/3 mám/5 nové/2 kolo/1 .
+0050| Ty/3 jsi/5 šikovný/2 .
+0051| My/3 pomáháme/5 mamince/1 .
+0052| Vy/3 jste/5 dobří/2 sousedé/1 .
+0053| Tato/3 kniha/1 je/5 zajímavá/2 .
+0054| Tamten/3 dům/1 je/5 starý/2 .
+0055| Pošli/5 mi/3 dopis/1 !
+0056| Dej/5 mu/3 ten/3 míč/1 !
+0057| Maminka/1 ho/3 pohladila/5 .
+0058| Vidím/5 tě/3 !
+0059| Učitelka/1 nás/3 chválí/5 .
+0060| Pojď/5 ven/6 !
+0061| Nahoře/6 svítí/5 lampa/1 .
+0062| Dole/6 teče/5 potok/1 .
+0063| Kočka/1 leze/5 nahoru/6 .
+0064| Zajíc/1 utíká/5 pryč/6 .
+0065| Terezka/1 zpívá/5 krásně/6 .
+0066| Matýsek/1 píše/5 pomalu/6 a/8 pečlivě/6 .
+0067| Za/7 domem/1 roste/5 jabloň/1 .
+0068| Před/7 školou/1 stojí/5 dva/4 autobusy/1 .
+0069| Mezi/7 stromy/1 běhá/5 veverka/1 .
+0070| Bez/7 čepice/1 nechoď/5 ven/6 !
+0071| Pro/7 babičku/1 kreslím/5 obrázek/1 .
+0072| Od/7 rána/1 prší/5 .
+0073| Po/7 obědě/1 čteme/5 pohádku/1 .
+0074| Hopla/10 , kotě/1 skočilo/5 na/7 stůl/1 .
+0075| Ach/10 , to/3 je/5 krásný/2 obraz/1 !
+0076| Bum/10 , spadla/5 kniha/1 !
+0077| Pst/10 , miminko/1 spí/5 !
+0078| Hej/10 , počkej/5 na/7 mě/3 !
+0079| Brr/10 , venku/6 mrzne/5 !
+0080| Pět/4 kluků/1 běží/5 závod/1 .
+0081| Tatínek/1 koupil/5 čtyři/4 rohlíky/1 .
+0082| Na/7 louce/1 stojí/5 šest/4 krav/1 .
+0083| Maminka/1 upekla/5 dvě/4 bábovky/1 .
+0084| Výlet/1 trvá/5 osm/4 dní/1 .
+0085| Terezka/1 přečetla/5 devět/4 knih/1 .
+0086| Matýsek/1 má/5 jednoho/4 bratra/1 .
+0087| Pes/1 nemá/5 obojek/1 .
+0088| Ježek/1 má/5 ostré/2 bodliny/1 .
+0089| Kdy/6 přijdeš/5 ?
+0090| Proč/6 pláčeš/5 ?
+0091| Kam/6 jedeš/5 ?
+0092| Koho/3 hledáš/5 ?
+0093| Čí/3 je/5 ten/3 batoh/1 ?
+0094| Dnes/6 je/5 krásný/2 den/1 .
+0095| Ten/3 kluk/1 běhá/5 nejrychleji/6 .
+0096| Naše/3 kočka/1 chytila/5 myš/1 .
+0097| Tvůj/3 obrázek/1 je/5 nejhezčí/2 .
+0098| Jejich/3 zahrada/1 je/5 veliká/2 .
+0099| Venku/6 fouká/5 studený/2 vítr/1 .
+0100| Pes/1 a/8 kočka/1 spolu/6 nekamarádí/5 .
+0101| Terezka/1 pomalu/6 otevírá/5 dárek/1 .
+0102| Maminka/1 a/8 tatínek/1 vaří/5 oběd/1 .
+0103| Chceš/5 čaj/1 nebo/8 kakao/1 ?
+0104| Auto/1 je/5 staré/2 , ale/8 rychlé/2 .
+0105| Pes/1 , kočka/1 a/8 králík/1 spí/5 .
+0106| Ne/9 , to/3 nechci/5 .
+0107| Ano/9 , úkol/1 mám/5 hotový/2 .
+0108| Prý/9 zítra/6 přijede/5 cirkus/1 .
