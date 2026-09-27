@@ -66,3 +66,24 @@ test('cíl je druh, který ve větě opravdu je', () => {
   const st = srs.novyStav();
   for (let i = 0; i < 20; i++) assert.ok([1, 2, 5].includes(srs.vyberCil(st, veta, AKT)));
 });
+
+test('most: slova se určují postupně, zašedlá se přeskočí', () => {
+  const m = eng.novyMost(veta, AKT);
+  assert.deepEqual(m.poradi, [0, 1, 3, 4]);
+  assert.equal(eng.tip(m, 2).typ, 'zasah');
+  assert.equal(eng.aktualniSlovo(m), 1);
+  assert.deepEqual(eng.tip(m, 5), { typ: 'chyba', krok: 1 });
+  assert.equal(eng.tip(m, 1).typ, 'zasah');
+  assert.equal(eng.vysledekMostu(m), 'chyba');
+});
+
+test('most: třetí chyba ukáže odpověď a pokračuje dál', () => {
+  const m = eng.novyMost(veta, AKT);
+  eng.tip(m, 1); eng.tip(m, 5);
+  assert.deepEqual(eng.tip(m, 1), { typ: 'chyba', krok: 3 });
+  assert.deepEqual(m.odhalene, [0]);
+  assert.equal(eng.aktualniSlovo(m), 1);
+  ['1', '1', '5'].forEach(d => eng.tip(m, +d));
+  assert.ok(m.hotovo);
+  assert.equal(eng.vysledekMostu(m), 'odhaleno');
+});

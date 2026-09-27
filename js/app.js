@@ -4,10 +4,12 @@ import { nactiSvet } from './data.js';
 import * as srs from './srs.js';
 import { OBLASTI, DOKONCENI } from './engine.js';
 import { spustLov } from './rezimy/lov.js';
+import { spustMost } from './rezimy/most.js';
 
 const KLIC = 'fajn-slovni-druhy:v1';
 const MOTIVY = { light: 'Světlý', dark: 'Tmavý', girl: 'Dívčí' };
 const HRDINOVE = ['Terezka', 'Matýsek'];
+const REZIMY = { lov: { nazev: 'Lov', spust: spustLov }, most: { nazev: 'Stavba mostu', spust: spustMost } };
 const DOSTUPNE = [1, 2]; // světy, které už mají data
 const V_UKAZCE = [1];     // světy hratelné bez ?mode=full
 const parametry = new URLSearchParams(location.search);
@@ -19,7 +21,7 @@ const cache = {};
 function nacti() {
   try { return JSON.parse(localStorage.getItem(KLIC)) || {}; } catch { return {}; }
 }
-const stav = { hrdina: HRDINOVE[0], motiv: 'light', svety: {}, opakovani: srs.novyStav(), ...nacti() };
+const stav = { hrdina: HRDINOVE[0], motiv: 'light', rezim: 'lov', svety: {}, opakovani: srs.novyStav(), ...nacti() };
 function ulozit() {
   try { localStorage.setItem(KLIC, JSON.stringify(stav)); } catch { /* bez úložiště se postup neuchová */ }
 }
@@ -39,8 +41,8 @@ function mapa() {
   app.innerHTML = `
     <section class="mapa">
       ${PLNA ? '' : '<p class="ukazka">Ukázková verze: hraješ s malým výběrem vět. Plnou verzi najdeš ve FajnCvičebně.</p>'}
-      <div class="volba-hrdiny" role="group" aria-label="S kým půjdeš na lov?">
-        <span>S kým půjdeš na lov?</span>
+      <div class="volba-hrdiny" role="group" aria-label="S kým vyrazíš?">
+        <span>S kým vyrazíš?</span>
         ${HRDINOVE.map(h => `<button type="button" data-h="${h}" aria-pressed="${stav.hrdina === h}"><span class="avatar">${h[0]}</span>${h}</button>`).join('')}
       </div>
       <ol class="svety">
@@ -65,7 +67,7 @@ function kartaSveta(n, s) {
   if (!odemceno(n)) akce = `<span class="zamek">Odemkneš dokončením světa ${n - 1}</span>`;
   else if (!DOSTUPNE.includes(n)) akce = '<span class="zamek">Připravujeme</span>';
   else if (!PLNA && !V_UKAZCE.includes(n)) akce = '<span class="zamek">Jen v plné verzi</span>';
-  else akce = `<button type="button" data-svet="${n}">${st.serie ? 'Pokračovat v lovu' : 'Vyrazit na lov'}</button>`;
+  else akce = `<button type="button" data-svet="${n}">Vyrazit: ${REZIMY[stav.rezim].nazev}</button>`;
   const procent = Math.round(st.uzemi / OBLASTI * 100);
   return `
     <li class="svet svet-${n}${odemceno(n) ? '' : ' zamceny'}">
@@ -90,7 +92,7 @@ async function hraj(n) {
     app.querySelector('.zpet').onclick = mapa;
     return;
   }
-  spustLov(app, {
+  REZIMY[stav.rezim].spust(app, {
     data: cache[n],
     opakovani: stav.opakovani,
     hrdina: stav.hrdina,
@@ -99,6 +101,7 @@ async function hraj(n) {
       const st = svetStav(n);
       st.serie += 1;
       if (uspesna) st.uzemi = Math.min(OBLASTI, st.uzemi + 1);
+      stav.rezim = stav.rezim === 'lov' ? 'most' : 'lov'; // režimy se střídají po sérii
       ulozit();
     },
     konec(v) { if (v && v.znovu) hraj(n); else mapa(); },

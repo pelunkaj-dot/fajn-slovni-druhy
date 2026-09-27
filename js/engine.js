@@ -62,3 +62,50 @@ export function uspesnost(vysledky) {
 export function serieUspesna(vysledky) {
   return vysledky.length === DELKA_SERIE && uspesnost(vysledky) >= PRAH_USPECHU;
 }
+
+// ---------- Stavba mostu: urči druh každého slova ve větě, zleva doprava ----------
+
+export function novyMost(veta, aktivni) {
+  const poradi = [];
+  veta.slova.forEach((s, i) => { if (aktivni.includes(s.d)) poradi.push(i); });
+  return { veta, aktivni, poradi, krok: 0, chybyTed: 0, chyby: 0, odhalene: [], spatne: [], hotovo: poradi.length === 0 };
+}
+
+export const aktualniSlovo = m => m.poradi[m.krok];
+
+// Vrátí { typ: 'zasah' | 'chyba' | 'nic', krok (u chyby 1–3) }. Po zásahu i po odhalení se jde na další slovo.
+export function tip(m, druh) {
+  if (m.hotovo) return { typ: 'nic', krok: 0 };
+  const i = aktualniSlovo(m);
+  if (m.veta.slova[i].d === druh) {
+    posun(m);
+    return { typ: 'zasah', krok: 0 };
+  }
+  m.chyby += 1;
+  m.chybyTed += 1;
+  if (!m.spatne.includes(i)) m.spatne.push(i);
+  const krok = Math.min(m.chybyTed, 3);
+  if (krok === 3) { m.odhalene.push(i); posun(m); }
+  return { typ: 'chyba', krok };
+}
+
+function posun(m) {
+  m.krok += 1;
+  m.chybyTed = 0;
+  if (m.krok >= m.poradi.length) m.hotovo = true;
+}
+
+export function vysledekMostu(m) {
+  if (m.odhalene.length) return 'odhaleno';
+  return m.chyby ? 'chyba' : 'ciste';
+}
+
+export function bodyZaMost(m, sekund, limit) {
+  const zaklad = (m.poradi.length - m.odhalene.length) * 5 - m.chyby * 2;
+  const cas = m.chyby ? 0 : Math.max(0, Math.round((limit - sekund) / 2));
+  return Math.max(0, zaklad) + cas;
+}
+
+export function limitMostu(m) {
+  return 4 + 3 * m.poradi.length;
+}

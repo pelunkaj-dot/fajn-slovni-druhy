@@ -157,3 +157,25 @@ h1, h2 { font-family: "Baloo 2", "Atkinson Hyperlegible", system-ui, sans-serif;
 @media (prefers-reduced-motion: reduce) {
   .slovo, .slovo.chyceno, .slovo.vedle { animation: none; transition: none; }
 }
+
+/* ---------- stavba mostu ---------- */
+.ukol { background: var(--panel); border: 2px solid var(--line); border-radius: 14px; padding: 12px 16px; font-size: 1.15rem; }
+.most-hra .slovo { cursor: default; }
+.most-hra .slovo:not(.sede):hover { transform: none; border-color: var(--line); }
+.most-hra .slovo.ted { border-color: var(--ink); box-shadow: 0 4px 0 var(--accent); transform: translateY(-3px); }
+.stavba { position: relative; height: 70px; border-radius: 12px; overflow: hidden;
+  background: linear-gradient(180deg, transparent 0 55%, #6fb7e0 55% 100%); }
+.stavba::before, .stavba::after { content: ""; position: absolute; bottom: 0; width: 14%; height: 60%; background: #7a9a55; }
+.stavba::before { left: 0; border-top-right-radius: 10px; }
+.stavba::after { right: 0; border-top-left-radius: 10px; }
+.prkna { position: absolute; left: 14%; right: 14%; top: 40%; display: flex; gap: 3px; height: 14px; }
+.prkna i { flex: 1; border-radius: 3px; border: 2px dashed color-mix(in srgb, var(--ink) 30%, transparent); }
+.prkna i.polozene { background: var(--c); border: 0; animation: chyceno .35s; }
+.prkna i.prasknute { background: repeating-linear-gradient(45deg, var(--c) 0 5px, transparent 5px 9px); border: 0; }
+.postava { position: absolute; top: calc(40% - 30px); left: calc(7% + var(--pozice, 0) * 72%); transition: left .4s; margin: 0; }
+.volby { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; }
+.volby button { display: flex; align-items: center; gap: 8px; text-align: left; padding: 10px 12px; border-radius: 10px;
+  border: 2px solid var(--line); background: var(--panel); color: var(--ink); font-size: 1rem; }
+.volby button:hover:not(:disabled) { border-color: var(--ink); }
+.volby button:disabled { opacity: .5; cursor: default; }
+@media (prefers-reduced-motion: reduce) { .postava { transition: none; } .prkna i.polozene { animation: none; } }
