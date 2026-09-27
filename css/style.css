@@ -129,9 +129,9 @@ h1, h2 { font-family: "Baloo 2", "Atkinson Hyperlegible", system-ui, sans-serif;
 @keyframes chyceno { 50% { transform: scale(1.12); } }
 @keyframes vedle { 20%, 60% { transform: translateX(-6px); } 40%, 80% { transform: translateX(6px); } }
 .zprava { min-height: 1.5em; margin: 0; border-radius: 10px; }
-.zprava.pozor, .zprava.napoveda, .zprava.odhaleni { padding: 10px 14px; }
+.zprava.pozor, .zprava.rada, .zprava.odhaleni { padding: 10px 14px; }
 .zprava.pozor { background: var(--warn-bg); }
-.zprava.napoveda { background: var(--hint-bg); }
+.zprava.rada { background: var(--hint-bg); }
 .zprava.odhaleni { background: var(--warn-bg); }
 .zprava.hura { color: var(--ok); font-weight: 700; font-size: 1.2rem; }
 .ovladani { display: flex; flex-wrap: wrap; gap: 10px; }

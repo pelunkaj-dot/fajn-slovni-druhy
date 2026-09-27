@@ -30,7 +30,7 @@ export function spustLov(koren, { data, opakovani, hrdina, ulozit, serieHotova, 
   const $ = s => koren.querySelector(s);
 
   $('.zpet').onclick = () => { zastav(); konec(null); };
-  $('.napoveda').onclick = () => ukazNapovedu();
+  $('button.napoveda').onclick = () => ukazNapovedu();
   $('.dalsi').onclick = () => dalsiVeta();
   $('.veta').onclick = e => { const b = e.target.closest('.slovo'); if (b) zpracujKlik(+b.dataset.i, b); };
 
@@ -50,7 +50,7 @@ export function spustLov(koren, { data, opakovani, hrdina, ulozit, serieHotova, 
     }).join(' ');
     $('.zprava').textContent = '';
     $('.zprava').className = 'zprava';
-    $('.napoveda').hidden = true;
+    $('button.napoveda').hidden = true;
     $('.dalsi').hidden = true;
     koren.querySelectorAll('.tecky li').forEach((li, i) => li.classList.toggle('ted', i === poradi));
     aktualizujZbyva();
@@ -93,7 +93,7 @@ export function spustLov(koren, { data, opakovani, hrdina, ulozit, serieHotova, 
       zprava(`„${st.veta.slova[i].t}“ není ${m}. Zkus to znovu.`, 'pozor');
     } else if (r.krok === 2) {
       zprava(`„${st.veta.slova[i].t}“ není ${m}. Zkus to znovu, nebo si vezmi nápovědu.`, 'pozor');
-      $('.napoveda').hidden = false;
+      $('button.napoveda').hidden = false;
     } else {
       dokonciVetu();
     }
@@ -101,8 +101,8 @@ export function spustLov(koren, { data, opakovani, hrdina, ulozit, serieHotova, 
 
   function ukazNapovedu() {
     const d = DRUHY[st.cil];
-    zprava(`Nápověda: ${d.otazka} ${d.popis}`, 'napoveda');
-    $('.napoveda').hidden = true;
+    zprava(`Nápověda: ${d.otazka} ${d.popis}`, 'rada');
+    $('button.napoveda').hidden = true;
   }
 
   function zprava(text, druh) {
@@ -130,7 +130,7 @@ export function spustLov(koren, { data, opakovani, hrdina, ulozit, serieHotova, 
     srs.zapamatujVetu(opakovani, st.veta.id);
     ulozit();
 
-    $('.napoveda').hidden = true;
+    $('button.napoveda').hidden = true;
     $('.zbyva').textContent = '';
     if (vysl === 'odhaleno') {
       for (const i of st.cile) {

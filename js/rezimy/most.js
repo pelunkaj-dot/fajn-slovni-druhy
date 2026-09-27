@@ -37,7 +37,7 @@ export function spustMost(koren, { data, opakovani, hrdina, ulozit, serieHotova,
   const $ = s => koren.querySelector(s);
 
   $('.zpet').onclick = () => { zastav(); konec(null); };
-  $('.napoveda').onclick = () => ukazNapovedu();
+  $('button.napoveda').onclick = () => ukazNapovedu();
   $('.dalsi').onclick = () => dalsiVeta();
   $('.volby').onclick = e => { const b = e.target.closest('button[data-d]'); if (b) zpracujTip(+b.dataset.d); };
 
@@ -55,7 +55,7 @@ export function spustMost(koren, { data, opakovani, hrdina, ulozit, serieHotova,
     $('.prkna').innerHTML = m.poradi.map(() => '<i></i>').join('');
     $('.zprava').textContent = '';
     $('.zprava').className = 'zprava';
-    $('.napoveda').hidden = true;
+    $('button.napoveda').hidden = true;
     $('.dalsi').hidden = true;
     koren.querySelectorAll('.volby button').forEach(b => { b.disabled = false; });
     koren.querySelectorAll('.tecky li').forEach((li, i) => li.classList.toggle('ted', i === poradi));
@@ -98,7 +98,7 @@ export function spustMost(koren, { data, opakovani, hrdina, ulozit, serieHotova,
     if (r.typ === 'zasah') {
       polozDilek(i, false);
       if (!m.spatne.includes(i)) srs.uspech(opakovani, srs.klic(s));
-      $('.napoveda').hidden = true;
+      $('button.napoveda').hidden = true;
       if (!$('.zprava').classList.contains('odhaleni')) zprava('', '');
     } else {
       const el = koren.querySelector(`.slovo[data-i="${i}"]`);
@@ -108,10 +108,10 @@ export function spustMost(koren, { data, opakovani, hrdina, ulozit, serieHotova,
       if (r.krok === 1) zprava(`„${s.t}“ není ${DRUHY[druh].nazev}. Zkus to znovu.`, 'pozor');
       else if (r.krok === 2) {
         zprava(`„${s.t}“ není ${DRUHY[druh].nazev}. Zkus to znovu, nebo si vezmi nápovědu.`, 'pozor');
-        $('.napoveda').hidden = false;
+        $('button.napoveda').hidden = false;
       } else {
         polozDilek(i, true);
-        $('.napoveda').hidden = true;
+        $('button.napoveda').hidden = true;
         zprava(`„${s.t}“ je ${DRUHY[s.d].nazev}. ${DRUHY[s.d].otazka}`, 'odhaleni');
       }
     }
@@ -122,8 +122,8 @@ export function spustMost(koren, { data, opakovani, hrdina, ulozit, serieHotova,
   function ukazNapovedu() {
     const s = m.veta.slova[eng.aktualniSlovo(m)];
     const text = s.n || data.aktivni.map(d => `${DRUHY[d].otazka} (${DRUHY[d].nazev})`).join(' · ');
-    zprava(`Nápověda: ${text}`, 'napoveda');
-    $('.napoveda').hidden = true;
+    zprava(`Nápověda: ${text}`, 'rada');
+    $('button.napoveda').hidden = true;
   }
 
   function zprava(text, druh) {
@@ -143,7 +143,7 @@ export function spustMost(koren, { data, opakovani, hrdina, ulozit, serieHotova,
     srs.zapamatujVetu(opakovani, m.veta.id);
     ulozit();
     koren.querySelectorAll('.volby button').forEach(b => { b.disabled = true; });
-    $('.napoveda').hidden = true;
+    $('button.napoveda').hidden = true;
     if (vysl === 'odhaleno') {
       $('.dalsi').hidden = false;
       $('.dalsi').focus();
