@@ -1,8 +1,8 @@
 // Logika jedné věty v lovu a vyhodnocení série. Bez DOM, testovatelné v Node.
 //
 // Postup při chybě (platí v celé platformě):
-//   1. chyba → nový pokus + nabídnutá nápověda
-//   2. chyba → nápověda se zobrazí sama
+//   1. chyba → „Zkus to znovu“ (bez nápovědy)
+//   2. chyba → nabídne se tlačítko Nápověda
 //   3. chyba → ukáže se správná odpověď
 
 export const DELKA_SERIE = 8;
@@ -16,7 +16,7 @@ export function novaVeta(veta, cil, aktivni) {
   return { veta, cil, aktivni, cile, nalezene: new Set(), spatne: [], chyby: 0, hotovo: false, odhaleno: false };
 }
 
-// Vrátí { typ, krok } – typ: 'zasah' | 'chyba' | 'nic'; krok: 0 nic, 1 nabídni nápovědu, 2 ukaž nápovědu, 3 odhal
+// Vrátí { typ, krok } – typ: 'zasah' | 'chyba' | 'nic'; krok: 0 nic, 1 zkus znovu, 2 nabídni nápovědu, 3 odhal
 export function klik(stav, i) {
   const s = stav.veta.slova[i];
   if (stav.hotovo || !s || !stav.aktivni.includes(s.d) || stav.nalezene.has(i)) return { typ: 'nic', krok: 0 };

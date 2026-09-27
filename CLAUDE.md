@@ -7,7 +7,7 @@ Jan, učitel a doučovatel (12+ let praxe), vývojář platformy fajndoucko.cz (
 - Moduly jsou samostatné HTML stránky na GitHub Pages (`pelunkaj-dot.github.io/fdc-plugin/`), backend je Vercel proxy (`fajndoucko.vercel.app`, repo `fdc-gateway`). API klíče nikdy nesmí být viditelné v klientovi a nesmí existovat žádný panel pro zadávání klíčů.
 - Přístup řídí WordPress/FAPI přes URL parametr `?mode=full`. Bez něj běží omezená ukázková verze.
 - Tři motivy vždy: světlý (výchozí, nikdy ne tmavý jako výchozí), tmavý a „dívčí“ (pastelově růžový).
-- Pedagogický postup při chybě: 1. chyba → nový pokus + nabídnutá nápověda; 2. chyba → nápověda se zobrazí sama; 3. chyba → ukáže se správná odpověď.
+- Pedagogický postup při chybě: 1. chyba → „Zkus to znovu“ (bez nápovědy); 2. chyba → nabídne se tlačítko Nápověda; 3. chyba → ukáže se správná odpověď.
 - Skládání větších souborů z částí dělej Pythonem, nikdy ne `sed`.
 - Postavičky platformy: Matýsek a Terezka (lze využít jako hrdiny hry).
 - Veškerý český jazykový obsah kontroluju sám. Na správnost značení od LLM se nespoléhej.

@@ -93,10 +93,10 @@ export function spustLov(koren, { data, opakovani, hrdina, ulozit, serieHotova, 
     chybnaSlova.set(k, st.veta.slova[i]);
     const m = DRUHY[st.cil].nazev;
     if (r.krok === 1) {
+      zprava(`„${st.veta.slova[i].t}“ není ${m}. Zkus to znovu.`, 'pozor');
+    } else if (r.krok === 2) {
       zprava(`„${st.veta.slova[i].t}“ není ${m}. Zkus to znovu, nebo si vezmi nápovědu.`, 'pozor');
       $('.napoveda').hidden = false;
-    } else if (r.krok === 2) {
-      ukazNapovedu();
     } else {
       dokonciVetu();
     }

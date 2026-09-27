@@ -35,14 +35,14 @@
 0032| Ptáček/1 zpívá/5 krásnou/2 píseň/1 .
 0033| Matýsek/1 hraje/5 fotbal/1 .
 0034| Kamarádi/1 sedí/5 na/7 lavičce/1 .
-0035| Terezka/1 kreslí/5 modrého/2 koně/1 .
+0035| Terezka/1 kreslí/5 barevného/2 motýla/1 .
 0036| Starý/2 rybář/1 chytá/5 ryby/1 .
 0037| Holub/1 sedí/5 na/7 střeše/1 .
 0038| Malý/2 Matýsek/1 tleská/5 .
 0039| Krtek/1 hrabe/5 hlubokou/2 díru/1 .
 0040| Veverka/1 schovává/5 oříšky/1 .
 0041| Teplé/2 slunce/1 svítí/5 .
-0042| Bílý/2 sníh/1 padá/5 .
+0042| Padá/5 bílý/2 sníh/1 .
 0043| Terezka/1 nosí/5 žluté/2 šaty/1 .
 0044| Hasiči/1 hasí/5 velký/2 požár/1 .
 0045| Kůň/1 táhne/5 těžký/2 vůz/1 .
