@@ -71,12 +71,9 @@ h1, h2 { font-family: "Baloo 2", "Atkinson Hyperlegible", system-ui, sans-serif;
 .svety { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
 .svet { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; }
 .svet.zamceny { opacity: .6; }
-.krajina { height: 84px; }
-.svet-1 .krajina { background: linear-gradient(180deg, #bfe6ff 0 45%, #7cc46a 45% 70%, #4f9d4a 70%); }
-.svet-2 .krajina { background: linear-gradient(180deg, #d9f0c4 0 35%, #2f7a45 35% 60%, #1f5a33 60%); }
-.svet-3 .krajina { background: linear-gradient(180deg, #cfd8d3 0 50%, #6f8a74 50% 72%, #43604d 72%); }
-.svet-4 .krajina { background: linear-gradient(160deg, #e6eef7 0 40%, #8a97a8 40% 62%, #56647a 62%); }
-.svet-5 .krajina { background: linear-gradient(180deg, #f4dcae 0 45%, #9c7a4a 45% 58%, #5a3f28 58%); }
+.krajina { height: 110px; }
+.krajina svg, .krajina-pruh svg { display: block; width: 100%; height: 100%; }
+.krajina-pruh { height: 56px; border-radius: 12px; overflow: hidden; }
 .svet .obsah { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
 .svet h2 { font-size: 1.3rem; display: flex; gap: 8px; align-items: center; }
 .poradi { display: inline-grid; place-items: center; width: 1.6em; height: 1.6em; border-radius: 50%; background: var(--ink); color: var(--bg); font-size: .8em; }

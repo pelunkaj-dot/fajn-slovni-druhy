@@ -5,7 +5,7 @@ import * as srs from '../srs.js';
 import { esc, cislo, vysledekSerie, parta } from './spolecne.js';
 import { HLASKY, nahodna } from '../hlasky.js';
 
-export function spustLov(koren, { data, opakovani, hrdina, ulozit, serieHotova, konec }) {
+export function spustLov(koren, { data, krajina = '', opakovani, hrdina, ulozit, serieHotova, konec }) {
   const vety = srs.vyberVety(opakovani, data.vety, data.aktivni, eng.DELKA_SERIE);
   const vysledky = [];
   const chybnaSlova = new Map();
@@ -13,6 +13,7 @@ export function spustLov(koren, { data, opakovani, hrdina, ulozit, serieHotova, 
 
   koren.innerHTML = `
     <section class="lov">
+      <div class="krajina-pruh" aria-hidden="true">${krajina}</div>
       <div class="hud">
         <button type="button" class="zpet">← Mapa</button>
         <ol class="tecky" aria-label="Postup série">${vety.map(() => '<li></li>').join('')}</ol>

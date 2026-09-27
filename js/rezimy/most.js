@@ -7,7 +7,7 @@ import { esc, cislo, vysledekSerie, parta } from './spolecne.js';
 import { avatar } from '../postavy.js';
 import { HLASKY, nahodna } from '../hlasky.js';
 
-export function spustMost(koren, { data, opakovani, hrdina, ulozit, serieHotova, konec }) {
+export function spustMost(koren, { data, krajina = '', opakovani, hrdina, ulozit, serieHotova, konec }) {
   const pocetSlov = v => v.slova.filter(s => data.aktivni.includes(s.d)).length;
   const vybrane = srs.vyberVety(opakovani, data.vety, data.aktivni, eng.DELKA_SERIE);
   const nejdelsi = vybrane.reduce((a, v) => (pocetSlov(v) > pocetSlov(a) ? v : a), vybrane[0]);
@@ -18,6 +18,7 @@ export function spustMost(koren, { data, opakovani, hrdina, ulozit, serieHotova,
 
   koren.innerHTML = `
     <section class="lov most-hra">
+      <div class="krajina-pruh" aria-hidden="true">${krajina}</div>
       <div class="hud">
         <button type="button" class="zpet">← Mapa</button>
         <ol class="tecky" aria-label="Postup série">${vety.map(() => '<li></li>').join('')}</ol>

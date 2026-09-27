@@ -6,6 +6,7 @@ import { OBLASTI, DOKONCENI } from './engine.js';
 import { spustLov } from './rezimy/lov.js';
 import { spustMost } from './rezimy/most.js';
 import { avatar } from './postavy.js';
+import { KRAJINY } from './krajiny.js';
 
 const KLIC = 'fajn-slovni-druhy:v1';
 const MOTIVY = { light: 'Světlý', dark: 'Tmavý', girl: 'Dívčí' };
@@ -72,7 +73,7 @@ function kartaSveta(n, s) {
   const procent = Math.round(st.uzemi / OBLASTI * 100);
   return `
     <li class="svet svet-${n}${odemceno(n) ? '' : ' zamceny'}">
-      <div class="krajina" aria-hidden="true"></div>
+      <div class="krajina" aria-hidden="true">${KRAJINY[n]}</div>
       <div class="obsah">
         <h2><span class="poradi">${n}</span>${s.nazev}</h2>
         <p>${s.popis}</p>
@@ -95,6 +96,7 @@ async function hraj(n) {
   }
   REZIMY[stav.rezim].spust(app, {
     data: cache[n],
+    krajina: KRAJINY[n],
     opakovani: stav.opakovani,
     hrdina: stav.hrdina,
     ulozit,
