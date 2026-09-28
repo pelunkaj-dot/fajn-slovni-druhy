@@ -106,7 +106,7 @@
 0088| Zeptej/5 se/3 , kdy/6 začíná/5 film/1 .
 0089| Pamatuješ/5 si/3 , kdy/6 jsme/5+ byli/5+ u/7 moře/1 ?
 0090| Nevím/5 , jak/6 se/3 to/3 píše/5 .
-0091| Ukaž/5 mi/3 , jak/6 se/3 hraje/5 šachy/1 .
+0091| Ukaž/5 mi/3 , jak/6 se/3 hrají/5 šachy/1 .
 0092| Víš/5 , jak/6 se/3 jmenuje/5 nová/2 učitelka/1 ?
 0093| Terezka/1 vypráví/5 , jak/6 bylo/5 na/7 výletě/1 .
 0094| Dědeček/1 vypráví/5 , jak/6 se/3 dříve/6 žilo/5 .
