@@ -8,7 +8,8 @@ export const POSTAVY = {
 };
 
 export function avatar(jmeno, trida = '') {
-  const p = POSTAVY[jmeno] || POSTAVY['Terezka'];
+  if (!POSTAVY[jmeno]) return `<span class="avatar ${trida} bez-postavy" aria-hidden="true"></span>`; // postavičky vypnuté
+  const p = POSTAVY[jmeno];
   return `<span class="avatar ${trida}" style="background:${p.pozadi}" aria-hidden="true">${p.svg}</span>`;
 }
 
@@ -33,5 +34,6 @@ function sVyrazem(svg, vyraz) {
 }
 
 export function obrazek(jmeno, vyraz = 'zakladni') {
-  return sVyrazem((POSTAVY[jmeno] || POSTAVY['Terezka']).svg, vyraz);
+  if (!POSTAVY[jmeno]) return '';
+  return sVyrazem(POSTAVY[jmeno].svg, vyraz);
 }

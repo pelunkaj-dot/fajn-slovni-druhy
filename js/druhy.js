@@ -14,11 +14,11 @@ export const DRUHY = {
 };
 
 export const SVETY = {
-  1: { nazev: 'Zelené údolí', popis: 'Podstatná jména, přídavná jména a slovesa', data: 'svet1' },
-  2: { nazev: 'Pestrý les', popis: 'Všech deset slovních druhů', data: 'svet2' },
-  3: { nazev: 'Mlžné bažiny', popis: 'Záludná slova v jednoduché větě', data: 'svet3' },
-  4: { nazev: 'Horský průsmyk', popis: 'Souvětí: spojky, příslovce, zájmena', data: 'svet4' },
-  5: { nazev: 'Hrad mistrů', popis: 'Druhy i poddruhy', data: 'svet5' },
+  1: { nazev: 'Zelené údolí', hvezdy: 1, popis: 'Podstatná jména, přídavná jména a slovesa', komu: 'Začínáš? Tady se naučíš poznat tři nejdůležitější slovní druhy.' },
+  2: { nazev: 'Pestrý les', hvezdy: 2, popis: 'Všech deset slovních druhů', komu: 'Znáš základy? Procvič všech deset druhů.' },
+  3: { nazev: 'Mlžné bažiny', hvezdy: 3, popis: 'Záludná slova v jednoduché větě', komu: 'Umíš všech deset? Zkus slova, která mění druh podle věty.' },
+  4: { nazev: 'Horský průsmyk', hvezdy: 4, popis: 'Souvětí: spojky, příslovce, zájmena', komu: 'Pro pokročilé: slovní druhy v souvětí.' },
+  5: { nazev: 'Hrad mistrů', hvezdy: 5, popis: 'Druhy i poddruhy', komu: 'Pro mistry: slovní druhy i jejich poddruhy.' },
 };
 
 // „zbývá 1“, „zbývají 2“, „zbývá 5“

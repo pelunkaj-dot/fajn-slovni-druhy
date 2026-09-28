@@ -63,7 +63,7 @@
 0060| Pan/1 doktor/1 léčí/5 nemocné/2 děti/1 .
 # --- várka 2 ---
 0061| Terezka/1 krmí/5 hladová/2 koťata/1 .
-0062| Matýsek/1 staví/5 papírového/2 draka/1 .
+0062| Matýsek/1 vyrábí/5 papírového/2 draka/1 .
 0063| Dědeček/1 pouští/5 draka/1 na/7 louce/1 .
 0064| Vysoký/2 strom/1 roste/5 u/7 řeky/1 .
 0065| Zajíc/1 skáče/5 přes/7 pole/1 .
@@ -139,7 +139,7 @@
 0135| Slepice/1 snáší/5 vejce/1 .
 0136| Pes/1 olizuje/5 štěňátko/1 .
 0137| Terezka/1 češe/5 dlouhé/2 vlasy/1 .
-0138| Matýsek/1 čistí/5 zuby/1 .
+0138| Matýsek/1 si/3 čistí/5 zuby/1 .
 0139| Tatínek/1 čte/5 ranní/2 noviny/1 .
 0140| Maminka/1 píše/5 nákupní/2 seznam/1 .
 0141| Babička/1 vypráví/5 strašidelný/2 příběh/1 .
