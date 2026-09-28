@@ -1,0 +1,22 @@
+{"svet": 3, "aktivni": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],"vety":[
+{"id":"s3-0001","jevy":[],"slova":[{"t":"Včera","d":6},{"t":"jsem","d":5,"g":1},{"t":"psal","d":5,"g":1},{"t":"dlouhý","d":2},{"t":"dopis","d":1,"i":"."}]},
+{"id":"s3-0002","jevy":[],"slova":[{"t":"Včera","d":6},{"t":"jsme","d":5,"g":1},{"t":"byli","d":5,"g":1},{"t":"v","d":7},{"t":"zoo","d":1,"i":"."}]},
+{"id":"s3-0003","jevy":[],"slova":[{"t":"Kdy","d":6},{"t":"jsi","d":5,"g":1},{"t":"přišel","d":5,"g":1},{"t":"domů","d":6,"i":"?"}]},
+{"id":"s3-0004","jevy":[],"slova":[{"t":"Byla","d":5,"g":1},{"t":"jsi","d":5,"g":1},{"t":"někdy","d":6},{"t":"v","d":7},{"t":"Praze","d":1,"i":"?"}]},
+{"id":"s3-0005","jevy":[],"slova":[{"t":"Ke","d":7},{"t":"snídani","d":1},{"t":"jsem","d":5,"g":1},{"t":"měl","d":5,"g":1},{"t":"kakao","d":1,"i":"."}]},
+{"id":"s3-0006","jevy":[],"slova":[{"t":"Třikrát","d":4},{"t":"jsem","d":5,"g":1},{"t":"zazvonil","d":5,"g":1,"i":"."}]},
+{"id":"s3-0007","jevy":[],"slova":[{"t":"Bez","d":7},{"t":"čepice","d":1},{"t":"jsem","d":5,"g":1},{"t":"nastydl","d":5,"g":1,"i":"."}]},
+{"id":"s3-0008","jevy":[],"slova":[{"t":"Díky","d":7},{"t":"tobě","d":3},{"t":"jsme","d":5,"g":1},{"t":"vyhráli","d":5,"g":1,"i":"."}]},
+{"id":"s3-0009","jevy":[],"slova":[{"t":"Dnes","d":6},{"t":"jsem","d":5,"g":1},{"t":"se","d":3},{"t":"učil","d":5,"g":1},{"t":"násobilku","d":1,"i":"."}]},
+{"id":"s3-0010","jevy":[],"slova":[{"t":"Mluvil","d":5,"g":1},{"t":"jsem","d":5,"g":1},{"t":"se","d":7,"v":true,"n":"Zeptej se: s kým jsem mluvil?"},{"t":"sousedem","d":1,"i":"."}]},
+{"id":"s3-0011","jevy":[],"slova":[{"t":"Šli","d":5,"g":1},{"t":"jsme","d":5,"g":1},{"t":"kolem","d":7,"v":true,"n":"Zeptej se: kolem čeho jsme šli?"},{"t":"školy","d":1,"i":"."}]},
+{"id":"s3-0012","jevy":[],"slova":[{"t":"Včera","d":6},{"t":"večer","d":6,"v":true,"n":"Zeptej se: kdy jsme hráli?"},{"t":"jsme","d":5,"g":1},{"t":"hráli","d":5,"g":1},{"t":"hry","d":1,"i":"."}]},
+{"id":"s3-0013","jevy":[],"slova":[{"t":"Ráno","d":6,"v":true,"n":"Zeptej se: kdy jsem snídal?"},{"t":"jsem","d":5,"g":1},{"t":"snídal","d":5,"g":1},{"t":"rohlík","d":1,"i":"."}]},
+{"id":"s3-0014","jevy":[],"slova":[{"t":"Zítra","d":6},{"t":"budu","d":5,"g":1},{"t":"malovat","d":5,"g":1},{"t":"obraz","d":1,"i":"."}]},
+{"id":"s3-0015","jevy":[],"slova":[{"t":"Zítra","d":6},{"t":"budeme","d":5,"g":1},{"t":"stavět","d":5,"g":1},{"t":"sněhuláka","d":1,"i":"."}]},
+{"id":"s3-0016","jevy":[],"slova":[{"t":"Terezka","d":1},{"t":"bude","d":5,"g":1},{"t":"zpívat","d":5,"g":1},{"t":"na","d":7},{"t":"besídce","d":1,"i":"."}]},
+{"id":"s3-0017","jevy":[],"slova":[{"t":"Budeš","d":5,"g":1},{"t":"se","d":3},{"t":"koupat","d":5,"g":1,"i":"?"}]},
+{"id":"s3-0018","jevy":[],"slova":[{"t":"Terezka","d":1},{"t":"se","d":3},{"t":"bude","d":5,"g":1},{"t":"učit","d":5,"g":1},{"t":"anglicky","d":6,"i":"."}]},
+{"id":"s3-0019","jevy":[],"slova":[{"t":"Zítra","d":6},{"t":"se","d":3},{"t":"budeme","d":5,"g":1},{"t":"koupat","d":5,"g":1},{"t":"v","d":7},{"t":"moři","d":1,"i":"."}]},
+{"id":"s3-0020","jevy":[],"slova":[{"t":"Šel","d":5,"g":1},{"t":"bych","d":5,"g":1},{"t":"ven","d":6,"i":"."}]}
+]}

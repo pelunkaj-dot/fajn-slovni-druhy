@@ -80,8 +80,8 @@
 0068| Tři/4*{Zeptej se: kolik kluků?} kluci/1 hrají/5 fotbal/1 .
 0069| Tři/4*{Zeptej se: kolik dní?} dny/1 pršelo/5 .
 0070| Tři/4*{Zeptej se: kolik ptáků?} ptáci/1 sedí/5 na/7 plotě/1 .
-0071| Tři/5*{Co máš udělat s mrkví?} mrkev/1 na/7 struhadle/1 !
-0072| Tři/5*{Co máš udělat s podlahou?} podlahu/1 hadrem/1 !
+0071| Tři/5*{Co máš udělat s dlaněmi?} dlaně/1 o/7 sebe/3 !
+0072| Tři/4*{Zeptej se: kolik koček?} kočky/1 spí/5 na/7 slunci/1 .
 # --- hodně: číslovka × příslovce ---
 0073| Na/7 koncertě/1 bylo/5 hodně/4*{Zeptej se: kolik lidí?} lidí/1 .
 0074| Hodně/4*{Zeptej se: kolik dětí?} dětí/1 chodí/5 pěšky/6 .
@@ -111,5 +111,5 @@
 0093| Obě/4 holčičky/1 zpívají/5 .
 0094| Na/7 nebi/1 svítí/5 milion/4 hvězd/1 .
 0095| Tisíc/4 ptáků/1 odlétá/5 na/7 jih/1 .
-0096| Sto/4 dětí/1 zpívá/5 v/7 sboru/1 .
+0096| Sto/4 dětí/1 zpívá/5 ve/7 sboru/1 .
 0097| Dvakrát/4 týdně/6 plavu/5 .

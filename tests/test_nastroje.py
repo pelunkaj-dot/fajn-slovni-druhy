@@ -90,5 +90,18 @@ class TestKontrola(unittest.TestCase):
         self.assertEqual(lemmata[3], ('s1-0001', 3, 'běží', 'běžet'))
 
 
+
+class TestPredlozky(unittest.TestCase):
+    def test_pravidla(self):
+        from predlozky import posud
+        self.assertEqual(posud('v', 'vodě')[0], 'CHYBA')
+        self.assertEqual(posud('k', 'kamarádce')[0], 'CHYBA')
+        self.assertEqual(posud('s', 'sestrou')[0], 'CHYBA')
+        self.assertEqual(posud('z', 'školy')[0], 'CHYBA')
+        self.assertEqual(posud('v', 'sboru')[0], 'ZVAŽ')
+        for p, w in [('v', 'trávě'), ('v', 'Praze'), ('ve', 'škole'), ('ve', 'třídě'), ('ke', 'mně'), ('ve', 'městě'), ('v', 'zoo')]:
+            self.assertIsNone(posud(p, w), (p, w))
+
+
 if __name__ == '__main__':
     unittest.main()
