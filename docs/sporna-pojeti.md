@@ -84,3 +84,14 @@ Sloupec **Svět** říká, odkud se jev smí objevit; do té doby se takové vě
 | 46 | Délka vět ve světě 1 | 3–7 slov |
 | 47 | Slovní zásoba | běžná pro 3.–5. třídu, bez archaismů a slangu |
 | 48 | Nejistý kontext | když druh slova nejde spolehlivě určit z kontextu věty, věta do korpusu nepatří |
+
+## G. Poddruhy (svět 5)
+
+| # | Otázka | Rozhodnutí / návrh |
+|---|--------|-------|
+| 49 | Rozsah | jen přídavná jména (tvrdé, měkké, přivlastňovací), zájmena (osobní, přivlastňovací, ukazovací, tázací, vztažné, neurčité, záporné) a číslovky (základní, řadové, druhové, násobné) – **rozhodnuto** |
+| 50 | Zvratné *se, si, sebe* | **návrh:** zájmeno osobní (zvratné) |
+| 51 | *svůj* | **návrh:** zájmeno přivlastňovací (zvratné) |
+| 52 | Tvrdé × měkké přídavné jméno | podle vzoru (mladý × jarní); stupňované tvary (*lepší, nejlepší*) a *poslední* nepoužívat |
+| 53 | *co, kdo* v nepřímé otázce (*Vím, co chceš.*) | tázací × vztažné je sporné → ve světě 5 nepoužívat; vztažná zájmena jen s řídícím slovem (*kluk, který…*) |
+| 54 | Neurčité číslovky (*mnoho, několik*), *každý, všechen, sám, jiný*, *rád* | ve světě 5 nepoužívat (poddruh sporný) |

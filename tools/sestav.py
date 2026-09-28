@@ -23,6 +23,11 @@ MIN_VET = 8  # svět je hratelný, jen když má aspoň jednu sérii vět
 AKTIVNI = {1: [1, 2, 5], 2: list(range(1, 11)), 3: list(range(1, 11)),
            4: list(range(1, 11)), 5: list(range(1, 11))}
 UKAZKA = 20  # vět z každého světa pro verzi bez ?mode=full
+PODDRUHY = {  # svět 5 (docs/sporna-pojeti.md, bod 49)
+    2: ['tvrde', 'mekke', 'privlastnovaci'],
+    3: ['osobni', 'privlastnovaci', 'ukazovaci', 'tazaci', 'vztazne', 'neurcite', 'zaporne'],
+    4: ['zakladni', 'radova', 'druhova', 'nasobna'],
+}
 
 
 def nacti_lemmata():
@@ -47,6 +52,10 @@ def over(svet, vety):
                 chyby.append(f'{kde}: „{s.t}“ – ve světě {svet} jen jednoznačná slova bez složených tvarů')
             if svet < 5 and s.p:
                 chyby.append(f'{kde}: „{s.t}“ – poddruh jen ve světě 5')
+            if svet == 5 and s.d in PODDRUHY and s.p not in PODDRUHY[s.d]:
+                chyby.append(f'{kde}: „{s.t}“ – chybí nebo neplatný poddruh ({s.p or "žádný"}), povolené: {", ".join(PODDRUHY[s.d])}')
+            if svet == 5 and s.d not in PODDRUHY and s.p:
+                chyby.append(f'{kde}: „{s.t}“ – poddruh jen u přídavných jmen, zájmen a číslovek')
         skupiny = {}
         for s in v.slova:
             if s.g:
