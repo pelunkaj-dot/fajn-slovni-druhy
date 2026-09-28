@@ -1,10 +1,13 @@
-"""Sestaví data pro hru: korpus/svetN.txt → data/svetN.json (+ data/ukazka.json).
+"""Sestaví data pro hru: korpus/svetN.txt → data/svetN.json (+ data/ukazka.json, data/svety.json).
 
+Do hry jdou jen věty uvedené v korpus/schvalene.txt (zkontrolované Janem).
 Novým větám nejdřív dopíše do zdroje stálé číslo. Při chybě formátu nic nezapíše.
 
 Použití:
-    python tools/sestav.py
+    python tools/sestav.py                     # schválené věty → data/
+    python tools/sestav.py --vse --cil DIR     # všechny věty (náhled ke zkoušení) → DIR
 """
+import argparse
 import json
 import sys
 from pathlib import Path
@@ -14,6 +17,8 @@ from korpus import KORPUS, KOREN, cislo_sveta, dopln_cisla, id_vety, nacti  # no
 
 DATA = KOREN / 'data'
 LEMMATA = KORPUS / 'lemmata.tsv'
+SCHVALENE = KORPUS / 'schvalene.txt'
+MIN_VET = 8  # svět je hratelný, jen když má aspoň jednu sérii vět
 AKTIVNI = {1: [1, 2, 5], 2: list(range(1, 11)), 3: list(range(1, 11)),
            4: list(range(1, 11)), 5: list(range(1, 11))}
 UKAZKA = (1, 20)  # svět a počet vět pro verzi bez ?mode=full
@@ -72,8 +77,20 @@ def zapis(cesta, svet, vety):
     cesta.write_text(hlava + ',"vety":[\n' + ',\n'.join(radky) + '\n]}\n', encoding='utf-8')
 
 
+def nacti_schvalene():
+    if not SCHVALENE.exists():
+        return set()
+    return {r.strip() for r in SCHVALENE.read_text(encoding='utf-8').splitlines() if r.strip() and not r.startswith('#')}
+
+
 def main():
-    DATA.mkdir(exist_ok=True)
+    ap = argparse.ArgumentParser()
+    ap.add_argument('--vse', action='store_true', help='i neschválené věty (jen pro náhled)')
+    ap.add_argument('--cil', default=str(DATA), help='kam zapsat JSON')
+    a = ap.parse_args()
+    cil = Path(a.cil)
+    cil.mkdir(parents=True, exist_ok=True)
+    schvalene = nacti_schvalene()
     lemmata = nacti_lemmata()
     vystupy, chyby = {}, []
     for soubor in sorted(KORPUS.glob('svet[1-5].txt')):
@@ -90,11 +107,22 @@ def main():
     if chyby:
         print('\n'.join(chyby))
         raise SystemExit(f'{len(chyby)} chyb, data nezapsána')
+    svety = {}
     for svet, vety in vystupy.items():
-        zapis(DATA / f'svet{svet}.json', svet, vety)
+        if not a.vse:
+            vety = [v for v in vety if v['id'] in schvalene]
+        soubor = cil / f'svet{svet}.json'
+        if len(vety) >= MIN_VET:
+            zapis(soubor, svet, vety)
+            svety[svet] = len(vety)
+        elif soubor.exists():
+            soubor.unlink()
+        print(f'  → do hry: svět {svet}: {len(vety)} vět' + ('' if len(vety) >= MIN_VET else ' (málo, svět se nezobrazí)'))
+    (cil / 'svety.json').write_text(json.dumps(svety) + '\n', encoding='utf-8')
     svet, pocet = UKAZKA
-    if svet in vystupy:
-        zapis(DATA / 'ukazka.json', svet, vystupy[svet][:pocet])
+    if svet in svety:
+        vety = json.loads((cil / f'svet{svet}.json').read_text(encoding='utf-8'))['vety']
+        zapis(cil / 'ukazka.json', svet, vety[:pocet])
 
 
 if __name__ == '__main__':

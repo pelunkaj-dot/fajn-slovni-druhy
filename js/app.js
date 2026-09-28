@@ -1,6 +1,6 @@
 // Mapa světů, motivy, ukládání postupu a spuštění režimu.
 import { SVETY } from './druhy.js';
-import { nactiSvet } from './data.js';
+import { nactiSvet, nactiSeznam } from './data.js';
 import * as srs from './srs.js';
 import { OBLASTI, DOKONCENI } from './engine.js';
 import { spustLov } from './rezimy/lov.js';
@@ -14,7 +14,7 @@ const KLIC = 'fajn-slovni-druhy:v1';
 const MOTIVY = { light: 'Světlý', dark: 'Tmavý', girl: 'Dívčí' };
 const HRDINOVE = ['Terezka', 'Matýsek'];
 const REZIMY = { lov: { nazev: 'Lov', spust: spustLov }, most: { nazev: 'Stavba mostu', spust: spustMost } };
-const DOSTUPNE = [1, 2]; // světy, které už mají data
+let DOSTUPNE = []; // světy, které mají data (z data/svety.json)
 const V_UKAZCE = [1];     // světy hratelné bez ?mode=full
 const parametry = new URLSearchParams(location.search);
 const PLNA = parametry.get('mode') === 'full';
@@ -158,4 +158,4 @@ document.querySelectorAll('.motivy button').forEach(b => b.onclick = () => nasta
 document.querySelector('.znacka').onclick = mapa;
 nastavMotiv(MOTIVY[parametry.get('theme')] ? parametry.get('theme') : stav.motiv);
 ulozit();
-mapa();
+nactiSeznam().then(s => { DOSTUPNE = Object.keys(s).map(Number); mapa(); });

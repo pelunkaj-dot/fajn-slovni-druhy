@@ -1,3 +1,11 @@
+// Které světy mají data (a kolik vět): { "1": 58, ... }
+export async function nactiSeznam() {
+  try {
+    const r = await fetch('data/svety.json');
+    return r.ok ? await r.json() : {};
+  } catch { return {}; }
+}
+
 // Načtení světa. Bez ?mode=full se načte jen ukázka.
 export async function nactiSvet(nazev, plna) {
   const soubor = plna ? nazev : 'ukazka';
