@@ -26,7 +26,7 @@ Hráč si svět vybírá. Každý svět má vlastní prostředí.
 2. Všech 10 druhů. Jednoduché věty, jednoznačná slova.
 3. Záludnosti v jednoduché větě: druh určený kontextem (ráno, dobře, tři – číslovka × sloveso třít, po, ten), složené slovesné tvary (psal jsem, budu psát), zvratné se, infinitiv.
 4. Souvětí: spojky × příslovce × vztažná a tázací zájmena (co, kdy, kde, jak), částice.
-5. Mistrovský svět: druh + poddruh (přídavné jméno tvrdé/měkké/přivlastňovací; zájmeno osobní/přivlastňovací/ukazovací/tázací/vztažné/neurčité/záporné; číslovka základní/řadová/druhová/násobná). Rozsah potvrzen: poddruhy jen u přídavných jmen, zájmen a číslovek; ostatní mluvnické kategorie (rod, vzor, pád…) patří do jiného modulu.
+5. Mistrovský svět: druh + poddruh (přídavné jméno tvrdé/měkké/přivlastňovací; zájmeno osobní/zvratné/přivlastňovací/ukazovací/tázací/vztažné/neurčité/záporné; číslovka základní/řadová/druhová/násobná). Rozsah potvrzen: poddruhy jen u přídavných jmen, zájmen a číslovek; ostatní mluvnické kategorie (rod, vzor, pád…) patří do jiného modulu.
 
 Pohyb mezi světy: všechny světy jsou otevřené od začátku, žádné odemykání (starší žák nesmí být nucen procházet lehčí světy). Dokončení světa je jen odměna (oslava, skryté oblasti).
 Dokončení světa: cca 60–70 % území, počítané z úspěšnosti v sériích, ne z počtu pokusů (nesmí jít proklikat).

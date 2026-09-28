@@ -1,6 +1,6 @@
 # Svět 5 – druh i poddruh. Poddruh se píše za dvojtečku: /2:tvrde, /3:osobni, /4:radova.
-# Přídavná jména: tvrde, mekke, privlastnovaci. Zájmena: osobni, privlastnovaci, ukazovaci, tazaci,
-# vztazne, neurcite, zaporne. Číslovky: zakladni, radova, druhova, nasobna. (docs/sporna-pojeti.md, G)
+# Přídavná jména: tvrde, mekke, privlastnovaci. Zájmena: osobni, zvratne (se, si, sebe), privlastnovaci,
+# ukazovaci, tazaci, vztazne, neurcite, zaporne. Číslovky: zakladni, radova, druhova, nasobna. (docs/sporna-pojeti.md, G)
 #
 # --- přídavná jména: tvrdá, měkká, přivlastňovací ---
 0001| Terezka/1 má/5 novou/2:tvrde červenou/2:tvrde tašku/1 .
@@ -24,7 +24,7 @@
 0019| Ptačí/2:mekke hnízdo/1 je/5 na/7 stromě/1 .
 0020| Učitelčina/2:privlastnovaci taška/1 leží/5 na/7 stole/1 .
 0021| Vy/3:osobni jste/5 šikovní/2:tvrde .
-# --- zájmena osobní ---
+# --- zájmena osobní a zvratná ---
 0022| Já/3:osobni půjdu/5 ven/6 a/8 ty/3:osobni zůstaneš/5 doma/6 .
 0023| On/3:osobni čte/5 a/8 ona/3:osobni píše/5 .
 0024| My/3:osobni jsme/5 kamarádi/1 .
@@ -33,8 +33,8 @@
 0027| Pomůžu/5 ti/3:osobni .
 0028| Maminka/1 ho/3:osobni pochválila/5 .
 0029| Babička/1 nám/3:osobni upekla/5 koláč/1 .
-0030| Terezka/1 se/3:osobni směje/5 .
-0031| Matýsek/1 si/3:osobni čte/5 .
+0030| Terezka/1 se/3:zvratne směje/5 .
+0031| Matýsek/1 si/3:zvratne čte/5 .
 # --- zájmena přivlastňovací ---
 0032| Můj/3:privlastnovaci bratr/1 je/5 vysoký/2:tvrde .
 0033| Tvoje/3:privlastnovaci taška/1 je/5 těžká/2:tvrde .
@@ -71,9 +71,9 @@
 # --- zájmena neurčitá ---
 0061| Někdo/3:neurcite klepe/5 na/7 dveře/1 .
 0062| Něco/3:neurcite spadlo/5 ze/7 stolu/1 .
-0063| Nějaký/3:neurcite pán/1 se/3:osobni ptal/5 na/7 tebe/3:osobni .
+0063| Nějaký/3:neurcite pán/1 se/3:zvratne ptal/5 na/7 tebe/3:osobni .
 0064| Některé/3:neurcite děti/1 jezdí/5 do/7 školy/1 autobusem/1 .
-0065| Vezmi/5 si/3:osobni nějakou/3:neurcite knihu/1 .
+0065| Vezmi/5 si/3:zvratne nějakou/3:neurcite knihu/1 .
 0066| Našli/5+ jsme/5+ něčí/3:neurcite rukavici/1 .
 0067| Někdo/3:neurcite nechal/5 otcovy/2:privlastnovaci brýle/1 na/7 lavičce/1 .
 # --- zájmena záporná ---

@@ -89,8 +89,8 @@ Sloupec **Svět** říká, odkud se jev smí objevit; do té doby se takové vě
 
 | # | Otázka | Rozhodnutí / návrh |
 |---|--------|-------|
-| 49 | Rozsah | jen přídavná jména (tvrdé, měkké, přivlastňovací), zájmena (osobní, přivlastňovací, ukazovací, tázací, vztažné, neurčité, záporné) a číslovky (základní, řadové, druhové, násobné) – **rozhodnuto** |
-| 50 | Zvratné *se, si, sebe* | **návrh:** zájmeno osobní (zvratné) |
+| 49 | Rozsah | jen přídavná jména (tvrdé, měkké, přivlastňovací), zájmena (osobní, zvratné, přivlastňovací, ukazovací, tázací, vztažné, neurčité, záporné) a číslovky (základní, řadové, druhové, násobné) – **rozhodnuto** |
+| 50 | Zvratné *se, si, sebe* | zájmeno **zvratné** – **rozhodnuto** (tak se učí na ZŠ; „osobní zvratné“ až na vyšším stupni) |
 | 51 | *svůj* | **návrh:** zájmeno přivlastňovací (zvratné) |
 | 52 | Tvrdé × měkké přídavné jméno | podle vzoru (mladý × jarní); stupňované tvary (*lepší, nejlepší*) a *poslední* nepoužívat |
 | 53 | *co, kdo* v nepřímé otázce (*Vím, co chceš.*) | tázací × vztažné je sporné → ve světě 5 nepoužívat; vztažná zájmena jen s řídícím slovem (*kluk, který…*) |

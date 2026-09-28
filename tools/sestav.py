@@ -25,7 +25,7 @@ AKTIVNI = {1: [1, 2, 5], 2: list(range(1, 11)), 3: list(range(1, 11)),
 UKAZKA = 20  # vět z každého světa pro verzi bez ?mode=full
 PODDRUHY = {  # svět 5 (docs/sporna-pojeti.md, bod 49)
     2: ['tvrde', 'mekke', 'privlastnovaci'],
-    3: ['osobni', 'privlastnovaci', 'ukazovaci', 'tazaci', 'vztazne', 'neurcite', 'zaporne'],
+    3: ['osobni', 'zvratne', 'privlastnovaci', 'ukazovaci', 'tazaci', 'vztazne', 'neurcite', 'zaporne'],
     4: ['zakladni', 'radova', 'druhova', 'nasobna'],
 }
 
