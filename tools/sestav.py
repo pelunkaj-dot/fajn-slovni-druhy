@@ -46,6 +46,13 @@ def over(svet, vety):
                 chyby.append(f'{kde}: „{s.t}“ – ve světě {svet} jen jednoznačná slova bez složených tvarů')
             if svet < 5 and s.p:
                 chyby.append(f'{kde}: „{s.t}“ – poddruh jen ve světě 5')
+        skupiny = {}
+        for s in v.slova:
+            if s.g:
+                skupiny.setdefault(s.g, set()).add(s.d)
+        for g, druhy in skupiny.items():
+            if len(druhy) > 1:
+                chyby.append(f'{kde}: skupina +{g} má slova různých druhů {sorted(druhy)}')
         if svet == 1 and not any(s.d in AKTIVNI[1] for s in v.slova):
             chyby.append(f'{kde}: věta nemá žádné slovo k určení')
     return chyby

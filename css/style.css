@@ -223,3 +223,6 @@ h1, h2 { font-family: "Baloo 2", "Atkinson Hyperlegible", system-ui, sans-serif;
 .parta.bez-postav .bublina { margin-left: 0; }
 .parta.bez-postav .bublina::before { display: none; }
 .avatar.bez-postavy { background: var(--accent); border-radius: 50%; }
+
+.ukol-pozn { display: block; color: var(--muted); font-size: .9rem; }
+.ukol-pozn:empty { display: none; }

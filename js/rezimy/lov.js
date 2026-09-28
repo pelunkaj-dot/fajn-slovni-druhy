@@ -34,7 +34,7 @@ export function spustLov(koren, { data, krajina = '', opakovani, hrdina, ulozit,
   $('.zpet').onclick = () => { zastav(); konec(null); };
   $('button.napoveda').onclick = () => ukazNapovedu();
   $('.dalsi').onclick = () => dalsiVeta();
-  $('.veta').onclick = e => { const b = e.target.closest('.slovo'); if (b) zpracujKlik(+b.dataset.i, b); };
+  $('.veta').onclick = e => { const b = e.target.closest('.slovo'); if (b) zpracujKlik(+b.dataset.i); };
 
   function zastav() { cancelAnimationFrame(casovac); clearTimeout(dalsiTimeout); }
 
@@ -73,28 +73,36 @@ export function spustLov(koren, { data, krajina = '', opakovani, hrdina, ulozit,
     $('.zbyva').textContent = st.hotovo ? '' : zbyvaText(n);
   }
 
-  function zpracujKlik(i, btn) {
-    const r = eng.klik(st, i);
+  const tlacitka = i => eng.clenove(st.veta, i).map(j => koren.querySelector(`.slovo[data-i="${j}"]`));
+  const textJednotky = i => eng.clenove(st.veta, i).map(j => st.veta.slova[j].t).join(' ');
+
+  function zpracujKlik(j) {
+    const i = eng.reprezentant(st.veta, j);
+    const r = eng.klik(st, j);
     if (r.typ === 'nic') return;
     if (r.typ === 'zasah') {
-      btn.classList.add('chyceno');
-      btn.style.setProperty('--c', `var(--d${st.cil})`);
-      btn.querySelector('.nad').innerHTML = cislo(st.cil);
+      for (const btn of tlacitka(i)) {
+        btn.classList.add('chyceno');
+        btn.style.setProperty('--c', `var(--d${st.cil})`);
+        btn.querySelector('.nad').innerHTML = cislo(st.cil);
+      }
       aktualizujZbyva();
       if (!st.hotovo && Math.random() < 0.5) rekni(hlaska(hrdina, 'zasah'), 'radost');
       if (st.hotovo) dokonciVetu();
       return;
     }
-    btn.classList.remove('vedle');
-    void btn.offsetWidth;
-    btn.classList.add('vedle');
+    for (const btn of tlacitka(i)) {
+      btn.classList.remove('vedle');
+      void btn.offsetWidth;
+      btn.classList.add('vedle');
+    }
     const k = srs.klic(st.veta.slova[i]);
     chybnaSlova.set(k, st.veta.slova[i]);
     const m = DRUHY[st.cil].nazev;
     if (r.krok === 1) {
-      zprava(`„${st.veta.slova[i].t}“ není ${m}. ${hlaska(hrdina, 'chyba1')}`, 'pozor');
+      zprava(`„${textJednotky(i)}“ není ${m}. ${hlaska(hrdina, 'chyba1')}`, 'pozor');
     } else if (r.krok === 2) {
-      zprava(`„${st.veta.slova[i].t}“ není ${m}. ${hlaska(hrdina, 'chyba2')}`, 'pozor');
+      zprava(`„${textJednotky(i)}“ není ${m}. ${hlaska(hrdina, 'chyba2')}`, 'pozor');
       $('button.napoveda').hidden = false;
     } else {
       dokonciVetu();
@@ -135,10 +143,11 @@ export function spustLov(koren, { data, krajina = '', opakovani, hrdina, ulozit,
     if (vysl === 'odhaleno') {
       for (const i of st.cile) {
         if (st.nalezene.has(i)) continue;
-        const b = koren.querySelector(`.slovo[data-i="${i}"]`);
-        b.classList.add('odhaleno');
-        b.style.setProperty('--c', `var(--d${st.cil})`);
-        b.querySelector('.nad').innerHTML = cislo(st.cil);
+        for (const b of tlacitka(i)) {
+          b.classList.add('odhaleno');
+          b.style.setProperty('--c', `var(--d${st.cil})`);
+          b.querySelector('.nad').innerHTML = cislo(st.cil);
+        }
       }
       zprava(`Tady jsou ${DRUHY[st.cil].vse} ${DRUHY[st.cil].mnozne}. ${hlaska(hrdina, 'odhaleniLov')}`, 'odhaleni');
       $('.dalsi').hidden = false;

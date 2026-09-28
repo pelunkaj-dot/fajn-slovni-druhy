@@ -51,9 +51,9 @@ export function spustMost(koren, { data, krajina = '', opakovani, hrdina, ulozit
     const v = vety[poradi];
     m = eng.novyMost(v, data.aktivni);
     const boss = poradi === vety.length - 1 && vety.length > 1;
-    $('.ukol').innerHTML = boss
+    $('.ukol').innerHTML = (boss
       ? '<b>Velký most!</b> Urči slovní druh každého slova.'
-      : 'Urči slovní druh <b>zvýrazněného</b> slova.';
+      : 'Urči slovní druh <b>zvýrazněného</b> slova.') + ' <span class="ukol-pozn"></span>';
     $('.veta').innerHTML = v.slova.map((s, i) => `<span class="skup"><span class="slovo${data.aktivni.includes(s.d) ? '' : ' sede'}" data-i="${i}">`
       + `<span class="nad"></span><span class="t">${esc(s.t)}</span></span>${s.i ? `<span class="interp">${esc(s.i)}</span>` : ''}</span>`).join(' ');
     $('.prkna').innerHTML = m.poradi.map(() => '<i></i>').join('');
@@ -73,8 +73,11 @@ export function spustMost(koren, { data, krajina = '', opakovani, hrdina, ulozit
     koren.querySelectorAll('.slovo.ted').forEach(e => e.classList.remove('ted'));
     const hotovo = m.krok;
     $('.stavba').style.setProperty('--pozice', hotovo / Math.max(1, m.poradi.length));
-    if (m.hotovo) return;
-    koren.querySelector(`.slovo[data-i="${eng.aktualniSlovo(m)}"]`).classList.add('ted');
+    const pozn = $('.ukol-pozn');
+    if (m.hotovo) { pozn.textContent = ''; return; }
+    const cl = eng.clenove(m.veta, eng.aktualniSlovo(m));
+    for (const j of cl) koren.querySelector(`.slovo[data-i="${j}"]`).classList.add('ted');
+    pozn.textContent = cl.length > 1 ? 'Zvýrazněná slova tvoří jeden slovesný tvar. Urči ho jednou.' : '';
   }
 
   function tik() {
@@ -85,10 +88,12 @@ export function spustMost(koren, { data, krajina = '', opakovani, hrdina, ulozit
 
   function polozDilek(i, odhaleno) {
     const s = m.veta.slova[i];
-    const el = koren.querySelector(`.slovo[data-i="${i}"]`);
-    el.classList.add(odhaleno ? 'odhaleno' : 'chyceno');
-    el.style.setProperty('--c', `var(--d${s.d})`);
-    el.querySelector('.nad').innerHTML = cislo(s.d);
+    for (const j of eng.clenove(m.veta, i)) {
+      const el = koren.querySelector(`.slovo[data-i="${j}"]`);
+      el.classList.add(odhaleno ? 'odhaleno' : 'chyceno');
+      el.style.setProperty('--c', `var(--d${s.d})`);
+      el.querySelector('.nad').innerHTML = cislo(s.d);
+    }
     const prkno = $('.prkna').children[m.poradi.indexOf(i)];
     prkno.className = odhaleno ? 'prasknute' : 'polozene';
     prkno.style.setProperty('--c', `var(--d${s.d})`);
@@ -97,6 +102,7 @@ export function spustMost(koren, { data, krajina = '', opakovani, hrdina, ulozit
   function zpracujTip(druh) {
     const i = eng.aktualniSlovo(m);
     const s = m.veta.slova[i];
+    const t = eng.clenove(m.veta, i).map(j => m.veta.slova[j].t).join(' ');
     const r = eng.tip(m, druh);
     if (r.typ === 'nic') return;
     if (r.typ === 'zasah') {
@@ -105,18 +111,20 @@ export function spustMost(koren, { data, krajina = '', opakovani, hrdina, ulozit
       $('button.napoveda').hidden = true;
       if (!m.hotovo && !$('.zprava').classList.contains('odhaleni')) zprava(hlaska(hrdina, 'dilek'), 'dilek');
     } else {
-      const el = koren.querySelector(`.slovo[data-i="${i}"]`);
-      el.classList.remove('vedle'); void el.offsetWidth; el.classList.add('vedle');
+      for (const j of eng.clenove(m.veta, i)) {
+        const el = koren.querySelector(`.slovo[data-i="${j}"]`);
+        el.classList.remove('vedle'); void el.offsetWidth; el.classList.add('vedle');
+      }
       srs.chyba(opakovani, srs.klic(s));
       chybnaSlova.set(srs.klic(s), s);
-      if (r.krok === 1) zprava(`„${s.t}“ není ${DRUHY[druh].nazev}. ${hlaska(hrdina, 'chyba1')}`, 'pozor');
+      if (r.krok === 1) zprava(`„${t}“ není ${DRUHY[druh].nazev}. ${hlaska(hrdina, 'chyba1')}`, 'pozor');
       else if (r.krok === 2) {
-        zprava(`„${s.t}“ není ${DRUHY[druh].nazev}. ${hlaska(hrdina, 'chyba2')}`, 'pozor');
+        zprava(`„${t}“ není ${DRUHY[druh].nazev}. ${hlaska(hrdina, 'chyba2')}`, 'pozor');
         $('button.napoveda').hidden = false;
       } else {
         polozDilek(i, true);
         $('button.napoveda').hidden = true;
-        zprava(`„${s.t}“ je ${DRUHY[s.d].nazev}. ${DRUHY[s.d].otazka} ${hlaska(hrdina, 'odhaleniMost')}`, 'odhaleni');
+        zprava(`„${t}“ je ${DRUHY[s.d].nazev}. ${DRUHY[s.d].otazka} ${hlaska(hrdina, 'odhaleniMost')}`, 'odhaleni');
       }
     }
     oznacAktualni();
