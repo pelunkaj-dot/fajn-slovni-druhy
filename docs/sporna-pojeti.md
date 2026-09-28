@@ -54,9 +54,9 @@ Sloupec **Svět** říká, odkud se jev smí objevit; do té doby se takové vě
 | # | Jev | Příklad | Návrh | Svět | Poznámka |
 |---|-----|---------|-------|------|----------|
 | 28 | *co* v souvětí | *Vím, co chceš.* | 3 (vztažné/tázací zájmeno), ne spojka | 4 | zájmeno |
-| 29 | *kde, kdy, jak, proč* v souvětí | *Nevím, kde bydlí.* | 6 (vztažné příslovce), ne spojka | 4 | příslovce |
+| 29 | *kde, kdy, jak, proč* v souvětí | *Nevím, kde bydlí.* | **6** (tázací/vztažné příslovce). *jak* jen ve významu způsobu nebo míry (*Nevím, jak to udělal.*); pro časové „jakmile“ vždy psát ***jakmile*** (8); dvojici *jak – tak* nepoužívat | 4 | příslovce |
 | 30 | *když, že, protože* | | 8 | 4 | shodně |
-| 31 | *jak* při porovnání | *větší jak já* | **vynechat**, používat *větší než já* (*než* = 8) | 4 | |
+| 31 | přirovnání | *bílý jako sníh*, *větší než já* | ***jako*** a ***než*** = **8**; *jak* při přirovnání nepoužívat | 4 | |
 | 32 | *ať* | *Ať přijde.* × *Ať žije!* | **8** v souvětí za čárkou (*Řekni mu, ať přijde.*) × **9** (*Tak ať.*, *Ať žije!*) | 4 | |
 | 33 | *ano, ne* jako odpověď | *Ano, půjdu.* | 9 | 2 | *ano* možná jako citoslovce |
 | 34 | *i* | *pes i kočka* × *i ty?* | 8 × 9 | 4 | |
