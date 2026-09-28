@@ -1,0 +1,5 @@
+__pycache__/
+*.pyc
+.venv/
+tools/vystup/
+.DS_Store
