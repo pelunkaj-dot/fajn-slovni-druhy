@@ -25,6 +25,7 @@
 }
 
 * { box-sizing: border-box; }
+[hidden] { display: none !important; }
 html, body { margin: 0; }
 body {
   background: var(--bg); color: var(--ink);
@@ -209,3 +210,16 @@ h1, h2 { font-family: "Baloo 2", "Atkinson Hyperlegible", system-ui, sans-serif;
 .volba-hrace button { border: 0; border-radius: 12px; padding: 12px 22px; font-weight: 700; font-size: 1.1rem; background: var(--accent); color: var(--accent-ink); }
 .hraje { display: inline-flex; align-items: center; gap: 4px; margin-left: auto; color: var(--muted); font-size: .9rem; }
 .volba-hrdiny .hraje button { padding: 2px 10px; font-size: .85rem; }
+
+/* ---------- obtížnost, volba režimu, bez postaviček ---------- */
+.hvezdy { color: #e0a126; letter-spacing: 2px; font-size: 1.2rem; line-height: 1; margin: 0; }
+.hvezdy span { color: var(--line); }
+.svet .komu { color: var(--ink); font-weight: 700; }
+.akce-sveta { margin-top: auto; display: flex; flex-direction: column; gap: 6px; align-items: flex-start; }
+.svet .akce-sveta > button { border: 0; border-radius: 10px; background: var(--accent); color: var(--accent-ink); font-weight: 700; padding: 8px 22px; }
+.jiny-rezim { color: var(--muted); font-size: .85rem; }
+.odkaz { background: none; border: 0; padding: 0; color: var(--accent); text-decoration: underline; font-size: inherit; }
+.prepinac-postav { margin-left: auto; }
+.parta.bez-postav .bublina { margin-left: 0; }
+.parta.bez-postav .bublina::before { display: none; }
+.avatar.bez-postavy { background: var(--accent); border-radius: 50%; }

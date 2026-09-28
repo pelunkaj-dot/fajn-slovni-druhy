@@ -1,4 +1,4 @@
-"""Sestaví data pro hru: korpus/svetN.txt → data/svetN.json (+ data/ukazka.json, data/svety.json).
+"""Sestaví data pro hru: korpus/svetN.txt → data/svetN.json (+ data/ukazkaN.json, data/svety.json).
 
 Do hry jdou jen věty uvedené v korpus/schvalene.txt (zkontrolované Janem).
 Novým větám nejdřív dopíše do zdroje stálé číslo. Při chybě formátu nic nezapíše.
@@ -21,7 +21,7 @@ SCHVALENE = KORPUS / 'schvalene.txt'
 MIN_VET = 8  # svět je hratelný, jen když má aspoň jednu sérii vět
 AKTIVNI = {1: [1, 2, 5], 2: list(range(1, 11)), 3: list(range(1, 11)),
            4: list(range(1, 11)), 5: list(range(1, 11))}
-UKAZKA = (1, 20)  # svět a počet vět pro verzi bez ?mode=full
+UKAZKA = 20  # vět z každého světa pro verzi bez ?mode=full
 
 
 def nacti_lemmata():
@@ -119,10 +119,11 @@ def main():
             soubor.unlink()
         print(f'  → do hry: svět {svet}: {len(vety)} vět' + ('' if len(vety) >= MIN_VET else ' (málo, svět se nezobrazí)'))
     (cil / 'svety.json').write_text(json.dumps(svety) + '\n', encoding='utf-8')
-    svet, pocet = UKAZKA
-    if svet in svety:
+    for svet in svety:
         vety = json.loads((cil / f'svet{svet}.json').read_text(encoding='utf-8'))['vety']
-        zapis(cil / 'ukazka.json', svet, vety[:pocet])
+        zapis(cil / f'ukazka{svet}.json', svet, vety[:UKAZKA])
+    if (cil / 'ukazka.json').exists():
+        (cil / 'ukazka.json').unlink()  # dřívější ukázka jen ze světa 1
 
 
 if __name__ == '__main__':

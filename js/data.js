@@ -6,9 +6,9 @@ export async function nactiSeznam() {
   } catch { return {}; }
 }
 
-// Načtení světa. Bez ?mode=full se načte jen ukázka.
-export async function nactiSvet(nazev, plna) {
-  const soubor = plna ? nazev : 'ukazka';
+// Načtení světa. Bez ?mode=full se načte jen ukázka (prvních 20 vět každého světa).
+export async function nactiSvet(n, plna) {
+  const soubor = plna ? `svet${n}` : `ukazka${n}`;
   const r = await fetch(`data/${soubor}.json`);
   if (!r.ok) throw new Error(`Data světa se nepodařilo načíst (${r.status}).`);
   const svet = await r.json();

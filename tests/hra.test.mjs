@@ -108,6 +108,7 @@ test('hlášky: celé kolo bez opakování a bez stejné hlášky na přelomu ko
 test('hlášky: obě postavičky mají všechny skupiny', async () => {
   const { HLASKY } = await import('../js/hlasky.js');
   assert.deepEqual(Object.keys(HLASKY['Matýsek']).sort(), Object.keys(HLASKY['Terezka']).sort());
+  assert.deepEqual(Object.keys(HLASKY['Nikdo']).sort(), Object.keys(HLASKY['Terezka']).sort());
 });
 
 test('hlášky: tvary podle toho, kdo hraje', async () => {

@@ -90,3 +90,17 @@ export function hlaska(hrdina, skupina) {
   try { localStorage.setItem(KLIC, JSON.stringify(zasobnik)); } catch { /* bez úložiště */ }
   return tvar(seznam[i]);
 }
+
+// Bez postaviček (přepínač na mapě pro starší žáky): jen věcná zpětná vazba.
+// Prázdný text = nic se neříká.
+HLASKY['Nikdo'] = {
+  pozdravPrvni: [''], pozdravZnovu: [''], pozdravPoDlouhe: [''], predstaveni: [''],
+  otazkaHrac: ['Než začneš: hraje holka, nebo kluk?'],
+  uvodLov: [''], uvodMost: [''], boss: ['Poslední věta série je nejdelší.'],
+  zasah: [''], dilek: [''],
+  vetaCista: ['Správně.', 'Bez chyby.'], rychle: ['Správně a rychle.'], vetaSChybou: ['Hotovo.'],
+  chyba1: ['Zkus to znovu.'], chyba2: ['Zkus to znovu, nebo použij nápovědu.'],
+  napoveda: ['Nápověda:'], odhaleniLov: [''], odhaleniMost: [''],
+  serieUspech: ['Získáváš novou oblast.'], serieNeuspech: ['Na novou oblast to tentokrát nestačilo.'],
+  oslavaSveta: ['Svět je dokončený.'],
+};

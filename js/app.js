@@ -15,7 +15,6 @@ const MOTIVY = { light: 'Světlý', dark: 'Tmavý', girl: 'Dívčí' };
 const HRDINOVE = ['Terezka', 'Matýsek'];
 const REZIMY = { lov: { nazev: 'Lov', spust: spustLov }, most: { nazev: 'Stavba mostu', spust: spustMost } };
 let DOSTUPNE = []; // světy, které mají data (z data/svety.json)
-const V_UKAZCE = [1];     // světy hratelné bez ?mode=full
 const parametry = new URLSearchParams(location.search);
 const PLNA = parametry.get('mode') === 'full';
 
@@ -25,7 +24,7 @@ const cache = {};
 function nacti() {
   try { return JSON.parse(localStorage.getItem(KLIC)) || {}; } catch { return {}; }
 }
-const stav = { hrdina: HRDINOVE[0], motiv: 'light', rezim: 'lov', svety: {}, opakovani: srs.novyStav(), ...nacti() };
+const stav = { hrdina: HRDINOVE[0], postavicky: true, motiv: 'light', rezim: 'lov', svety: {}, opakovani: srs.novyStav(), ...nacti() };
 // Pozdrav podle toho, kdy hráč hrál naposledy (zjistí se jednou při načtení stránky).
 const DEN = 864e5;
 let pozdrav = !stav.naposledy ? 'pozdravPrvni' : Date.now() - stav.naposledy > 3 * DEN ? 'pozdravPoDlouhe' : 'pozdravZnovu';
@@ -46,7 +45,9 @@ function nastavMotiv(m) {
 
 const svetStav = n => (stav.svety[n] ||= { uzemi: 0, serie: 0 });
 // Všechny světy jsou otevřené od začátku – starší žák nemusí procházet lehčí světy.
-const hratelny = n => DOSTUPNE.includes(n) && (PLNA || V_UKAZCE.includes(n));
+const hratelny = n => DOSTUPNE.includes(n);
+// Kdo mluví: vybraná postavička, nebo nikdo (postavičky vypnuté).
+const mluvci = () => (stav.postavicky ? stav.hrdina : 'Nikdo');
 
 // Při prvním spuštění se postavička zeptá, kdo hraje.
 function otazkaHrac() {
@@ -58,7 +59,7 @@ function otazkaHrac() {
         <button type="button" data-k="kluk">Jsem kluk</button>
       </div>
     </section>`;
-  parta(app.querySelector('.parta'), stav.hrdina)(hlaska(stav.hrdina, 'otazkaHrac'));
+  parta(app.querySelector('.parta'), mluvci())(hlaska(mluvci(), 'otazkaHrac'));
   app.querySelectorAll('.volba-hrace button').forEach(b => b.onclick = () => {
     stav.hrac = b.dataset.k; nastavHrace(stav.hrac); ulozit(); mapa();
   });
@@ -68,10 +69,11 @@ function mapa() {
   if (!stav.hrac) { otazkaHrac(); return; }
   app.innerHTML = `
     <section class="mapa">
-      ${PLNA ? '' : '<p class="ukazka">Ukázková verze: hraješ s malým výběrem vět. Plnou verzi najdeš ve FajnCvičebně.</p>'}
+      ${PLNA ? '' : '<p class="ukazka">Ukázková verze: z každého světa si zahraješ malý výběr vět. Plnou verzi najdeš ve FajnCvičebně.</p>'}
       <div class="volba-hrdiny" role="group" aria-label="S kým vyrazíš?">
-        <span>S kým vyrazíš?</span>
-        ${HRDINOVE.map(h => `<button type="button" data-h="${h}" aria-pressed="${stav.hrdina === h}">${avatar(h)}${h}</button>`).join('')}
+        ${stav.postavicky ? `<span>S kým vyrazíš?</span>
+        ${HRDINOVE.map(h => `<button type="button" data-h="${h}" aria-pressed="${stav.hrdina === h}">${avatar(h)}${h}</button>`).join('')}` : ''}
+        <button type="button" class="prepinac-postav" aria-pressed="${!stav.postavicky}">${stav.postavicky ? 'Hrát bez postaviček' : 'Zapnout postavičky'}</button>
         <span class="hraje">Hraje:
           <button type="button" data-k="holka" aria-pressed="${stav.hrac === 'holka'}">holka</button>
           <button type="button" data-k="kluk" aria-pressed="${stav.hrac === 'kluk'}">kluk</button>
@@ -82,9 +84,15 @@ function mapa() {
         ${Object.entries(SVETY).map(([n, s]) => kartaSveta(+n, s)).join('')}
       </ol>
     </section>`;
-  const rekni = parta(app.querySelector('.parta'), stav.hrdina);
-  if (pozdrav) { rekni(hlaska(stav.hrdina, pozdrav)); pozdrav = ''; }
-  else app.querySelector('.parta').hidden = true;
+  const rekni = parta(app.querySelector('.parta'), mluvci());
+  const text = pozdrav ? hlaska(mluvci(), pozdrav) : '';
+  pozdrav = '';
+  if (text) rekni(text); else app.querySelector('.parta').hidden = true;
+  app.querySelector('.prepinac-postav').onclick = () => {
+    stav.postavicky = !stav.postavicky; ulozit();
+    pozdrav = stav.postavicky ? 'predstaveni' : '';
+    mapa();
+  };
   app.querySelectorAll('.hraje button').forEach(b => b.onclick = () => {
     stav.hrac = b.dataset.k; nastavHrace(stav.hrac); ulozit(); mapa();
   });
@@ -94,7 +102,7 @@ function mapa() {
     pozdrav = 'predstaveni';
     mapa();
   });
-  app.querySelectorAll('.svety button[data-svet]').forEach(b => b.onclick = () => hraj(+b.dataset.svet));
+  app.querySelectorAll('.svety button[data-svet]').forEach(b => b.onclick = () => hraj(+b.dataset.svet, b.dataset.rezim || ''));
 }
 
 function kartaSveta(n, s) {
@@ -107,14 +115,18 @@ function kartaSveta(n, s) {
   }).join('');
   let akce;
   if (!DOSTUPNE.includes(n)) akce = '<span class="zamek">Připravujeme</span>';
-  else if (!PLNA && !V_UKAZCE.includes(n)) akce = '<span class="zamek">Jen v plné verzi</span>';
-  else akce = `<button type="button" data-svet="${n}">Vyrazit: ${REZIMY[stav.rezim].nazev}</button>`;
+  else akce = `<div class="akce-sveta">
+      <button type="button" data-svet="${n}">Vyrazit</button>
+      <span class="jiny-rezim">nebo jen: ${Object.entries(REZIMY).map(([k, r]) => `<button type="button" class="odkaz" data-svet="${n}" data-rezim="${k}">${r.nazev}</button>`).join(' · ')}</span>
+    </div>`;
   const procent = Math.round(st.uzemi / OBLASTI * 100);
   return `
     <li class="svet svet-${n}${hratelny(n) ? '' : ' zamceny'}">
       <div class="krajina" aria-hidden="true">${KRAJINY[n]}</div>
       <div class="obsah">
         <h2><span class="poradi">${n}</span>${s.nazev}</h2>
+        <p class="hvezdy" aria-label="Obtížnost ${s.hvezdy} z 5">${'★'.repeat(s.hvezdy)}<span>${'★'.repeat(5 - s.hvezdy)}</span></p>
+        <p class="komu">${s.komu}</p>
         <p>${s.popis}</p>
         ${hratelny(n) ? `
           <div class="uzemi" role="img" aria-label="Dobyté území ${procent} %">${oblasti}</div>
@@ -124,31 +136,32 @@ function kartaSveta(n, s) {
     </li>`;
 }
 
-async function hraj(n) {
+// rezim = '' → režimy se po sérii střídají; 'lov'/'most' → hraje se jen zvolený režim
+async function hraj(n, rezim = '') {
   app.innerHTML = '<p class="nacitani">Načítám svět…</p>';
   try {
-    cache[n] ||= await nactiSvet(SVETY[n].data, PLNA);
+    cache[n] ||= await nactiSvet(n, PLNA);
   } catch (e) {
     app.innerHTML = `<p class="chyba">${e.message} Zkus stránku načíst znovu.</p><button type="button" class="zpet">← Mapa</button>`;
     app.querySelector('.zpet').onclick = mapa;
     return;
   }
-  REZIMY[stav.rezim].spust(app, {
+  REZIMY[rezim || stav.rezim].spust(app, {
     data: cache[n],
     krajina: KRAJINY[n],
     opakovani: stav.opakovani,
-    hrdina: stav.hrdina,
+    hrdina: mluvci(),
     ulozit,
     serieHotova(uspesna) {
       const st = svetStav(n);
       st.serie += 1;
       const predtim = st.uzemi;
       if (uspesna) st.uzemi = Math.min(OBLASTI, st.uzemi + 1);
-      stav.rezim = stav.rezim === 'lov' ? 'most' : 'lov'; // režimy se střídají po sérii
+      if (!rezim) stav.rezim = stav.rezim === 'lov' ? 'most' : 'lov'; // režimy se střídají po sérii
       ulozit();
       return predtim < DOKONCENI && st.uzemi >= DOKONCENI ? 'dokonceno' : '';
     },
-    konec(v) { if (v && v.znovu) hraj(n); else mapa(); },
+    konec(v) { if (v && v.znovu) hraj(n, rezim); else mapa(); },
   });
 }
 

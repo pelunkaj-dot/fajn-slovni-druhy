@@ -1,6 +1,6 @@
 // Společné části herních režimů: pomocné funkce a obrazovka výsledku série.
 import * as eng from '../engine.js';
-import { avatar, obrazek } from '../postavy.js';
+import { avatar, obrazek, POSTAVY } from '../postavy.js';
 import { hlaska } from '../hlasky.js';
 
 export const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -9,11 +9,13 @@ export const tvar = (n, a, b, c) => (n === 1 ? a : n > 1 && n < 5 ? b : c);
 
 // Postavička s bublinou. Vrací funkci rekni(text, vyraz, druh).
 export function parta(el, hrdina) {
-  el.innerHTML = `${avatar(hrdina, 'velky')}<p class="zprava bublina" aria-live="polite"></p>`;
+  const bez = !POSTAVY[hrdina];
+  el.classList.toggle('bez-postav', bez);
+  el.innerHTML = `${bez ? '' : avatar(hrdina, 'velky')}<p class="zprava bublina" aria-live="polite"></p>`;
   const obr = el.querySelector('.avatar');
   const z = el.querySelector('.zprava');
   return (text, vyraz = 'zakladni', druh = '') => {
-    obr.innerHTML = obrazek(hrdina, vyraz);
+    if (obr) obr.innerHTML = obrazek(hrdina, vyraz);
     z.textContent = text;
     z.className = `zprava bublina ${druh}`;
   };
