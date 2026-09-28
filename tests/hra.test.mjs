@@ -118,3 +118,10 @@ test('hlášky: tvary podle toho, kdo hraje', async () => {
     for (const kdo of ['kluk', 'holka']) assert.ok(!/[{}|]/.test(tvar(t, kdo)), `nevyřešený tvar: ${t}`);
   }
 });
+
+test('čeština: shoda „všechna/všechny“, „zbývá/zbývají“', async () => {
+  const { DRUHY, zbyvaText } = await import('../js/druhy.js');
+  const zenske = [4, 7, 8, 9]; // číslovky, předložky, spojky, částice
+  for (const [d, x] of Object.entries(DRUHY)) assert.equal(x.vse, zenske.includes(+d) ? 'všechny' : 'všechna', x.mnozne);
+  assert.deepEqual([1, 2, 4, 5, 0].map(zbyvaText), ['zbývá 1', 'zbývají 2', 'zbývají 4', 'zbývá 5', 'zbývá 0']);
+});

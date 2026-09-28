@@ -45,7 +45,7 @@ export function vysledekSerie(koren, { vysledky, body, chybnaSlova, hrdina, seri
         <li><b>${pocet('ciste')}</b> ${tvar(pocet('ciste'), 'věta', 'věty', 'vět')} bez chyby</li>
         <li><b>${pocet('chyba')}</b> s chybou</li>
         <li><b>${pocet('odhaleno')}</b> s ukázanou odpovědí</li>
-        <li><b>${body}</b> bodů</li>
+        <li><b>${body}</b> ${tvar(body, 'bod', 'body', 'bodů')}</li>
       </ul>
       ${opakovat.length ? `<p>Tahle slova se ti brzy vrátí:</p><p class="opakovat">${opakovat.map(s => `<span>${cislo(s.d)} ${esc(s.t)}</span>`).join('')}</p>` : ''}
       <div class="ovladani">

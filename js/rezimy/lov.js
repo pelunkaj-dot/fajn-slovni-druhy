@@ -1,5 +1,5 @@
 // Herní režim LOV: ve větě najdi všechna slova daného druhu.
-import { DRUHY } from '../druhy.js';
+import { DRUHY, zbyvaText } from '../druhy.js';
 import * as eng from '../engine.js';
 import * as srs from '../srs.js';
 import { esc, cislo, vysledekSerie, parta } from './spolecne.js';
@@ -44,7 +44,7 @@ export function spustLov(koren, { data, krajina = '', opakovani, hrdina, ulozit,
     st = eng.novaVeta(v, cil, data.aktivni);
     const d = DRUHY[cil];
     $('.cil').style.setProperty('--c', `var(--d${cil})`);
-    $('.cil').innerHTML = `${cislo(cil)}<span>Najdi všechna <b>${d.mnozne}</b></span><span class="zbyva"></span>`;
+    $('.cil').innerHTML = `${cislo(cil)}<span>Najdi ${d.vse} <b>${d.mnozne}</b></span><span class="zbyva"></span>`;
     $('.veta').innerHTML = v.slova.map((s, i) => {
       const aktivni = data.aktivni.includes(s.d);
       return `<span class="skup"><button type="button" class="slovo${aktivni ? '' : ' sede'}" data-i="${i}"${aktivni ? '' : ' tabindex="-1" aria-disabled="true"'}>`
@@ -70,7 +70,7 @@ export function spustLov(koren, { data, krajina = '', opakovani, hrdina, ulozit,
 
   function aktualizujZbyva() {
     const n = eng.zbyva(st);
-    $('.zbyva').textContent = st.hotovo ? '' : `zbývá ${n}`;
+    $('.zbyva').textContent = st.hotovo ? '' : zbyvaText(n);
   }
 
   function zpracujKlik(i, btn) {
@@ -140,7 +140,7 @@ export function spustLov(koren, { data, krajina = '', opakovani, hrdina, ulozit,
         b.style.setProperty('--c', `var(--d${st.cil})`);
         b.querySelector('.nad').innerHTML = cislo(st.cil);
       }
-      zprava(`Tady jsou všechna ${DRUHY[st.cil].mnozne}. ${hlaska(hrdina, 'odhaleniLov')}`, 'odhaleni');
+      zprava(`Tady jsou ${DRUHY[st.cil].vse} ${DRUHY[st.cil].mnozne}. ${hlaska(hrdina, 'odhaleniLov')}`, 'odhaleni');
       $('.dalsi').hidden = false;
       $('.dalsi').focus();
     } else {
