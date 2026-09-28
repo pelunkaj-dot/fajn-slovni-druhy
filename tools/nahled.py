@@ -2,7 +2,7 @@
 
 Data zůstávají v data/*.json a publikují se vedle stránky.
 Použití: python tools/nahled.py cil.html [--vse]
-  --vse  plná verze a všechny světy odemčené (jen pro Janovo zkoušení)
+  --vse  plná verze (jen pro Janovo zkoušení)
 """
 import posixpath
 import re
@@ -35,7 +35,7 @@ def main(cil, vse=False):
     css = (KOREN / 'css' / 'style.css').read_text(encoding='utf-8')
     js = '\n'.join(modul(m) for m in PORADI)
     if vse:
-        for a, b in [("parametry.get('mode') === 'full'", 'true'), ('const odemceno = n => n === 1 ||', 'const odemceno = n => true ||')]:
+        for a, b in [("parametry.get('mode') === 'full'", 'true')]:
             assert a in js, a
             js = js.replace(a, b)
     stranka = (f'<title>FajnSlovní druhy</title>\n{fonty}\n<style>\n{css}\n</style>\n{telo}\n'

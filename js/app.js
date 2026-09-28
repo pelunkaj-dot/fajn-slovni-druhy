@@ -45,7 +45,8 @@ function nastavMotiv(m) {
 }
 
 const svetStav = n => (stav.svety[n] ||= { uzemi: 0, serie: 0 });
-const odemceno = n => n === 1 || svetStav(n - 1).uzemi >= DOKONCENI;
+// Všechny světy jsou otevřené od začátku – starší žák nemusí procházet lehčí světy.
+const hratelny = n => DOSTUPNE.includes(n) && (PLNA || V_UKAZCE.includes(n));
 
 // Při prvním spuštění se postavička zeptá, kdo hraje.
 function otazkaHrac() {
@@ -105,18 +106,17 @@ function kartaSveta(n, s) {
     return `<i class="${i < st.uzemi ? 'moje' : ''}${skryta ? ' skryta' : ''}"></i>`;
   }).join('');
   let akce;
-  if (!odemceno(n)) akce = `<span class="zamek">Odemkneš dokončením světa ${n - 1}</span>`;
-  else if (!DOSTUPNE.includes(n)) akce = '<span class="zamek">Připravujeme</span>';
+  if (!DOSTUPNE.includes(n)) akce = '<span class="zamek">Připravujeme</span>';
   else if (!PLNA && !V_UKAZCE.includes(n)) akce = '<span class="zamek">Jen v plné verzi</span>';
   else akce = `<button type="button" data-svet="${n}">Vyrazit: ${REZIMY[stav.rezim].nazev}</button>`;
   const procent = Math.round(st.uzemi / OBLASTI * 100);
   return `
-    <li class="svet svet-${n}${odemceno(n) ? '' : ' zamceny'}">
+    <li class="svet svet-${n}${hratelny(n) ? '' : ' zamceny'}">
       <div class="krajina" aria-hidden="true">${KRAJINY[n]}</div>
       <div class="obsah">
         <h2><span class="poradi">${n}</span>${s.nazev}</h2>
         <p>${s.popis}</p>
-        ${odemceno(n) && DOSTUPNE.includes(n) ? `
+        ${hratelny(n) ? `
           <div class="uzemi" role="img" aria-label="Dobyté území ${procent} %">${oblasti}</div>
           <p class="stav">${dokonceno ? 'Svět dokončen! Objevily se skryté oblasti.' : `Území ${procent} %, svět dokončíš při ${Math.round(DOKONCENI / OBLASTI * 100)} %`}</p>` : ''}
         ${akce}

@@ -40,7 +40,7 @@ export function vysledekSerie(koren, { vysledky, body, chybnaSlova, hrdina, seri
       ${svetDokoncen ? konfety() : ''}
       <h2>${svetDokoncen ? 'Svět dokončen!' : uspesna ? 'Nová oblast je tvoje!' : 'Série dokončena'}</h2>
       <p class="procenta"><b>${procent} %</b> úspěšnost</p>
-      <p>${svetDokoncen ? 'Odemkl se další svět a na mapě se objevily skryté oblasti.' : uspesna ? 'Na mapě ti přibyl kousek území.' : `Na novou oblast potřebuješ aspoň ${Math.round(eng.PRAH_USPECHU * 100)} %. Zkus další sérii!`}</p>
+      <p>${svetDokoncen ? 'Na mapě se objevily skryté oblasti.' : uspesna ? 'Na mapě ti přibyl kousek území.' : `Na novou oblast potřebuješ aspoň ${Math.round(eng.PRAH_USPECHU * 100)} %. Zkus další sérii!`}</p>
       <ul class="statistika">
         <li><b>${pocet('ciste')}</b> ${tvar(pocet('ciste'), 'věta', 'věty', 'vět')} bez chyby</li>
         <li><b>${pocet('chyba')}</b> s chybou</li>

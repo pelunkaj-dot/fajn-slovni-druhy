@@ -28,7 +28,7 @@ Hráč si svět vybírá. Každý svět má vlastní prostředí.
 4. Souvětí: spojky × příslovce × vztažná a tázací zájmena (co, kdy, kde, jak), částice.
 5. Mistrovský svět: druh + poddruh (přídavné jméno tvrdé/měkké/přivlastňovací; zájmeno osobní/přivlastňovací/ukazovací/tázací/vztažné/neurčité/záporné; číslovka základní/řadová/druhová/násobná; přesný rozsah poddruhů potvrdím).
 
-Pohyb mezi světy: dolů kdykoli bez postihu, nahoru po odemčení (případně „výprava na zkoušku“).
+Pohyb mezi světy: všechny světy jsou otevřené od začátku, žádné odemykání (starší žák nesmí být nucen procházet lehčí světy). Dokončení světa je jen odměna (oslava, skryté oblasti).
 Dokončení světa: cca 60–70 % území, počítané z úspěšnosti v sériích, ne z počtu pokusů (nesmí jít proklikat).
 Bonusy pro jedničkáře: zbytek do 100 % jako skryté oblasti, zlatá varianta světa, časovka.
 
