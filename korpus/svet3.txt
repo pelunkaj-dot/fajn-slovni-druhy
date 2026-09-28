@@ -1,0 +1,115 @@
+# Svět 3 – záludnosti v jednoduché větě. Určuje se všech 10 druhů.
+# + = složený slovesný tvar (určuje se jako jeden celek), * = druh určuje kontext,
+# {…} = vlastní nápověda (pomocná otázka, ne odpověď). Formát: docs/format-dat.md
+#
+# --- složený minulý čas ---
+0001| Včera/6 jsem/5+ psal/5+ dlouhý/2 dopis/1 .
+0002| Včera/6 jsme/5+ byli/5+ v/7 zoo/1 .
+0003| Kdy/6 jsi/5+ přišel/5+ domů/6 ?
+0004| Byla/5+ jsi/5+ někdy/6 v/7 Praze/1 ?
+0005| Ke/7 snídani/1 jsem/5+ měl/5+ kakao/1 .
+0006| Třikrát/4 jsem/5+ zazvonil/5+ .
+0007| Bez/7 čepice/1 jsem/5+ nastydl/5+ .
+0008| Díky/7 tobě/3 jsme/5+ vyhráli/5+ .
+0009| Dnes/6 jsem/5+ se/3 učil/5+ násobilku/1 .
+0010| Mluvil/5+ jsem/5+ se/7*{Zeptej se: s kým jsem mluvil?} sousedem/1 .
+0011| Šli/5+ jsme/5+ kolem/7*{Zeptej se: kolem čeho jsme šli?} školy/1 .
+0012| Včera/6 večer/6*{Zeptej se: kdy jsme hráli?} jsme/5+ hráli/5+ hry/1 .
+0013| Ráno/6*{Zeptej se: kdy jsem snídal?} jsem/5+ snídal/5+ rohlík/1 .
+# --- budoucí čas ---
+0014| Zítra/6 budu/5+ malovat/5+ obraz/1 .
+0015| Zítra/6 budeme/5+ stavět/5+ sněhuláka/1 .
+0016| Terezka/1 bude/5+ zpívat/5+ na/7 besídce/1 .
+0017| Budeš/5+ se/3 koupat/5+ ?
+0018| Terezka/1 se/3 bude/5+ učit/5+ anglicky/6 .
+0019| Zítra/6 se/3 budeme/5+ koupat/5+ v/7 moři/1 .
+# --- podmiňovací způsob ---
+0020| Šel/5+ bych/5+ ven/6 .
+0021| Terezka/1 by/5+ chtěla/5+ psa/1 .
+0022| Maminka/1 by/5+ chtěla/5+ nové/2 šaty/1 .
+0023| Babička/1 by/5+ nám/3 upekla/5+ koláč/1 .
+0024| Maminka/1 by/5+ mi/3 koupila/5+ zmrzlinu/1 .
+0025| Dědeček/1 by/5+ si/3 přál/5+ klid/1 .
+0026| Byl/5+ bych/5+ rád/2 u/7 moře/1 .
+0027| Terezka/1 by/5+ se/3 ráda/2 podívala/5+ do/7 Paříže/1 .
+0028| Šli/5+ byste/5+ s/7 námi/3 ?
+# --- trpný rod ---
+0029| Dům/1 byl/5+ postaven/5+ loni/6 .
+0030| Matýsek/1 byl/5+ pochválen/5+ za/7 úkol/1 .
+0031| Kniha/1 byla/5+ napsána/5+ před/7 sto/4 lety/1 .
+0032| Okno/1 bylo/5+ rozbito/5+ míčem/1 .
+# --- zvratná zájmena se, si ---
+0033| Terezka/1 se/3 směje/5 .
+0034| Matýsek/1 si/3 hraje/5 s/7 autíčkem/1 .
+0035| Myji/5 se/3 teplou/2 vodou/1 .
+0036| Oblékám/5 si/3 svetr/1 .
+0037| Matýsek/1 se/3 bojí/5 tmy/1 .
+0038| Pes/1 se/3 schoval/5 pod/7 stůl/1 .
+0039| Kočka/1 si/3 lehla/5 na/7 gauč/1 .
+0040| Staví/5 se/3 nový/2 most/1 .
+0041| Nechceš/5 si/3 hrát/5 ?
+0042| Dej/5 si/3 pozor/1*{Zeptej se: dej si co?} !
+# --- se, ke, ve jako předložky ---
+0043| Terezka/1 jde/5 se/7*{Zeptej se: s kým jde?} sestrou/1 do/7 kina/1 .
+0044| Babička/1 šla/5 se/7*{Zeptej se: s kým šla?} psem/1 ven/6 .
+0045| Rádi/2 si/3 hrajeme/5 se/7*{Zeptej se: s čím si hrajeme?} sněhem/1 .
+0046| Terezka/1 jde/5 ke/7 kamarádce/1 .
+0047| Ve/7 škole/1 máme/5 novou/2 učitelku/1 .
+0048| Ve/7 středu/1 pojedeme/5 k/7 dědečkovi/1 .
+# --- infinitiv ---
+0049| Terezka/1 umí/5 plavat/5 .
+0050| Chci/5 jít/5 ven/6 .
+0051| Umíš/5 jezdit/5 na/7 kole/1 ?
+0052| Musím/5 uklidit/5 pokoj/1 .
+0053| Můžeme/5 jít/5 ven/6 ?
+0054| Terezka/1 začala/5 číst/5 knihu/1 .
+0055| Mám/5 chuť/1 jít/5 plavat/5 .
+0056| Nesmíš/5 lhát/5 .
+0057| Terezka/1 se/3 naučila/5 plavat/5 .
+0058| Matýsek/1 se/3 snaží/5 psát/5 hezky/6 .
+0059| Večer/6*{Zeptej se: kdy jdeme spát?} jdeme/5 brzy/6 spát/5 .
+# --- druh určuje kontext: ráno, večer ---
+0060| Ráno/6*{Zeptej se: kdy vstávám?} vstávám/5 brzy/6 .
+0061| Bylo/5 krásné/2 ráno/1*{Zeptej se: co bylo krásné?} .
+0062| To/3 ráno/1*{Zeptej se: co bylo mrazivé?} bylo/5 mrazivé/2 .
+0063| Ráno/1*{Zeptej se: co začalo deštěm?} začalo/5 deštěm/1 .
+0064| Večer/6*{Zeptej se: kdy čteme?} čteme/5 pohádky/1 .
+0065| Večer/1*{Zeptej se: co bylo teplé?} byl/5 teplý/2 .
+0066| Byl/5 to/3 krásný/2 večer/1*{Zeptej se: co bylo krásné?} .
+# --- tři: číslovka × sloveso třít ---
+0068| Tři/4*{Zeptej se: kolik kluků?} kluci/1 hrají/5 fotbal/1 .
+0069| Tři/4*{Zeptej se: kolik dní?} dny/1 pršelo/5 .
+0070| Tři/4*{Zeptej se: kolik ptáků?} ptáci/1 sedí/5 na/7 plotě/1 .
+0071| Tři/5*{Co máš udělat s dlaněmi?} dlaně/1 o/7 sebe/3 !
+0072| Tři/4*{Zeptej se: kolik koček?} kočky/1 spí/5 na/7 slunci/1 .
+# --- hodně: číslovka × příslovce ---
+0073| Na/7 koncertě/1 bylo/5 hodně/4*{Zeptej se: kolik lidí?} lidí/1 .
+0074| Hodně/4*{Zeptej se: kolik dětí?} dětí/1 chodí/5 pěšky/6 .
+0075| Dědeček/1 hodně/6*{Zeptej se: jak často čte?} čte/5 .
+0076| Terezka/1 hodně/6*{Zeptej se: jak často zpívá?} zpívá/5 .
+# --- kolem: předložka × příslovce ---
+0077| Kolem/7*{Zeptej se: kolem čeho?} domu/1 roste/5 tráva/1 .
+0078| Kolem/7*{Zeptej se: kolem koho?} nás/3 létají/5 motýli/1 .
+0079| Pes/1 běhá/5 kolem/6*{Zeptej se: kde běhá?} .
+0080| Auto/1 projelo/5 kolem/6*{Zeptej se: kudy projelo?} .
+# --- pozor: citoslovce × podstatné jméno ---
+0081| Pozor/10*{Je to výkřik, nebo věc?} , jede/5 vlak/1 !
+0082| Pozor/10*{Je to výkřik, nebo věc?} , pes/1 kouše/5 !
+0083| Dávej/5 pozor/1*{Zeptej se: dávej co?} na/7 cestu/1 .
+# --- zpodstatnělá přídavná jména ---
+0084| Vrátný/1*{Zeptej se: kdo otevřel bránu?} otevřel/5 bránu/1 .
+0085| Vrátná/1*{Zeptej se: kdo zamkl školu?} zamkla/5 školu/1 .
+0086| Hajný/1*{Zeptej se: kdo krmí srny?} krmí/5 srny/1 .
+0087| Pokojská/1*{Zeptej se: kdo uklízí pokoj?} uklízí/5 pokoj/1 .
+# --- rád ---
+0088| Matýsek/1 je/5 rád/2 .
+0089| Terezka/1 je/5 ráda/2 .
+0090| Rád/2 čtu/5 komiksy/1 .
+# --- číslovky: oba, sto, tisíc, milion, dvakrát ---
+0091| Oba/4 kluci/1 běží/5 domů/6 .
+0092| Oba/4 psi/1 štěkají/5 .
+0093| Obě/4 holčičky/1 zpívají/5 .
+0094| Na/7 nebi/1 svítí/5 milion/4 hvězd/1 .
+0095| Tisíc/4 ptáků/1 odlétá/5 na/7 jih/1 .
+0096| Sto/4 dětí/1 zpívá/5 ve/7 sboru/1 .
+0097| Dvakrát/4 týdně/6 plavu/5 .

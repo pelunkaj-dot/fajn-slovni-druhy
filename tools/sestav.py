@@ -14,6 +14,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from korpus import KORPUS, KOREN, cislo_sveta, dopln_cisla, id_vety, nacti  # noqa: E402
+from predlozky import posud as posud_predlozku  # noqa: E402
 
 DATA = KOREN / 'data'
 LEMMATA = KORPUS / 'lemmata.tsv'
@@ -46,6 +47,19 @@ def over(svet, vety):
                 chyby.append(f'{kde}: „{s.t}“ – ve světě {svet} jen jednoznačná slova bez složených tvarů')
             if svet < 5 and s.p:
                 chyby.append(f'{kde}: „{s.t}“ – poddruh jen ve světě 5')
+        skupiny = {}
+        for s in v.slova:
+            if s.g:
+                skupiny.setdefault(s.g, set()).add(s.d)
+        for g, druhy in skupiny.items():
+            if len(druhy) > 1:
+                chyby.append(f'{kde}: skupina +{g} má slova různých druhů {sorted(druhy)}')
+        for a, b in zip(v.slova, v.slova[1:]):
+            r = posud_predlozku(a.t, b.t) if a.d == 7 and not a.i else None
+            if r and r[0] == 'CHYBA':
+                chyby.append(f'{kde}: {r[1]}')
+            elif r:
+                print(f'  pozor – {kde}: {r[1]}')
         if svet == 1 and not any(s.d in AKTIVNI[1] for s in v.slova):
             chyby.append(f'{kde}: věta nemá žádné slovo k určení')
     return chyby

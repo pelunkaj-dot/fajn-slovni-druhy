@@ -10,14 +10,26 @@ export const PRAH_USPECHU = 0.8;    // úspěšnost série nutná pro zisk územ
 export const OBLASTI = 20;          // oblastí ve světě
 export const DOKONCENI = 13;        // 65 % území = svět dokončen
 
+// Složený tvar (psal jsem, budu psát) je skupina slov se stejným `g`. Hraje se jako jeden celek,
+// zastupuje ho první slovo skupiny.
+export function reprezentant(veta, i) {
+  const g = veta.slova[i] && veta.slova[i].g;
+  return g ? veta.slova.findIndex(s => s.g === g) : i;
+}
+export function clenove(veta, i) {
+  const g = veta.slova[i] && veta.slova[i].g;
+  return g ? veta.slova.flatMap((s, j) => (s.g === g ? [j] : [])) : [i];
+}
+
 export function novaVeta(veta, cil, aktivni) {
   const cile = new Set();
-  veta.slova.forEach((s, i) => { if (s.d === cil) cile.add(i); });
+  veta.slova.forEach((s, i) => { if (s.d === cil) cile.add(reprezentant(veta, i)); });
   return { veta, cil, aktivni, cile, nalezene: new Set(), spatne: [], chyby: 0, hotovo: false, odhaleno: false };
 }
 
 // Vrátí { typ, krok } – typ: 'zasah' | 'chyba' | 'nic'; krok: 0 nic, 1 zkus znovu, 2 nabídni nápovědu, 3 odhal
-export function klik(stav, i) {
+export function klik(stav, j) {
+  const i = reprezentant(stav.veta, j);
   const s = stav.veta.slova[i];
   if (stav.hotovo || !s || !stav.aktivni.includes(s.d) || stav.nalezene.has(i)) return { typ: 'nic', krok: 0 };
   if (stav.cile.has(i)) {
@@ -67,7 +79,7 @@ export function serieUspesna(vysledky) {
 
 export function novyMost(veta, aktivni) {
   const poradi = [];
-  veta.slova.forEach((s, i) => { if (aktivni.includes(s.d)) poradi.push(i); });
+  veta.slova.forEach((s, i) => { const r = reprezentant(veta, i); if (aktivni.includes(s.d) && !poradi.includes(r)) poradi.push(r); });
   return { veta, aktivni, poradi, krok: 0, chybyTed: 0, chyby: 0, odhalene: [], spatne: [], hotovo: poradi.length === 0 };
 }
 

@@ -126,3 +126,27 @@ test('čeština: shoda „všechna/všechny“, „zbývá/zbývají“', async 
   for (const [d, x] of Object.entries(DRUHY)) assert.equal(x.vse, zenske.includes(+d) ? 'všechny' : 'všechna', x.mnozne);
   assert.deepEqual([1, 2, 4, 5, 0].map(zbyvaText), ['zbývá 1', 'zbývají 2', 'zbývají 4', 'zbývá 5', 'zbývá 0']);
 });
+
+const slozena = { id: 's3-x', slova: [{ t: 'Včera', d: 6 }, { t: 'jsem', d: 5, g: 1 }, { t: 'se', d: 3 }, { t: 'učil', d: 5, g: 1 }, { t: 'psát', d: 5 }] };
+const VSE = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+test('složený tvar: v lovu jeden celek', () => {
+  assert.deepEqual(eng.clenove(slozena, 3), [1, 3]);
+  const st = eng.novaVeta(slozena, 5, VSE);
+  assert.equal(eng.zbyva(st), 2);            // „jsem učil“ + „psát“
+  assert.equal(eng.klik(st, 3).typ, 'zasah'); // kliknutí na „učil“ chytí celý tvar
+  assert.equal(eng.klik(st, 1).typ, 'nic');   // „jsem“ už je chycené
+  assert.equal(eng.zbyva(st), 1);
+  assert.equal(eng.klik(st, 4).typ, 'zasah');
+  assert.ok(st.hotovo);
+});
+
+test('složený tvar: na mostě se určuje jednou', () => {
+  const m = eng.novyMost(slozena, VSE);
+  assert.deepEqual(m.poradi, [0, 1, 2, 4]);
+  eng.tip(m, 6); eng.tip(m, 5);
+  assert.equal(eng.aktualniSlovo(m), 2);      // po „jsem učil“ následuje „se“
+  eng.tip(m, 3); eng.tip(m, 5);
+  assert.ok(m.hotovo);
+  assert.equal(eng.vysledekMostu(m), 'ciste');
+});
