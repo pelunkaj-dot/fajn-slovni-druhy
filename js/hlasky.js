@@ -30,7 +30,7 @@ export const HLASKY = {
     odhaleniMost: ['Zapamatuj si to! Jedeme dál.', 'Tohle si pamatuj. Pokračujeme!'],
     serieUspech: ['Hurá! Další kus území je náš!', '{Zvládl|Zvládla} jsi to jako profík!', 'Vítězství! Mapa se zase zvětšila.', 'Tak to bylo mistrovské!'],
     serieNeuspech: ['Tentokrát nic. Ale příště to vyhrajeme!', 'To nevadí. I mistři někdy prohrají. Jdeme znovu!', 'Příště to dáme, slibuju!'],
-    oslavaSveta: ['Svět je náš! Jsi hvězda!', 'Celý svět! Tohle by nikdo jiný {nezvládl|nezvládla}. Teda kromě mě.', 'Dokázali jsme to! Celý svět je dobytý!', 'Mistrovský kousek! A objevily se skryté oblasti. Jdeme je prozkoumat?'],
+    oslavaSveta: ['Svět je náš! Jsi hvězda!', 'Celý svět! Tohle se jen tak někomu nepovede. Teda kromě mě.', 'Dokázali jsme to! Celý svět je dobytý!', 'Mistrovský kousek! A objevily se skryté oblasti. Jdeme je prozkoumat?'],
   },
   'Terezka': {
     pozdravPrvni: ['Ahoj! Já jsem Terezka. Budeme spolu hledat slova. Moc se těším!'],
