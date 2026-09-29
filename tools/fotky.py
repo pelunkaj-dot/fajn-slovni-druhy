@@ -16,11 +16,11 @@ KOREN = Path(__file__).resolve().parent.parent
 FOTKY, OBRAZKY = KOREN / 'fotky', KOREN / 'obrazky'
 # svět: (x0, y0, x1) – výřez v poměru 2:1, výška se dopočítá; sytost, kontrast
 VYREZY = {
-    1: ((0.0, 0.0, 1.0), 1.10, 1.05),
-    2: ((0.0, 0.06, 1.0), 1.08, 1.05),
-    3: ((0.0, 0.325, 1.0), 1.05, 1.02),
-    4: ((0.0, 0.112, 1.0), 1.08, 1.06),
-    5: ((0.0, 0.245, 0.85), 1.10, 1.05),
+    1: ((0.0, 0.0, 1.0), 1.10, 1.05),     # louka s vrbovkou (Nízké Tatry)
+    2: ((0.0, 0.05, 1.0), 1.08, 1.06),    # vodopád v lese
+    3: ((0.0, 0.05, 1.0), 1.04, 1.04),    # mlžná louka se smrky
+    4: ((0.0, 0.42, 1.0), 1.06, 1.06),    # žulové štíty mezi zalesněnými svahy
+    5: ((0.1, 0.0, 0.9), 1.06, 1.08),     # pevnost na kopci (bez domů pod ní)
 }
 SIRKY = (800, 1600)
 
