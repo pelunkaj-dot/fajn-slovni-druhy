@@ -409,3 +409,38 @@ body { background:
 #app[data-svet] .obrana .arena { background: var(--zem); border: 0; box-shadow: var(--stin); }
 #app[data-svet] .obrana .cesta polyline { stroke: color-mix(in srgb, #f3e2bf 85%, transparent); }
 #app[data-svet="5"] .padani .slovo, #app[data-svet="5"] .obrana .na-ceste { box-shadow: 0 3px 0 rgba(0, 0, 0, .3); }
+
+/* Fotky krajin s animovanou vrstvou (js/krajiny.js) */
+.foto-krajina { position: relative; width: 100%; height: 100%; overflow: hidden; background: #cfd8d0; }
+.foto-krajina img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% var(--kotva, 50%); }
+.foto-vrstva { position: absolute; inset: 0; width: 100%; height: 100%; }
+.foto-vrstva .f-let { animation: f-let 26s linear infinite; }
+.foto-vrstva .f-pomalu { animation-duration: 42s; }
+@keyframes f-let { from { transform: translate(0, 0); } 50% { transform: translate(480px, -14px); } to { transform: translate(980px, 6px); } }
+.foto-vrstva .f-kridla { transform-box: fill-box; transform-origin: center; animation: f-mav .45s ease-in-out infinite alternate; }
+@keyframes f-mav { to { transform: scaleY(-.55); } }
+.foto-vrstva .f-motyl { animation: f-motyl 11s ease-in-out infinite alternate; }
+@keyframes f-motyl { 25% { transform: translate(30px, -18px); } 50% { transform: translate(-10px, -34px); } 75% { transform: translate(-40px, -10px); } to { transform: translate(20px, 8px); } }
+.foto-vrstva .f-mava { transform-box: fill-box; transform-origin: center; animation: f-mava .16s ease-in-out infinite alternate; }
+@keyframes f-mava { to { transform: scaleX(.25); } }
+.foto-vrstva .f-pyl { animation: f-pyl 4.5s ease-in-out infinite; }
+@keyframes f-pyl { 0%, 100% { opacity: 0; transform: translate(0, 0); } 50% { opacity: .9; transform: translate(6px, -12px); } }
+.foto-vrstva .f-mlha { animation: f-mlha 24s ease-in-out infinite alternate; }
+@keyframes f-mlha { to { transform: translateX(280px); } }
+.foto-vrstva .f-zare { animation: f-zare 5s ease-in-out infinite alternate; }
+@keyframes f-zare { from { opacity: .55; } to { opacity: 1; } }
+.foto-vrstva .f-orel { transform-origin: 400px 110px; animation: f-orel 20s linear infinite; }
+@keyframes f-orel { to { transform: rotate(360deg); } }
+.foto-vrstva .f-hvezda { animation: k-hvezda 2.4s ease-in-out infinite alternate; }
+.foto-vrstva .f-okno { animation: f-okno 3s ease-in-out infinite alternate; }
+@keyframes f-okno { 0% { opacity: .7; } 40% { opacity: 1; } 55% { opacity: .85; } 100% { opacity: 1; } }
+.foto-vrstva .f-vlajka { transform-box: fill-box; transform-origin: left center; animation: k-vlajka 1s ease-in-out infinite alternate; }
+.foto-vrstva .f-netopyr { animation: f-netopyr 7s ease-in-out infinite alternate; }
+.foto-vrstva .f-netopyr2 { animation-duration: 5.5s; animation-direction: alternate-reverse; }
+@keyframes f-netopyr { 20% { transform: translate(40px, -20px); } 45% { transform: translate(-30px, 15px); } 70% { transform: translate(60px, 10px); } to { transform: translate(-20px, -25px); } }
+.foto-vrstva .f-netopyr .f-kridla { animation-duration: .14s; }
+.svet .krajina::after { display: none; }
+.svet .krajina { height: 180px; }
+@media (max-width: 520px) { .svet .krajina { height: 150px; } }
+.krajina-pruh { height: 96px; }
+@media (prefers-reduced-motion: reduce) { .foto-vrstva * { animation: none !important; } }

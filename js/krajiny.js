@@ -131,4 +131,54 @@ ${[[190, 146], [196, 124]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="3.5" 
 <path d="M0 136 Q60 120 110 138 L110 160 H0Z" fill="url(#k5bliz)"/><path d="M300 140 Q350 122 400 130 V160 H300Z" fill="url(#k5bliz)"/>
 ${[[20, 140, 1.4], [50, 146, 1.1], [80, 150, 0.9], [330, 146, 1.2], [360, 140, 1.5], [388, 148, 1]].map(([x, y, s]) => smrk(x, y, s, ['#1b1428', '#261d38'])).join('')}`);
 
-export const KRAJINY = { 1: udoli, 2: les, 3: bazina, 4: hory, 5: hrad };
+const KRESBY = { 1: udoli, 2: les, 3: bazina, 4: hory, 5: hrad };
+
+// ---------- Fotky (Janovy) s animovanou vrstvou ----------
+// Fotka (obrazky/svetN-*.webp, poměr 2:1) a nad ní SVG vrstva ve stejných souřadnicích (800 × 400):
+// img object-fit: cover + object-position a SVG preserveAspectRatio se stejným svislým ukotvením,
+// takže efekty sedí na místech fotky (mlha nad polem, hrad na obzoru).
+const hejno = (x, y, s, pocet, zpozdeni, trida = 'f-let') => `<g class="${trida}" style="animation-delay:-${zpozdeni}s">${Array.from({ length: pocet }, (_, i) => {
+  const dx = x + [0, 14, 26, -12, 36][i] * s, dy = y + [0, 7, -5, 9, 4][i] * s;
+  return `<g transform="translate(${dx} ${dy}) scale(${s})"><path class="f-kridla" style="animation-delay:-${i * 0.13}s" d="M-6 0 Q-3 -4 0 0 Q3 -4 6 0" fill="none" stroke="#1d2226" stroke-width="1.5" stroke-linecap="round"/></g>`;
+}).join('')}</g>`;
+const motyl = (x, y, barva, zpozdeni) => `<g class="f-motyl" style="animation-delay:-${zpozdeni}s"><g transform="translate(${x} ${y})"><g class="f-mava"><ellipse cx="-3" cy="0" rx="3.2" ry="2.4" fill="${barva}"/><ellipse cx="3" cy="0" rx="3.2" ry="2.4" fill="${barva}"/></g><rect x="-.5" y="-2" width="1" height="4" fill="#2b2b2b"/></g></g>`;
+const mlha = (y, v, zpozdeni, a = 0.7) => `<rect class="f-mlha" style="animation-delay:-${zpozdeni}s" x="-200" y="${y}" width="700" height="${v}" fill="url(#fmlha)" filter="url(#frozmaz)" opacity="${a}"/>`;
+const jiskry = (body, trida) => body.map(([x, y, r], i) => `<circle class="${trida}" style="animation-delay:-${(i * 0.53) % 3}s" cx="${x}" cy="${y}" r="${r}" fill="#fff"/>`).join('');
+const svetlaVez = (x, y, sir, vys, strecha) => `<rect x="${x - sir / 2}" y="${y - vys}" width="${sir}" height="${vys}" fill="#07080d"/><path d="M${x - sir / 2 - 3} ${y - vys} L${x} ${y - vys - strecha} L${x + sir / 2 + 3} ${y - vys}Z" fill="#07080d"/><rect class="f-okno" x="${x - 2}" y="${y - vys + 10}" width="4" height="7" rx="2" fill="#ffc861"/>`;
+
+const DEFS = `<defs><linearGradient id="fmlha" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".9"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+<radialGradient id="fzare"><stop offset="0" stop-color="#fff6d0" stop-opacity=".9"/><stop offset=".3" stop-color="#ffe7a0" stop-opacity=".35"/><stop offset="1" stop-color="#ffe7a0" stop-opacity="0"/></radialGradient>
+<filter id="frozmaz" x="-20%" y="-100%" width="140%" height="300%"><feGaussianBlur stdDeviation="6"/></filter><filter id="fzar" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="2.5"/></filter></defs>`;
+
+// kotva: svislé ukotvení fotky i vrstvy (0 = nahoře, 50 = střed, 100 = dole)
+const FOTKY = {
+  1: { kotva: 50, vrstva: `${hejno(-60, 60, 1.8, 5, 0)}${hejno(-60, 36, 1.3, 3, 11)}
+      ${motyl(430, 300, '#f7f1a8', 0)}${motyl(610, 280, '#fff', 3)}${motyl(250, 320, '#ffd9f2', 6)}
+      ${jiskry([[520, 250, 1.2], [600, 230, 1], [680, 260, 1.3], [470, 270, 1], [720, 240, 1.1]], 'f-pyl')}` },
+  2: { kotva: 50, vrstva: `<circle class="f-zare" cx="560" cy="20" r="160" fill="url(#fzare)"/>${hejno(-60, 70, 1.6, 4, 5)}
+      ${motyl(560, 250, '#fff', 1)}${motyl(420, 290, '#f7f1a8', 4)}
+      ${jiskry([[600, 200, 1.2], [650, 170, 1], [520, 220, 1.1], [700, 210, 1.3]], 'f-pyl')}` },
+  3: { kotva: 50, vrstva: `<circle class="f-zare" cx="395" cy="213" r="46" fill="url(#fzare)"/>
+      ${mlha(245, 26, 0, 0.8)}${mlha(262, 22, 9, 0.6)}${mlha(300, 30, 4, 0.55)}${mlha(195, 18, 13, 0.45)}
+      ${hejno(-80, 110, 1.5, 5, 2, 'f-let f-pomalu')}` },
+  4: { kotva: 100, vrstva: `<g class="f-orel"><g transform="translate(470 80) scale(1.8)"><path class="f-kridla" d="M-8 0 Q-4 -5 0 0 Q4 -5 8 0" fill="none" stroke="#1d2226" stroke-width="1.4" stroke-linecap="round"/></g></g>
+      ${mlha(150, 14, 3, 0.5)}${mlha(170, 10, 11, 0.35)}${hejno(-60, 120, 1.3, 3, 7)}` },
+  5: { kotva: 50, vrstva: `${jiskry([[40, 20, 1], [120, 60, 1.3], [210, 30, 1], [300, 80, 1.1], [360, 20, 1.4], [620, 40, 1], [700, 90, 1.2], [760, 30, 1], [80, 120, 0.9], [680, 150, 1], [250, 140, 0.9]], 'f-hvezda')}
+      <path d="M0 268 Q180 262 300 246 Q400 230 500 246 Q640 262 800 266 V400 H0Z" fill="#07080d"/>
+      <g><rect x="340" y="206" width="120" height="36" fill="#07080d"/><path d="M340 206 ${Array.from({ length: 15 }, () => 'h4 v-5 h4 v5').join(' ')}" fill="#07080d"/>
+      ${svetlaVez(340, 242, 20, 64, 22)}${svetlaVez(460, 242, 20, 56, 20)}${svetlaVez(400, 222, 26, 70, 28)}
+      <rect class="f-okno" x="366" y="218" width="4" height="6" rx="2" fill="#ffc861"/><rect class="f-okno" x="430" y="218" width="4" height="6" rx="2" fill="#ffc861" style="animation-delay:-1.4s"/>
+      <g filter="url(#fzar)" opacity=".7"><circle cx="400" cy="174" r="5" fill="#ffc861"/><circle cx="340" cy="190" r="4" fill="#ffc861"/><circle cx="460" cy="198" r="4" fill="#ffc861"/></g>
+      <path d="M400 124 v-18" stroke="#07080d" stroke-width="1.6"/><path class="f-vlajka" d="M400 106 l16 4 l-16 4Z" fill="#ffc861"/></g>
+      <g class="f-netopyr"><path transform="translate(300 150)" class="f-kridla" d="M-7 0 Q-4 -4 -2 -1 L0 1 L2 -1 Q4 -4 7 0 Q3 1 0 3 Q-3 1 -7 0Z" fill="#07080d"/></g>
+      <g class="f-netopyr f-netopyr2"><path transform="translate(520 130)" class="f-kridla" d="M-6 0 Q-3 -3 -1.5 -1 L0 1 L1.5 -1 Q3 -3 6 0 Q2.5 1 0 2.5 Q-2.5 1 -6 0Z" fill="#07080d"/></g>` },
+};
+const ZAROVNANI = { 0: 'YMin', 50: 'YMid', 100: 'YMax' };
+const foto = n => {
+  const f = FOTKY[n];
+  return `<div class="foto-krajina" style="--kotva:${f.kotva}%">
+<img src="obrazky/svet${n}-800.webp" srcset="obrazky/svet${n}-800.webp 800w, obrazky/svet${n}-1600.webp 1600w" sizes="(max-width: 700px) 100vw, 640px" alt="" loading="lazy" decoding="async">
+<svg class="foto-vrstva" viewBox="0 0 800 400" preserveAspectRatio="xMid${ZAROVNANI[f.kotva]} slice" aria-hidden="true">${(DEFS + f.vrstva).replace(/#?\bf(mlha|zare|rozmaz|zar)\b/g, (m, id) => (m[0] === '#' ? '#' : '') + `f${n}${id}`)}</svg></div>`;
+};
+
+export const KRAJINY = Object.fromEntries(Object.entries(KRESBY).map(([n, kresba]) => [n, FOTKY[n] ? foto(n) : kresba]));
