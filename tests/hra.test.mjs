@@ -150,3 +150,46 @@ test('složený tvar: na mostě se určuje jednou', () => {
   assert.ok(m.hotovo);
   assert.equal(eng.vysledekMostu(m), 'ciste');
 });
+
+// ---------- Svět 5: poddruhy ----------
+const veta5 = { id: 's5-x', slova: [{ t: 'Můj', d: 3, p: 'privlastnovaci' }, { t: 'pes', d: 1 }, { t: 'mě', d: 3, p: 'osobni' }, { t: 'zná', d: 5 }] };
+const AKT_VSE = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+test('lov poddruhu: cílem jsou jen slova daného poddruhu', () => {
+  const st = eng.novaVeta(veta5, 3, AKT_VSE, 'osobni');
+  assert.equal(eng.zbyva(st), 1);
+  assert.deepEqual(eng.klik(st, 0), { typ: 'chyba', krok: 1 });
+  assert.equal(eng.klik(st, 2).typ, 'zasah');
+  assert.ok(st.hotovo);
+  assert.equal(srs.vyberPoddruh(veta5, 1), '');
+  assert.equal(srs.vyberPoddruh(veta5, 3, () => 0), 'privlastnovaci');
+});
+
+test('most s poddruhem: dva kroky, postup při chybě pro každý zvlášť', () => {
+  const m = eng.novyMost(veta5, AKT_VSE);
+  assert.equal(eng.tipPoddruhu(m, 'privlastnovaci').typ, 'nic');
+  assert.deepEqual(eng.tip(m, 1), { typ: 'chyba', krok: 1 });
+  assert.deepEqual(eng.tip(m, 3), { typ: 'druh', krok: 0 });
+  assert.equal(m.krok, 0);
+  assert.equal(eng.tip(m, 3).typ, 'nic');
+  assert.deepEqual(eng.tipPoddruhu(m, 'osobni'), { typ: 'chyba', krok: 1 });
+  assert.deepEqual(eng.tipPoddruhu(m, 'privlastnovaci'), { typ: 'zasah', krok: 0 });
+  assert.equal(m.krok, 1);
+  assert.equal(eng.tip(m, 1).typ, 'zasah');
+  eng.tip(m, 3);
+  eng.tipPoddruhu(m, 'zvratne'); eng.tipPoddruhu(m, 'zvratne');
+  assert.deepEqual(eng.tipPoddruhu(m, 'zvratne'), { typ: 'chyba', krok: 3 });
+  assert.deepEqual(m.odhalene, [2]);
+  assert.equal(m.faze, 'druh');
+  assert.equal(eng.vysledekMostu(m), 'odhaleno');
+});
+
+test('názvy poddruhů se shodují s druhem', async () => {
+  const { nazevDruhu, mnozneDruhu, PODDRUHY } = await import('../js/druhy.js');
+  assert.equal(nazevDruhu(3, 'zvratne'), 'zvratné zájmeno');
+  assert.equal(mnozneDruhu(4, 'radova'), 'řadové číslovky');
+  assert.equal(mnozneDruhu(2, 'tvrde'), 'tvrdá přídavná jména');
+  assert.equal(nazevDruhu(5, ''), 'sloveso');
+  const zdroj = { 2: ['tvrde', 'mekke', 'privlastnovaci'], 3: ['osobni', 'zvratne', 'privlastnovaci', 'ukazovaci', 'tazaci', 'vztazne', 'neurcite', 'zaporne'], 4: ['zakladni', 'radova', 'druhova', 'nasobna'] };
+  for (const d of [2, 3, 4]) assert.deepEqual(Object.keys(PODDRUHY[d]), zdroj[d]);
+});

@@ -90,7 +90,7 @@
 0077| Terezka/1 má/5 jednu/4:zakladni sestru/1 .
 0078| Sto/4:zakladni dětí/1 zpívá/5 ve/7 sboru/1 .
 0079| Tři/4:zakladni kluci/1 běží/5 závod/1 .
-0080| Náš/3:privlastnovaci starý/2:tvrde pes/1 má/5 dvě/4:zakladni štěňata/1 .
+0080| Naše/3:privlastnovaci stará/2:tvrde fena/1 má/5 dvě/4:zakladni štěňata/1 .
 # --- číslovky řadové ---
 0081| Terezka/1 je/5 první/4:radova ve/7 třídě/1 .
 0082| Matýsek/1 chodí/5 do/7 třetí/4:radova třídy/1 .
@@ -100,7 +100,7 @@
 0086| Matýskova/2:privlastnovaci první/4:radova jednička/1 byla/5 z/7 matematiky/1 .
 # --- číslovky druhové ---
 0087| Mám/5 dvoje/4:druhova boty/1 .
-0088| Ve/7 škole/1 jsou/5 troje/4:druhova dveře/1 .
+0088| Na/7 poličce/1 leží/5 dvoje/4:druhova nůžky/1 .
 0089| Ten/3:ukazovaci úkol/1 má/5 dvojí/4:druhova řešení/1 .
 0090| Babička/1 upekla/5 dvojí/4:druhova koláče/1 .
 0091| Koupili/5+ jsme/5+ patery/4:druhova rukavice/1 .

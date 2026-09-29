@@ -21,10 +21,11 @@ export function clenove(veta, i) {
   return g ? veta.slova.flatMap((s, j) => (s.g === g ? [j] : [])) : [i];
 }
 
-export function novaVeta(veta, cil, aktivni) {
+// `poddruh` (svět 5): lovit jen slova daného poddruhu, např. přivlastňovací zájmena.
+export function novaVeta(veta, cil, aktivni, poddruh = '') {
   const cile = new Set();
-  veta.slova.forEach((s, i) => { if (s.d === cil) cile.add(reprezentant(veta, i)); });
-  return { veta, cil, aktivni, cile, nalezene: new Set(), spatne: [], chyby: 0, hotovo: false, odhaleno: false };
+  veta.slova.forEach((s, i) => { if (s.d === cil && (!poddruh || s.p === poddruh)) cile.add(reprezentant(veta, i)); });
+  return { veta, cil, poddruh, aktivni, cile, nalezene: new Set(), spatne: [], chyby: 0, hotovo: false, odhaleno: false };
 }
 
 // Vrátí { typ, krok } – typ: 'zasah' | 'chyba' | 'nic'; krok: 0 nic, 1 zkus znovu, 2 nabídni nápovědu, 3 odhal
@@ -80,19 +81,37 @@ export function serieUspesna(vysledky) {
 export function novyMost(veta, aktivni) {
   const poradi = [];
   veta.slova.forEach((s, i) => { const r = reprezentant(veta, i); if (aktivni.includes(s.d) && !poradi.includes(r)) poradi.push(r); });
-  return { veta, aktivni, poradi, krok: 0, chybyTed: 0, chyby: 0, odhalene: [], spatne: [], hotovo: poradi.length === 0 };
+  return { veta, aktivni, poradi, krok: 0, faze: 'druh', chybyTed: 0, chyby: 0, odhalene: [], spatne: [], hotovo: poradi.length === 0 };
 }
 
 export const aktualniSlovo = m => m.poradi[m.krok];
 
-// Vrátí { typ: 'zasah' | 'chyba' | 'nic', krok (u chyby 1–3) }. Po zásahu i po odhalení se jde na další slovo.
+// Vrátí { typ: 'zasah' | 'druh' | 'chyba' | 'nic', krok (u chyby 1–3) }. Po zásahu i po odhalení se jde na další slovo.
+// Slovo s poddruhem (svět 5) se určuje ve dvou krocích: nejdřív druh (typ 'druh'), pak poddruh (tipPoddruhu).
+// Postup při chybě platí pro každý krok zvlášť.
 export function tip(m, druh) {
-  if (m.hotovo) return { typ: 'nic', krok: 0 };
+  if (m.hotovo || m.faze !== 'druh') return { typ: 'nic', krok: 0 };
   const i = aktualniSlovo(m);
-  if (m.veta.slova[i].d === druh) {
+  const s = m.veta.slova[i];
+  if (s.d === druh) {
+    if (s.p) { m.faze = 'poddruh'; m.chybyTed = 0; return { typ: 'druh', krok: 0 }; }
     posun(m);
     return { typ: 'zasah', krok: 0 };
   }
+  return chybaMostu(m, i);
+}
+
+export function tipPoddruhu(m, poddruh) {
+  if (m.hotovo || m.faze !== 'poddruh') return { typ: 'nic', krok: 0 };
+  const i = aktualniSlovo(m);
+  if (m.veta.slova[i].p === poddruh) {
+    posun(m);
+    return { typ: 'zasah', krok: 0 };
+  }
+  return chybaMostu(m, i);
+}
+
+function chybaMostu(m, i) {
   m.chyby += 1;
   m.chybyTed += 1;
   if (!m.spatne.includes(i)) m.spatne.push(i);
@@ -103,6 +122,7 @@ export function tip(m, druh) {
 
 function posun(m) {
   m.krok += 1;
+  m.faze = 'druh';
   m.chybyTed = 0;
   if (m.krok >= m.poradi.length) m.hotovo = true;
 }
