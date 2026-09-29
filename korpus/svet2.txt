@@ -108,3 +108,104 @@
 0106| Ne/9 , to/3 nechci/5 .
 0107| Ano/9 , úkol/1 mám/5 hotový/2 .
 0108| Prý/9 zítra/6 přijede/5 cirkus/1 .
+# --- várka 2 ---
+0109| Já/3 mám/5 dva/4 bratry/1 .
+0110| Haf/10 , štěká/5 pes/1 na/7 pošťáka/1 .
+0111| Zítra/6 má/5 Terezka/1 narozeniny/1 .
+0112| Prý/9 zítra/6 přijede/5 teta/1 .
+0113| Kéž/9 vyhrajeme/5 zápas/1 !
+0114| Au/10 , bolí/5 mě/3 zub/1 .
+0115| Hurá/10 , přijela/5 babička/1 !
+0116| Fuj/10 , polévka/1 je/5 studená/2 .
+0117| Naše/3 fena/1 má/5 pět/4 štěňat/1 .
+0118| Terezka/1 čte/5 první/4 kapitolu/1 .
+0119| Matýsek/1 běží/5 rychle/6 domů/6 .
+0120| Ve/7 třídě/1 je/5 dvacet/4 žáků/1 .
+0121| Nikdo/3 nepřišel/5 pozdě/6 .
+0122| Ve/7 tmě/1 nic/3 nevidím/5 .
+0123| Ten/3 obrázek/1 je/5 krásný/2 .
+0124| Moje/3 sestra/1 hraje/5 na/7 klavír/1 .
+0125| Oni/3 jdou/5 do/7 kina/1 .
+0126| My/3 bydlíme/5 v/7 Brně/1 .
+0127| Babička/1 upekla/5 deset/4 koláčů/1 .
+0128| Třetí/4 lavice/1 je/5 volná/2 .
+0129| Venku/6 prší/5 a/8 fouká/5 .
+0130| Chci/5 psa/1 , ale/8 maminka/1 nechce/5 .
+0131| Ano/9 , pomůžu/5 ti/3 .
+0132| Ne/9 , dnes/6 nemám/5 čas/1 .
+0133| Bum/10 , spadla/5 váza/1 .
+0134| Vlak/1 přijel/5 pozdě/6 .
+0135| Nahoře/6 bydlí/5 soused/1 .
+0136| Několik/4 ptáků/1 sedí/5 na/7 drátě/1 .
+0137| Dva/4 kluci/1 hrají/5 šachy/1 .
+0138| Máme/5 doma/6 čtyři/4 kočky/1 .
+0139| Mnoho/4 dětí/1 jezdí/5 na/7 kole/1 .
+0140| Každý/3 den/1 cvičím/5 .
+0141| Všichni/3 žáci/1 píší/5 test/1 .
+0142| Kuku/10 , volá/5 kukačka/1 .
+0143| Mé/3 kolo/1 stojí/5 před/7 domem/1 .
+0144| Ona/3 zpívá/5 krásně/6 .
+0145| Vy/3 máte/5 nové/2 auto/1 ?
+0146| Terezka/1 dostala/5 pět/4 jedniček/1 .
+0147| Druhý/4 den/1 pršelo/5 .
+0148| Dnes/6 jdeme/5 do/7 divadla/1 .
+0149| Tam/6 roste/5 vysoký/2 dub/1 .
+0150| Pes/1 leží/5 pod/7 stolem/1 .
+0151| Za/7 domem/1 je/5 zahrada/1 .
+0152| Bác/10 , strom/1 spadl/5 .
+0153| Brr/10 , venku/6 mrzne/5 .
+0154| Ahoj/10 , kamarádi/1 !
+0155| Tvoje/3 taška/1 je/5 těžká/2 .
+0156| Jejich/3 dům/1 má/5 zelenou/2 střechu/1 .
+0157| Šest/4 hus/1 plave/5 v/7 rybníce/1 .
+0158| Kniha/1 stojí/5 sto/4 korun/1 .
+0159| Matýsek/1 skáče/5 vysoko/6 .
+0160| Zítra/6 pojedu/5 vlakem/1 .
+0161| Letadlo/1 letí/5 nad/7 mraky/1 .
+0162| Terezka/1 a/8 Matýsek/1 jsou/5 sourozenci/1 .
+0163| Pojď/5 sem/6 !
+0164| Kočka/1 spí/5 na/7 gauči/1 nebo/8 v/7 košíku/1 .
+0165| Ten/3 pes/1 je/5 náš/3 .
+0166| Prý/9 je/5 v/7 lese/1 medvěd/1 .
+0167| Hurá/10 , sněží/5 !
+0168| Pozítří/6 jedeme/5 k/7 moři/1 .
+0169| Dole/6 stojí/5 auto/1 .
+0170| V/7 košíku/1 leží/5 deset/4 vajec/1 .
+0171| Zvonek/1 zazvonil/5 dvakrát/4 .
+0172| Jeho/3 kamarád/1 hraje/5 hokej/1 .
+0173| Kdo/3 zvoní/5 ?
+0174| Co/3 kreslíš/5 ?
+0175| Kde/6 je/5 tvůj/3 batoh/1 ?
+0176| Proč/6 spěcháš/5 ?
+0177| Kdy/6 začíná/5 film/1 ?
+0178| Čí/3 je/5 ta/3 čepice/1 ?
+0179| Jéje/10 , Matýsek/1 rozbil/5 hrnek/1 .
+0180| Nikde/6 nevidím/5 klíče/1 .
+0181| Sestra/1 nikdy/6 nelže/5 .
+0182| Terezka/1 má/5 nejlepší/2 známky/1 .
+0183| Matýsek/1 je/5 silný/2 a/8 odvážný/2 .
+0184| Ťuk/10 , ťuk/10 , klepe/5 datel/1 .
+0185| U/7 cesty/1 stojí/5 socha/1 .
+0186| Bez/7 klíče/1 neodemkneš/5 .
+0187| Pro/7 dědečka/1 pečeme/5 dort/1 .
+0188| Terezka/1 šla/5 k/7 lékaři/1 .
+0189| Pátá/4 třída/1 jede/5 na/7 výlet/1 .
+0190| Matýsek/1 snědl/5 dva/4 rohlíky/1 .
+0191| Letos/6 je/5 teplá/2 zima/1 .
+0192| Pomalu/6 jdeme/5 do/7 kopce/1 .
+0193| Pst/10 , tatínek/1 telefonuje/5 !
+0194| Na/7 stole/1 leží/5 můj/3 sešit/1 .
+0195| Ten/3 kopec/1 je/5 strmý/2 .
+0196| Terezka/1 přinesla/5 osm/4 tulipánů/1 .
+0197| Nebe/1 je/5 modré/2 a/8 jasné/2 .
+0198| Hned/6 přijdu/5 !
+0199| Oni/3 hrají/5 fotbal/1 každý/3 týden/1 .
+0200| Někdo/3 klepe/5 na/7 dveře/1 .
+0201| Něco/3 šustí/5 v/7 trávě/1 .
+0202| Ano/9 , je/5 to/3 pravda/1 .
+0203| Kéž/9 zítra/6 svítí/5 slunce/1 !
+0204| Matýsek/1 hodil/5 míč/1 daleko/6 .
+0205| Tady/6 je/5 můj/3 pokoj/1 .
+0206| V/7 krabici/1 spí/5 pět/4 koťat/1 .
+0207| Dnes/6 je/5 venku/6 hezky/6 .
+0208| Osm/4 kluků/1 hraje/5 fotbal/1 .

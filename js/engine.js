@@ -72,8 +72,8 @@ export function uspesnost(vysledky) {
   return body / vysledky.length;
 }
 
-export function serieUspesna(vysledky) {
-  return vysledky.length === DELKA_SERIE && uspesnost(vysledky) >= PRAH_USPECHU;
+export function serieUspesna(vysledky, delka = DELKA_SERIE) {
+  return vysledky.length === delka && uspesnost(vysledky) >= PRAH_USPECHU;
 }
 
 // ---------- Stavba mostu: urči druh každého slova ve větě, zleva doprava ----------
@@ -140,4 +140,50 @@ export function bodyZaMost(m, sekund, limit) {
 
 export function limitMostu(m) {
   return 4 + 3 * m.poradi.length;
+}
+
+// ---------- Padající slova: slovo padá, hráč ho chytí do koše správného druhu ----------
+
+export const DELKA_PADANI = 16;     // slov v jedné sérii
+
+export function novePadani(slova) {
+  return { slova, i: 0, chybyTed: 0, vysledky: [], hotovo: slova.length === 0 };
+}
+
+export const padajici = p => p.slova[p.i];
+
+// Vrátí { typ: 'zasah' | 'chyba' | 'nic', krok (u chyby 1–3) }. Po třetí chybě se slovo odhalí.
+export function tipPadani(p, druh) {
+  if (p.hotovo) return { typ: 'nic', krok: 0 };
+  if (padajici(p).d === druh) {
+    dalsiSlovo(p, p.chybyTed ? 'chyba' : 'ciste');
+    return { typ: 'zasah', krok: 0 };
+  }
+  p.chybyTed += 1;
+  const krok = Math.min(p.chybyTed, 3);
+  if (krok === 3) dalsiSlovo(p, 'odhaleno');
+  return { typ: 'chyba', krok };
+}
+
+// Slovo dopadlo na zem, aniž ho hráč chytil – odpověď se ukáže.
+export function dopad(p) {
+  if (!p.hotovo) dalsiSlovo(p, 'odhaleno');
+}
+
+function dalsiSlovo(p, vysledek) {
+  p.vysledky.push(vysledek);
+  p.i += 1;
+  p.chybyTed = 0;
+  if (p.i >= p.slova.length) p.hotovo = true;
+}
+
+// zbyva = kolik dráhy slovu zbývalo (0–1); rychlé chycení bez chyby dá víc bodů
+export function bodyZaSlovo(vysledek, zbyva) {
+  if (vysledek === 'ciste') return 5 + Math.round(5 * Math.max(0, Math.min(1, zbyva)));
+  return vysledek === 'chyba' ? 2 : 0;
+}
+
+// Doba pádu v sekundách: slova se během série zrychlují.
+export function dobaPadu(i, n) {
+  return 9 - 4.5 * (n > 1 ? i / (n - 1) : 0);
 }

@@ -115,3 +115,117 @@
 0097| Řekni/5 mi/3 , proč/6 jsi/5+ přišel/5+ pozdě/6 .
 0098| Vysvětli/5 mi/3 , proč/6 je/5 nebe/1 modré/2 .
 0099| Vím/5 , proč/6 se/3 zlobíš/5 .
+# --- várka 2: a, ale, nebo ---
+0100| Venku/6 fouká/5 , ale/8 my/3 máme/5 bundy/1 .
+0101| Terezka/1 kreslí/5 a/8 Matýsek/1 čte/5 .
+0102| Pojedeme/5 autem/1 , nebo/8 vlakem/1 ?
+0103| Byla/5 zima/1 , ale/8 slunce/1 svítilo/5 .
+0104| Maminka/1 vaří/5 a/8 tatínek/1 myje/5 nádobí/1 .
+0105| Chtěl/5+ jsem/5+ jít/5 ven/6 , ale/8 musel/5+2 jsem/5+2 psát/5 úkol/1 .
+0106| Terezka/1 zpívá/5 a/8 Matýsek/1 hraje/5 na/7 kytaru/1 .
+0107| Rád/2 bych/5+ šel/5+ ven/6 , ale/8 je/5 tma/1 .
+# --- várka 2: že ---
+0108| Vím/5 , že/8 máš/5 pravdu/1 .
+0109| Matýsek/1 volal/5 , že/8 přijde/5 později/6 .
+0110| Myslím/5 , že/8 bude/5+ pršet/5+ .
+0111| Doufám/5 , že/8 vyhrajeme/5 .
+0112| Matýsek/1 tvrdí/5 , že/8 viděl/5 medvěda/1 .
+0113| Slyšel/5+ jsem/5+ , že/8 zítra/6 nejdeme/5 do/7 školy/1 .
+0114| Babička/1 říkala/5 , že/8 upeče/5 koláč/1 .
+0115| Myslíš/5 , že/8 nás/3 pustí/5 ven/6 ?
+0116| Maminka/1 slíbila/5 , že/8 půjdeme/5 do/7 zoo/1 .
+# --- várka 2: protože ---
+0117| Zůstal/5+ jsem/5+ doma/6 , protože/8 jsem/5+2 byl/5+2 nemocný/2 .
+0118| Pes/1 štěká/5 , protože/8 má/5 hlad/1 .
+0119| Terezka/1 se/3 raduje/5 , protože/8 dostala/5 jedničku/1 .
+0120| Nešli/5+ jsme/5+ ven/6 , protože/8 pršelo/5 .
+0121| Pes/1 utekl/5 , protože/8 se/3 lekl/5 bouřky/1 .
+0122| Nemohl/5+ jsem/5+ spát/5 , protože/8 venku/6 houkala/5 sova/1 .
+# --- várka 2: když ---
+0123| Když/8 svítí/5 slunce/1 , jezdíme/5 k/7 vodě/1 .
+0124| Když/8 jsem/5+ přišel/5+ domů/6 , večeře/1 byla/5 hotová/2 .
+0125| Pes/1 vrtí/5 ocasem/1 , když/8 vidí/5 páníčka/1 .
+0126| Když/8 bude/5+ sněžit/5+ , postavíme/5 sněhuláka/1 .
+0127| Když/8 jsem/5+ byl/5+ malý/2 , bydleli/5+2 jsme/5+2 na/7 vesnici/1 .
+0128| Když/8 se/3 zasměješ/5 , je/5 ti/3 lépe/6 .
+# --- várka 2: aby ---
+0129| Tatínek/1 mi/3 pomohl/5 , abych/8 to/3 stihl/5 .
+0130| Učím/5 se/3 , abych/8 dostal/5 dobrou/2 známku/1 .
+0131| Zavři/5 okno/1 , aby/8 nebyla/5 zima/1 .
+0132| Maminka/1 chce/5 , abychom/8 byli/5 potichu/6 .
+0133| Učitelka/1 chce/5 , abychom/8 psali/5 úhledně/6 .
+0134| Pospíchali/5+ jsme/5+ , abychom/8 stihli/5 vlak/1 .
+# --- várka 2: kdyby ---
+0135| Kdybych/8 měl/5 čas/1 , šel/5+ bych/5+ ven/6 .
+0136| Kdyby/8 nepršelo/5 , jeli/5+ bychom/5+ na/7 výlet/1 .
+0137| Kdybys/8 potřeboval/5 , zavolej/5 mi/3 .
+0138| Kdyby/8 byl/5 Matýsek/1 doma/6 , hráli/5+ bychom/5+ šachy/1 .
+# --- várka 2: než, jako ---
+0139| Tatínek/1 je/5 silnější/2 než/8 strýc/1 .
+0140| Terezka/1 běhá/5 rychleji/6 než/8 já/3 .
+0141| Vlasy/1 má/5 černé/2 jako/8 uhel/1 .
+0142| Je/5 silný/2 jako/8 medvěd/1 .
+0143| Než/8 půjdeš/5 spát/5 , vyčisti/5 si/3 zuby/1 .
+0144| Umyj/5 si/3 ruce/1 , než/8 začneš/5 jíst/5 .
+0145| Moje/3 sestra/1 je/5 starší/2 než/8 já/3 .
+0146| Matýsek/1 skáče/5 jako/8 klokan/1 .
+0147| Počkej/5 , než/8 se/3 vrátím/5 .
+# --- várka 2: jestli, zda, pokud ---
+0148| Nevím/5 , jestli/8 to/3 zvládnu/5 .
+0149| Zeptej/5 se/3 tatínka/1 , jestli/8 pojedeme/5 na/7 chatu/1 .
+0150| Pokud/8 budeš/5 hodný/2 , dostaneš/5 dárek/1 .
+0151| Učitelka/1 se/3 ptá/5 , zda/8 máme/5 úkoly/1 .
+0152| Pokud/8 chceš/5 , pojď/5 s/7 námi/3 .
+0153| Jestli/8 chceš/5 , můžeš/5 jít/5 s/7 námi/3 .
+0154| Dám/5 ti/3 bonbon/1 , pokud/8 uklidíš/5 hračky/1 .
+# --- várka 2: jakmile, zatímco ---
+0155| Jakmile/8 zazvoní/5 zvonek/1 , běžíme/5 ven/6 .
+0156| Zatímco/8 maminka/1 vařila/5 , tatínek/1 prostřel/5 stůl/1 .
+0157| Jakmile/8 přijdeš/5 domů/6 , zavolej/5 mi/3 .
+0158| Zatímco/8 jsme/5+ spali/5+ , napadl/5 sníh/1 .
+0159| Jakmile/8 se/3 setmí/5 , rozsvítíme/5 lampu/1 .
+0160| Zatímco/8 Terezka/1 četla/5 , Matýsek/1 spal/5 .
+0161| Zatímco/8 pršelo/5 , hráli/5+ jsme/5+ hry/1 .
+# --- várka 2: ať ---
+0162| Řekni/5 Matýskovi/1 , ať/8 přijde/5 na/7 oběd/1 .
+0163| Maminka/1 volá/5 , ať/8 jdeme/5 domů/6 .
+0164| Ať/9 žije/5 král/1 !
+0165| Ať/9 se/3 ti/3 daří/5 !
+0166| Babička/1 prosí/5 , ať/8 ji/3 navštívíme/5 .
+0167| Tatínek/1 řekl/5 , ať/8 si/3 uklidíme/5 pokoj/1 .
+0168| Kdo/3 chce/5 zmrzlinu/1 , ať/8 zvedne/5 ruku/1 .
+# --- várka 2: prý ---
+0169| Zítra/6 prý/9 bude/5+ pršet/5+ .
+0170| Terezka/1 prý/9 vyhrála/5 závod/1 .
+0171| Prý/9 jsi/5+ vyhrál/5+ soutěž/1 .
+# --- várka 2: co, kdo ---
+0172| Nevím/5 , co/3 mám/5 dělat/5 .
+0173| Víš/5 , kdo/3 to/3 udělal/5 ?
+0174| Řekni/5 mi/3 , co/3 chceš/5 k/7 narozeninám/1 .
+0175| Kdo/3 dřív/6 přijde/5 , ten/3 dřív/6 mele/5 .
+0176| Ukaž/5 mi/3 , co/3 máš/5 v/7 tašce/1 .
+0177| Nevím/5 , kdo/3 zvoní/5 .
+0178| Vím/5 , kdo/3 snědl/5 poslední/2 koláč/1 .
+0179| Tatínek/1 se/3 zeptal/5 , kdo/3 rozbil/5 okno/1 .
+# --- várka 2: který ---
+0180| To/3 je/5 kluk/1 , který/3 umí/5 žonglovat/5 .
+0181| Film/1 , který/3 jsme/5+ viděli/5+ , byl/5 dlouhý/2 .
+0182| Kamarádka/1 , které/3 jsem/5+ psal/5+ , mi/3 odpověděla/5 .
+0183| Vidíš/5 ten/3 dům/1 , ve/7 kterém/3 bydlí/5 babička/1 ?
+0184| Dort/1 , který/3 upekla/5 maminka/1 , byl/5 výborný/2 .
+0185| To/3 je/5 ta/3 píseň/1 , kterou/3 mám/5 rád/2 .
+0186| Byl/5 to/3 den/1 , na/7 který/3 nikdy/6 nezapomenu/5 .
+0187| Kočka/1 , kterou/3 krmíme/5 , je/5 zrzavá/2 .
+# --- várka 2: kde, kdy, jak, proč, kam ---
+0188| Nevím/5 , kde/6 jsem/5+ nechal/5+ klíče/1 .
+0189| Řekni/5 mi/3 , kdy/6 přijdeš/5 .
+0190| Ukážu/5 ti/3 , jak/6 se/3 to/3 dělá/5 .
+0191| Nechápu/5 , proč/6 se/3 zlobíš/5 .
+0192| Víš/5 , kde/6 bydlí/5 Terezka/1 ?
+0193| Zeptám/5 se/3 , kdy/6 jede/5 vlak/1 .
+0194| Nevím/5 , jak/6 dlouho/6 budeme/5+ čekat/5+ .
+0195| Kde/6 je/5 babička/1 , tam/6 je/5 dobře/6 .
+0196| Matýsek/1 se/3 ptal/5 , proč/6 je/5 nebe/1 modré/2 .
+0197| Neviděl/5+ jsem/5+ , kam/6 míček/1 spadl/5 .
+0198| Nevěděli/5+ jsme/5+ , kde/6 je/5 východ/1 .
+0199| Ať/9 tě/3 to/3 nemrzí/5 .

@@ -72,3 +72,17 @@ export function vyberPoddruh(veta, cil, nahoda = Math.random) {
   const p = [...new Set(veta.slova.filter(s => s.d === cil && s.p).map(s => s.p))];
   return p.length ? p[Math.floor(nahoda() * p.length)] : '';
 }
+
+// Padající slova: vybere n slov ({t, d}) – přednost mají slova na řadě, pořadí se zamíchá.
+export function vyberSlova(stav, slova, n, nahoda = Math.random, ted = Date.now()) {
+  const vybrana = slova
+    .map(s => ({ s, k: naleha(stav, klic(s), ted) + nahoda() * 1.5 }))
+    .sort((a, b) => b.k - a.k)
+    .slice(0, n)
+    .map(x => x.s);
+  for (let i = vybrana.length - 1; i > 0; i--) {
+    const j = Math.floor(nahoda() * (i + 1));
+    [vybrana[i], vybrana[j]] = [vybrana[j], vybrana[i]];
+  }
+  return vybrana;
+}

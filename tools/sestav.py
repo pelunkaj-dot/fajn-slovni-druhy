@@ -15,6 +15,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from korpus import KORPUS, KOREN, cislo_sveta, dopln_cisla, id_vety, nacti  # noqa: E402
 from predlozky import posud as posud_predlozku  # noqa: E402
+from slova import nacti_slova  # noqa: E402
 
 DATA = KOREN / 'data'
 LEMMATA = KORPUS / 'lemmata.tsv'
@@ -23,6 +24,8 @@ MIN_VET = 8  # svět je hratelný, jen když má aspoň jednu sérii vět
 AKTIVNI = {1: [1, 2, 5], 2: list(range(1, 11)), 3: list(range(1, 11)),
            4: list(range(1, 11)), 5: list(range(1, 11))}
 UKAZKA = 20  # vět z každého světa pro verzi bez ?mode=full
+SVETY_SLOV = (1, 2)  # Padající slova: jen světy s jednoznačnými slovy
+UKAZKA_SLOV = 40
 PODDRUHY = {  # svět 5 (docs/sporna-pojeti.md, bod 49)
     2: ['tvrde', 'mekke', 'privlastnovaci'],
     3: ['osobni', 'zvratne', 'privlastnovaci', 'ukazovaci', 'tazaci', 'vztazne', 'neurcite', 'zaporne'],
@@ -106,6 +109,21 @@ def nacti_schvalene():
     return {r.strip() for r in SCHVALENE.read_text(encoding='utf-8').splitlines() if r.strip() and not r.startswith('#')}
 
 
+def zapis_slova(cil, vse, schvalene):
+    """data/slova.json: {"1": [[tvar, druh], …], "2": …} – slova pro Padající slova."""
+    slova = [(t, d) for c, t, d in nacti_slova() if vse or f'w-{c}' in schvalene]
+    vystup, ukazka = {}, {}
+    for svet in SVETY_SLOV:
+        seznam = [[t, d] for t, d in slova if d in AKTIVNI[svet]]
+        if len(seznam) >= MIN_VET:
+            vystup[svet] = seznam
+            krok = max(1, len(seznam) // UKAZKA_SLOV)
+            ukazka[svet] = seznam[::krok][:UKAZKA_SLOV]
+    for nazev, obsah in (('slova', vystup), ('slova-ukazka', ukazka)):
+        (cil / f'{nazev}.json').write_text(json.dumps(obsah, ensure_ascii=False, separators=(',', ':')) + '\n', encoding='utf-8')
+    print('  → slova do hry: ' + ', '.join(f'svět {s}: {len(v)}' for s, v in vystup.items()) if vystup else '  → slova do hry: žádná')
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--vse', action='store_true', help='i neschválené věty (jen pro náhled)')
@@ -142,6 +160,7 @@ def main():
             soubor.unlink()
         print(f'  → do hry: svět {svet}: {len(vety)} vět' + ('' if len(vety) >= MIN_VET else ' (málo, svět se nezobrazí)'))
     (cil / 'svety.json').write_text(json.dumps(svety) + '\n', encoding='utf-8')
+    zapis_slova(cil, a.vse, schvalene)
     for svet in svety:
         vety = json.loads((cil / f'svet{svet}.json').read_text(encoding='utf-8'))['vety']
         zapis(cil / f'ukazka{svet}.json', svet, vety[:UKAZKA])

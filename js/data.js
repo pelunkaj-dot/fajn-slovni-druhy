@@ -6,6 +6,15 @@ export async function nactiSeznam() {
   } catch { return {}; }
 }
 
+// Slova pro Padající slova: { "1": [[tvar, druh], …], … } → { 1: [{t, d}, …], … }
+export async function nactiSlova(plna) {
+  try {
+    const r = await fetch(`data/${plna ? 'slova' : 'slova-ukazka'}.json`);
+    const vse = r.ok ? await r.json() : {};
+    return Object.fromEntries(Object.entries(vse).map(([n, seznam]) => [n, seznam.map(([t, d]) => ({ t, d }))]));
+  } catch { return {}; }
+}
+
 // Načtení světa. Bez ?mode=full se načte jen ukázka (prvních 20 vět každého světa).
 export async function nactiSvet(n, plna) {
   const soubor = plna ? `svet${n}` : `ukazka${n}`;

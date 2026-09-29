@@ -227,3 +227,19 @@ h1, h2 { font-family: "Baloo 2", "Atkinson Hyperlegible", system-ui, sans-serif;
 
 .ukol-pozn { display: block; color: var(--muted); font-size: .9rem; }
 .ukol-pozn:empty { display: none; }
+
+/* Padající slova */
+.padani .tecky { gap: 4px; }
+.padani .tecky li { width: 10px; height: 10px; }
+.padani .arena { position: relative; height: clamp(200px, 34vh, 400px); margin: 8px 0; border-radius: 14px; overflow: hidden;
+  background: linear-gradient(var(--panel), color-mix(in srgb, var(--line) 45%, var(--panel))); border: 2px solid var(--line); }
+.padani .padajici { position: absolute; top: 0; transform: translate(-50%, 0); will-change: transform; }
+.padani .padajici .slovo { font-size: 1.35rem; font-weight: 700; cursor: default; box-shadow: 0 3px 0 var(--line); }
+.padani .arena .napoveda { position: absolute; right: 8px; top: 8px; background: var(--panel); color: var(--ink); border: 1px solid var(--line);
+  border-radius: 8px; padding: 6px 12px; }
+.kose:not(.male) { grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); }
+.kose button { justify-content: center; border-color: color-mix(in srgb, var(--c) 55%, var(--line)); }
+.kose button.spravny { background: color-mix(in srgb, var(--c) 22%, var(--panel)); border-color: var(--c); }
+.kose.male { grid-template-columns: repeat(5, 1fr); gap: 6px; }
+.kose.male button { flex-direction: column; gap: 2px; padding: 6px 4px; font-size: .8rem; text-align: center; }
+@media (min-width: 700px) { .kose.male button { font-size: .95rem; } }
