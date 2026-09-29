@@ -270,3 +270,15 @@ h1, h2 { font-family: "Baloo 2", "Atkinson Hyperlegible", system-ui, sans-serif;
 .obrana .kontext mark { background: color-mix(in srgb, var(--accent, #1f6f5c) 22%, transparent); color: var(--ink); font-weight: 800; padding: 0 3px; border-radius: 4px; }
 .obrana .kontext .prazdny { color: var(--muted); font-size: .95rem; }
 .obrana.ve-vetach .arena { height: clamp(230px, 38vh, 420px); }
+
+/* Mapa: dobytí oblasti a odkrytí skrytých oblastí */
+.uzemi i.nova { animation: dobyti .7s cubic-bezier(.3, 1.6, .5, 1) both; }
+@keyframes dobyti {
+  0% { transform: scale(0); }
+  60% { transform: scale(1.4); box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 35%, transparent); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 transparent; }
+}
+.uzemi i.ceka { opacity: 0; transform: scale(0); }
+.uzemi i.odkryta { animation: odkryti .6s ease-out both; }
+@keyframes odkryti { 0% { opacity: 0; transform: scale(0) rotate(-90deg); } 70% { opacity: 1; transform: scale(1.25) rotate(8deg); } 100% { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .uzemi i.nova, .uzemi i.odkryta { animation: none; } .uzemi i.ceka { opacity: 1; transform: none; } }

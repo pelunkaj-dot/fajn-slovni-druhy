@@ -11,7 +11,8 @@ import { avatar } from './postavy.js';
 import { KRAJINY } from './krajiny.js';
 import { hlaska, nastavHrace } from './hlasky.js';
 import { parta } from './rezimy/spolecne.js';
-import { nastavZvuk, odemkni } from './zvuky.js';
+import { nastavZvuk, odemkni, zvuk } from './zvuky.js';
+import { efektZasahu } from './efekty.js';
 
 const KLIC = 'fajn-slovni-druhy:v1';
 const MOTIVY = { light: 'Světlý', dark: 'Tmavý', girl: 'Dívčí' };
@@ -68,6 +69,7 @@ function otazkaHrac() {
     </section>`;
   parta(app.querySelector('.parta'), mluvci())(hlaska(mluvci(), 'otazkaHrac'));
   app.querySelectorAll('.volba-hrace button').forEach(b => b.onclick = () => {
+    zvuk('vyber');
     stav.hrac = b.dataset.k; nastavHrace(stav.hrac); ulozit(); mapa();
   });
 }
@@ -96,29 +98,66 @@ function mapa() {
   pozdrav = '';
   if (text) rekni(text); else app.querySelector('.parta').hidden = true;
   app.querySelector('.prepinac-postav').onclick = () => {
+    zvuk('klik');
     stav.postavicky = !stav.postavicky; ulozit();
     pozdrav = stav.postavicky ? 'predstaveni' : '';
     mapa();
   };
   app.querySelectorAll('.hraje button').forEach(b => b.onclick = () => {
+    zvuk('klik');
     stav.hrac = b.dataset.k; nastavHrace(stav.hrac); ulozit(); mapa();
   });
   app.querySelectorAll('.volba-hrdiny button[data-h]').forEach(b => b.onclick = () => {
     if (stav.hrdina === b.dataset.h) return;
+    zvuk('vyber');
     stav.hrdina = b.dataset.h; ulozit();
     pozdrav = 'predstaveni';
     mapa();
   });
-  app.querySelectorAll('.svety button[data-svet]').forEach(b => b.onclick = () => hraj(+b.dataset.svet, b.dataset.rezim || ''));
+  app.querySelectorAll('.svety button[data-svet]').forEach(b => b.onclick = () => { zvuk('start'); hraj(+b.dataset.svet, b.dataset.rezim || ''); });
+  animujPostup();
+}
+
+// Po návratu z úspěšné série se nové oblasti „dobudou“ (zvuk + efekt), po dokončení světa se odkryjí skryté.
+// st.videno = kolik oblastí už hráč na mapě viděl.
+let casovaceMapy = [];
+function animujPostup() {
+  casovaceMapy.forEach(clearTimeout);
+  casovaceMapy = [];
+  let cas = 600;
+  const pozdeji = (fn, za) => casovaceMapy.push(setTimeout(fn, za));
+  for (const n of DOSTUPNE) {
+    const st = svetStav(n);
+    const od = st.videno ?? st.uzemi;
+    st.videno = st.uzemi;
+    if (st.uzemi <= od) continue;
+    const karta = app.querySelector(`.svet-${n}`);
+    if (!karta) continue;
+    pozdeji(() => karta.scrollIntoView({ behavior: 'smooth', block: 'center' }), cas - 500);
+    const dlazdice = i => { const el = karta.querySelector(`.uzemi i[data-i="${i}"]`); return el && el.isConnected ? el : null; };
+    for (let i = od; i < st.uzemi; i++) {
+      pozdeji(() => { const el = dlazdice(i); if (!el) return; el.classList.add('moje', 'nova'); zvuk('uzemi'); efektZasahu(el, n); }, cas);
+      cas += 500;
+    }
+    if (od < DOKONCENI && st.uzemi >= DOKONCENI) {
+      for (let i = DOKONCENI; i < OBLASTI; i++) {
+        pozdeji(() => { const el = dlazdice(i); if (!el) return; el.classList.remove('ceka'); el.classList.add('odkryta'); zvuk('odkryti'); }, cas);
+        cas += 260;
+      }
+    }
+  }
+  ulozit();
 }
 
 function kartaSveta(n, s) {
   const st = svetStav(n);
   const dokonceno = st.uzemi >= DOKONCENI;
+  const videno = st.videno ?? st.uzemi; // nové oblasti se dobarví až animací (animujPostup)
   const oblasti = Array.from({ length: OBLASTI }, (_, i) => {
     const skryta = i >= DOKONCENI;
     if (skryta && !dokonceno) return '';
-    return `<i class="${i < st.uzemi ? 'moje' : ''}${skryta ? ' skryta' : ''}"></i>`;
+    const tridy = [i < Math.min(st.uzemi, videno) ? 'moje' : '', skryta ? 'skryta' : '', skryta && videno < DOKONCENI ? 'ceka' : ''];
+    return `<i data-i="${i}" class="${tridy.filter(Boolean).join(' ')}"></i>`;
   }).join('');
   let akce;
   if (!DOSTUPNE.includes(n)) akce = '<span class="zamek">Připravujeme</span>';
@@ -145,6 +184,7 @@ function kartaSveta(n, s) {
 
 // rezim = '' → režimy se po sérii střídají; 'lov'/'most' → hraje se jen zvolený režim
 async function hraj(n, rezim = '') {
+  casovaceMapy.forEach(clearTimeout);
   app.innerHTML = '<p class="nacitani">Načítám svět…</p>';
   try {
     cache[n] ||= await nactiSvet(n, PLNA);
@@ -175,7 +215,7 @@ async function hraj(n, rezim = '') {
 
 document.querySelector('.motivy').innerHTML = Object.entries(MOTIVY)
   .map(([m, nazev]) => `<button type="button" data-m="${m}">${nazev}</button>`).join('');
-document.querySelectorAll('.motivy button').forEach(b => b.onclick = () => nastavMotiv(b.dataset.m));
+document.querySelectorAll('.motivy button').forEach(b => b.onclick = () => { zvuk('klik'); nastavMotiv(b.dataset.m); });
 document.querySelector('.znacka').onclick = mapa;
 function ukazZvuk() {
   const b = document.querySelector('.prepinac-zvuku');
@@ -183,7 +223,7 @@ function ukazZvuk() {
   b.textContent = stav.zvuk ? 'Zvuk: zapnutý' : 'Zvuk: vypnutý';
   nastavZvuk(stav.zvuk);
 }
-document.querySelector('.prepinac-zvuku').onclick = () => { stav.zvuk = !stav.zvuk; ulozit(); ukazZvuk(); };
+document.querySelector('.prepinac-zvuku').onclick = () => { stav.zvuk = !stav.zvuk; ulozit(); ukazZvuk(); zvuk('klik'); };
 ukazZvuk();
 // prohlížeč pustí zvuk až po první interakci
 document.addEventListener('pointerdown', () => { if (stav.zvuk) odemkni(); }, { once: true });
