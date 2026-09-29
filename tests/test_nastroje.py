@@ -99,6 +99,7 @@ class TestPredlozky(unittest.TestCase):
         self.assertEqual(posud('s', 'sestrou')[0], 'CHYBA')
         self.assertEqual(posud('z', 'školy')[0], 'CHYBA')
         self.assertEqual(posud('v', 'sboru')[0], 'ZVAŽ')
+        self.assertIsNone(posud('s', 'sebou'))
         for p, w in [('v', 'trávě'), ('v', 'Praze'), ('ve', 'škole'), ('ve', 'třídě'), ('ke', 'mně'), ('ve', 'městě'), ('v', 'zoo')]:
             self.assertIsNone(posud(p, w), (p, w))
 

@@ -263,3 +263,104 @@
 0258| Teplé/2 slunce/1 hřeje/5 .
 0259| Sestra/1 hraje/5 na/7 flétnu/1 .
 0260| Kamarád/1 půjčuje/5 pastelky/1 .
+# --- várka 4 ---
+0261| Terezka/1 krmí/5 malé/2 kotě/1 .
+0262| Hnědý/2 koník/1 skáče/5 přes/7 potok/1 .
+0263| Maminka/1 kupuje/5 čerstvé/2 rohlíky/1 .
+0264| Veselý/2 pejsek/1 honí/5 míček/1 .
+0265| Tatínek/1 staví/5 dřevěnou/2 boudu/1 .
+0266| Dědeček/1 zalévá/5 rajčata/1 na/7 zahradě/1 .
+0267| Malá/2 veverka/1 skáče/5 po/7 větvích/1 .
+0268| Matýsek/1 maluje/5 modré/2 moře/1 .
+0269| Babička/1 šije/5 barevnou/2 deku/1 .
+0270| Bílá/2 labuť/1 plave/5 po/7 rybníce/1 .
+0271| Žáci/1 čtou/5 zajímavou/2 knihu/1 .
+0272| Kočka/1 leží/5 na/7 teplém/2 radiátoru/1 .
+0273| Terezka/1 sbírá/5 barevné/2 kamínky/1 .
+0274| Hasiči/1 jedou/5 k/7 požáru/1 .
+0275| Starý/2 dub/1 roste/5 u/7 cesty/1 .
+0276| Matýsek/1 buduje/5 hrad/1 z/7 kostek/1 .
+0277| Paní/1 učitelka/1 vysvětluje/5 příklad/1 .
+0278| Liška/1 běží/5 přes/7 pole/1 .
+0279| Maminka/1 peče/5 voňavé/2 cukroví/1 .
+0280| Tlustý/2 kocour/1 spí/5 na/7 gauči/1 .
+0281| Terezka/1 vybírá/5 nové/2 boty/1 .
+0282| Pták/1 staví/5 hnízdo/1 na/7 stromě/1 .
+0283| Dědeček/1 brousí/5 tupý/2 nůž/1 .
+0284| Kluci/1 hrají/5 hokej/1 na/7 rybníku/1 .
+0285| Žlutý/2 motýl/1 sedí/5 na/7 květině/1 .
+0286| Matýsek/1 pije/5 horké/2 kakao/1 .
+0287| Pekař/1 peče/5 křupavé/2 housky/1 .
+0288| Terezka/1 češe/5 koně/1 .
+0289| Šedý/2 hroch/1 leží/5 v/7 bahně/1 .
+0290| Tatínek/1 řídí/5 červené/2 auto/1 .
+0291| Zajíček/1 okusuje/5 mrkev/1 .
+0292| Babička/1 vaří/5 švestkové/2 knedlíky/1 .
+0293| Děti/1 staví/5 sněhuláka/1 na/7 dvoře/1 .
+0294| Nákladní/2 vlak/1 veze/5 uhlí/1 .
+0295| Matýsek/1 hledá/5 ztraceného/2 psa/1 .
+0296| Sova/1 sedí/5 na/7 vysoké/2 větvi/1 .
+0297| Terezka/1 zdobí/5 vánoční/2 stromeček/1 .
+0298| Kuchařka/1 míchá/5 hustou/2 polévku/1 .
+0299| Černý/2 havran/1 kráká/5 na/7 poli/1 .
+0300| Matýsek/1 skládá/5 obrázek/1 z/7 dílků/1 .
+0301| Maminka/1 věší/5 mokré/2 prádlo/1 .
+0302| Kůzle/1 skáče/5 po/7 louce/1 .
+0303| Dědeček/1 luští/5 křížovku/1 .
+0304| Terezka/1 nese/5 plný/2 košík/1 jahod/1 .
+0305| Stará/2 sova/1 houká/5 v/7 lese/1 .
+0306| Tatínek/1 sklízí/5 zralá/2 jablka/1 .
+0307| Hladová/2 koza/1 okusuje/5 trávu/1 .
+0308| Děti/1 kreslí/5 křídou/1 na/7 chodník/1 .
+0309| Matýsek/1 umývá/5 špinavé/2 kolo/1 .
+0310| Zvonek/1 zvoní/5 na/7 přestávku/1 .
+0311| Terezka/1 píše/5 úhledná/2 písmenka/1 .
+0312| Divoký/2 kůň/1 cválá/5 po/7 pláni/1 .
+0313| Babička/1 plete/5 dlouhou/2 šálu/1 .
+0314| Pošťák/1 přináší/5 velký/2 balík/1 .
+0315| Malé/2 kuře/1 pípá/5 .
+0316| Matýsek/1 nafukuje/5 balónky/1 .
+0317| Chladný/2 vítr/1 ohýbá/5 stromy/1 .
+0318| Terezka/1 zpívá/5 veselou/2 písničku/1 .
+0319| Rybáři/1 sedí/5 u/7 řeky/1 .
+0320| Tatínek/1 natírá/5 plot/1 .
+0321| Kočka/1 hlídá/5 myší/2 díru/1 .
+0322| Matýsek/1 loupe/5 pomeranč/1 .
+0323| Lékařka/1 prohlíží/5 nemocného/2 kluka/1 .
+0324| Tiché/2 jezero/1 odráží/5 hory/1 .
+0325| Terezka/1 fotografuje/5 kvetoucí/2 strom/1 .
+0326| Zedníci/1 stavějí/5 nový/2 dům/1 .
+0327| Mravenec/1 nese/5 těžké/2 zrnko/1 .
+0328| Babička/1 krmí/5 slepice/1 na/7 dvoře/1 .
+0329| Matýsek/1 chytá/5 motýly/1 do/7 síťky/1 .
+0330| Sluníčko/1 svítí/5 na/7 louku/1 .
+0331| Učitel/1 otevírá/5 okno/1 ve/7 třídě/1 .
+0332| Terezka/1 ochutnává/5 sladký/2 med/1 .
+0333| Hodný/2 soused/1 půjčuje/5 žebřík/1 .
+0334| Delfín/1 skáče/5 z/7 vody/1 .
+0335| Matýsek/1 kope/5 míč/1 do/7 branky/1 .
+0336| Dědeček/1 řeže/5 suché/2 větve/1 .
+0337| Mladá/2 srnka/1 pije/5 z/7 potoka/1 .
+0338| Terezka/1 balí/5 dárek/1 pro/7 maminku/1 .
+0339| Hlučná/2 motorka/1 projíždí/5 ulicí/1 .
+0340| Kuchař/1 smaží/5 řízky/1 .
+0341| Tatínek/1 čte/5 dlouhý/2 článek/1 .
+0342| Starý/2 kohoutek/1 kape/5 .
+0343| Matýsek/1 lepí/5 barevné/2 řetězy/1 .
+0344| Děti/1 pouštějí/5 draka/1 na/7 kopci/1 .
+0345| Terezka/1 skládá/5 čisté/2 oblečení/1 .
+0346| Medvěd/1 hledá/5 sladké/2 maliny/1 .
+0347| Babička/1 zašívá/5 roztrhané/2 kalhoty/1 .
+0348| Liška/1 spí/5 v/7 hluboké/2 noře/1 .
+0349| Matýsek/1 pozoruje/5 hvězdy/1 dalekohledem/1 .
+0350| Maminka/1 stříhá/5 uschlé/2 růže/1 .
+0351| Chytrý/2 pes/1 hlídá/5 ovce/1 .
+0352| Terezka/1 hraje/5 na/7 housle/1 .
+0353| Vlaštovky/1 odlétají/5 na/7 jih/1 .
+0354| Tatínek/1 veze/5 dříví/1 na/7 vozíku/1 .
+0355| Matýsek/1 hrabe/5 suché/2 listí/1 .
+0356| Malý/2 ježek/1 funí/5 pod/7 keřem/1 .
+0357| Terezka/1 krájí/5 zralý/2 meloun/1 .
+0358| Sousedka/1 venčí/5 malého/2 psa/1 .
+0359| Kapka/1 deště/1 stéká/5 po/7 okně/1 .
+0360| Děti/1 tleskají/5 šikovnému/2 kouzelníkovi/1 .

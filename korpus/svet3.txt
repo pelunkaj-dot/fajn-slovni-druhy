@@ -226,3 +226,119 @@
 0195| Třikrát/4 denně/6 krmím/5 rybičky/1 .
 0196| Na/7 louce/1 se/3 pase/5 sto/4 ovcí/1 .
 0197| Ptáci/1 odletěli/5 na/7 jih/1 .
+# --- várka 3: složený minulý čas ---
+0198| Včera/6 jsme/5+ pekli/5+ perník/1 .
+0199| Uklidil/5+ jsem/5+ si/3 pokoj/1 .
+0200| Kam/6 jsi/5+ dal/5+ nůžky/1 ?
+0201| V/7 zimě/1 jsme/5+ bobovali/5+ .
+0202| Dopsala/5+ jsem/5+ úkol/1 .
+0203| Zalili/5+ jsme/5+ květiny/1 .
+0204| Viděl/5+ jsi/5+ tu/3 veverku/1 ?
+0205| Postavili/5+ jsme/5+ krmítko/1 pro/7 ptáky/1 .
+0206| Nakreslila/5+ jsem/5+ kočku/1 .
+0207| Našli/5+ jste/5+ cestu/1 ?
+0208| Ztratil/5+ jsem/5+ rukavici/1 .
+0209| Dnes/6 jsem/5+ vyhrál/5+ závod/1 .
+0210| Byli/5+ jsme/5+ na/7 výletě/1 v/7 Krkonoších/1 .
+0211| Snědla/5+ jsem/5+ jahody/1 .
+0212| Přečetl/5+ jsi/5+ tu/3 knihu/1 ?
+0213| Nakoupili/5+ jsme/5+ zeleninu/1 na/7 trhu/1 .
+0214| Zapomněla/5+ jsem/5+ pravítko/1 .
+0215| Proč/6 jste/5+ přišli/5+ pozdě/6 ?
+# --- várka 3: budoucí čas ---
+0216| Zítra/6 budeme/5+ sázet/5+ stromky/1 .
+0217| Budu/5+ ti/3 psát/5+ dopisy/1 .
+0218| V/7 létě/1 budeme/5+ stanovat/5+ .
+0219| Terezka/1 bude/5+ tancovat/5+ na/7 besídce/1 .
+0220| Kdo/3 bude/5+ zalévat/5+ květiny/1 ?
+0221| Budete/5+ zpívat/5+ koledy/1 ?
+0222| Odpoledne/6 budu/5+ číst/5+ .
+0223| Budou/5+ stavět/5+ nový/2 most/1 .
+0224| Dědeček/1 bude/5+ vyprávět/5+ pohádku/1 .
+0225| Nebudu/5+ se/3 bát/5+ .
+# --- várka 3: podmiňovací způsob ---
+0226| Chtěla/5+ bych/5+ psa/1 .
+0227| Mohl/5+ bys/5+ mi/3 pomoct/5 ?
+0228| Kdo/3 by/5+ chtěl/5+ jahody/1 ?
+0229| Šli/5+ bychom/5+ na/7 hřiště/1 .
+0230| Koupila/5+ bych/5+ si/3 knihu/1 .
+0231| Pomohla/5+ byste/5+ mi/3 ?
+0232| Zazpíval/5+ bys/5+ nám/3 ?
+0233| Rád/2 bych/5+ jel/5+ k/7 moři/1 .
+0234| Terezka/1 by/5+ si/3 přála/5+ koně/1 .
+0235| Mohli/5+ bychom/5+ upéct/5 dort/1 .
+# --- várka 3: trpný rod ---
+0236| Dopis/1 byl/5+ napsán/5+ perem/1 .
+0237| Strom/1 byl/5+ vyvrácen/5+ větrem/1 .
+0238| Závod/1 byl/5+ odložen/5+ .
+0239| Obraz/1 byl/5+ prodán/5+ .
+0240| Most/1 byl/5+ postaven/5+ z/7 kamene/1 .
+0241| Poklad/1 byl/5+ ukryt/5+ v/7 jeskyni/1 .
+# --- várka 3: zvratná zájmena se, si ---
+0242| Terezka/1 se/3 dívá/5 z/7 okna/1 .
+0243| Kočka/1 se/3 schovala/5 pod/7 postel/1 .
+0244| Matýsek/1 si/3 zavazuje/5 tkaničky/1 .
+0245| Děti/1 se/3 houpají/5 na/7 houpačce/1 .
+0246| Umyj/5 se/3 !
+0247| Pes/1 se/3 drbe/5 za/7 uchem/1 .
+0248| Obouvám/5 si/3 boty/1 .
+0249| Babička/1 si/3 zpívá/5 .
+0250| Ptáci/1 se/3 koupou/5 v/7 kaluži/1 .
+0251| Prodávají/5 se/3 čerstvé/2 houby/1 .
+0252| Matýsek/1 si/3 myje/5 ruce/1 .
+# --- várka 3: se, ke, ve, ze jako předložky ---
+0253| Hrál/5+ jsem/5+ si/3 se/7*{Zeptej se: s kým jsem si hrál?} sestrou/1 .
+0254| Matýsek/1 běží/5 ke/7 kamarádovi/1 .
+0255| Ve/7 skříni/1 visí/5 bunda/1 .
+0256| Ze/7 střechy/1 kape/5 voda/1 .
+0257| Mluvili/5+ jsme/5+ se/7*{Zeptej se: s kým jsme mluvili?} sousedkou/1 .
+0258| Ve/7 vodě/1 plavou/5 kachny/1 .
+0259| Přijeli/5+ jsme/5+ ke/7 kostelu/1 .
+0260| Pes/1 se/3 kamarádí/5 se/7*{Zeptej se: s kým se kamarádí?} sousedovým/2 psem/1 .
+0261| Ze/7 školy/1 jdu/5 rovnou/6 domů/6 .
+0262| Ve/7 středu/1 máme/5 výtvarnou/2 výchovu/1 .
+# --- várka 3: infinitiv ---
+0263| Musíme/5 uklidit/5 třídu/1 .
+0264| Chci/5 malovat/5 .
+0265| Terezka/1 umí/5 jezdit/5 na/7 kole/1 .
+0266| Mohu/5 jít/5 ven/6 ?
+0267| Matýsek/1 nechce/5 jíst/5 špenát/1 .
+0268| Musíš/5 si/3 obléct/5 bundu/1 .
+0269| Smím/5 si/3 vzít/5 bonbon/1 ?
+0270| Zkusím/5 vyšplhat/5 na/7 strom/1 .
+# --- várka 3: ráno, večer ---
+0271| Ráno/6*{Zeptej se: kdy chodím do školy?} chodím/5 do/7 školy/1 .
+0272| Večer/6*{Zeptej se: kdy si čtu?} si/3 čtu/5 pohádku/1 .
+0273| Celý/2 večer/1*{Zeptej se: celý co?} jsme/5+ hráli/5+ hry/1 .
+0274| Ráno/1*{Zeptej se: co bylo mrazivé?} bylo/5 mrazivé/2 .
+0275| Večer/6*{Zeptej se: kdy svítí hvězdy?} svítí/5 hvězdy/1 .
+0276| Každé/3 ráno/1*{Zeptej se: každé co?} cvičím/5 .
+# --- várka 3: hodně ---
+0277| Na/7 stromě/1 visí/5 hodně/4*{Zeptej se: kolik jablek?} jablek/1 .
+0278| Dědeček/1 hodně/6*{Zeptej se: jak moc pracuje?} pracuje/5 na/7 zahradě/1 .
+0279| V/7 lese/1 roste/5 hodně/4*{Zeptej se: kolik hub?} hub/1 .
+0280| Maminka/1 se/3 hodně/6*{Zeptej se: jak moc se směje?} směje/5 .
+# --- várka 3: kolem ---
+0281| Kolem/7*{Zeptej se: kolem čeho?} stolu/1 sedí/5 celá/2 rodina/1 .
+0282| Vlak/1 přejel/5 kolem/6*{Zeptej se: kudy přejel?} .
+0283| Kolem/7*{Zeptej se: kolem čeho?} rybníka/1 rostou/5 vrby/1 .
+0284| Motýl/1 poletuje/5 kolem/6*{Zeptej se: kde poletuje?} .
+# --- várka 3: pozor ---
+0285| Pozor/10*{Je to výkřik, nebo věc?} , kaluž/1 !
+0286| Dávejte/5 pozor/1*{Zeptej se: dávejte co?} na/7 silnici/1 .
+0287| Pozor/10*{Je to výkřik, nebo věc?} , horký/2 čaj/1 !
+# --- várka 3: zpodstatnělá přídavná jména ---
+0288| Hajný/1*{Zeptej se: kdo chodí lesem?} chodí/5 lesem/1 .
+0289| Cestující/1*{Zeptej se: kdo nastupuje?} nastupují/5 do/7 autobusu/1 .
+0290| Vrátná/1*{Zeptej se: kdo zamyká?} zamyká/5 školu/1 .
+# --- várka 3: rád ---
+0291| Rád/2 hraji/5 fotbal/1 .
+0292| Rády/2 malujeme/5 .
+0293| Dědeček/1 rád/2 rybaří/5 .
+# --- várka 3: číslovky ---
+0294| Oba/4 kamarádi/1 bydlí/5 v/7 Brně/1 .
+0295| Obě/4 sestry/1 chodí/5 do/7 školy/1 .
+0296| Nad/7 rybníkem/1 létá/5 tisíc/4 ptáků/1 .
+0297| V/7 knihovně/1 je/5 sto/4 knih/1 .
+0298| Dvakrát/4 jsem/5+ spadl/5+ z/7 kola/1 .
+0299| Ve/7 městě/1 svítí/5 milion/4 světel/1 .
