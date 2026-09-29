@@ -184,4 +184,10 @@ const foto = n => {
 <svg class="foto-vrstva" viewBox="0 0 800 400" preserveAspectRatio="xMid${ZAROVNANI[f.kotva]} slice" aria-hidden="true">${(DEFS + f.vrstva).replace(/#?\bf(mlha|mlhavy|zare|rozmaz|zar|kopec)\b/g, (m, id) => (m[0] === '#' ? '#' : '') + `f${n}${id}`)}</svg></div>`;
 };
 
+// Svislé ukotvení fotky světa (pro pozadí her) a výhled nad mapou (panorama s přelétajícími ptáky).
+export const KOTVY = Object.fromEntries(Object.entries(FOTKY).map(([n, f]) => [n, f.kotva]));
+export const VYHLED = `<div class="vyhled" aria-hidden="true">
+<img src="obrazky/mapa-800.webp" srcset="obrazky/mapa-800.webp 800w, obrazky/mapa-1600.webp 1600w" sizes="(max-width: 700px) 100vw, 640px" alt="" decoding="async">
+<svg class="foto-vrstva" viewBox="0 0 1600 339" preserveAspectRatio="xMidYMid slice">${hejno(-80, 60, 3, 5, 4).replace('f-let', 'f-let f-vyhled')}${hejno(-80, 110, 2.2, 3, 16).replace('f-let', 'f-let f-vyhled')}</svg></div>`;
+
 export const KRAJINY = Object.fromEntries(Object.entries(KRESBY).map(([n, kresba]) => [n, FOTKY[n] ? foto(n) : kresba]));

@@ -8,7 +8,7 @@ import { spustMost } from './rezimy/most.js';
 import { spustPadani } from './rezimy/padani.js';
 import { spustObranu } from './rezimy/obrana.js';
 import { avatar } from './postavy.js';
-import { KRAJINY } from './krajiny.js';
+import { KRAJINY, KOTVY, VYHLED } from './krajiny.js';
 import { hlaska, nastavHrace } from './hlasky.js';
 import { parta } from './rezimy/spolecne.js';
 import { nastavZvuk, odemkni, zvuk } from './zvuky.js';
@@ -27,6 +27,8 @@ const parametry = new URLSearchParams(location.search);
 const PLNA = parametry.get('mode') === 'full';
 
 const app = document.getElementById('app');
+// url() v CSS proměnné by se bral vůči css/style.css – proto úplná adresa vůči stránce
+const cssUrl = cesta => `url("${new URL(cesta, document.baseURI).href}")`;
 const cache = {};
 
 function nacti() {
@@ -90,6 +92,7 @@ function mapa() {
       </div>
       <div class="parta"></div>
       <div class="cesta-mapou">
+        ${VYHLED}
         <svg class="silnice" aria-hidden="true"><path class="okraj"/><path class="povrch"/><path class="stred"/></svg>
         <ol class="svety">
           ${Object.entries(SVETY).map(([n, s]) => kartaSveta(+n, s)).join('')}
@@ -119,6 +122,8 @@ function mapa() {
   });
   app.querySelectorAll('.svety button[data-svet]').forEach(b => b.onclick = () => { zvuk('start'); hraj(+b.dataset.svet, b.dataset.rezim || ''); });
   delete app.dataset.svet;
+  app.style.removeProperty('--foto');
+  app.style.setProperty('--mapa-pozadi', cssUrl('obrazky/mapa-pozadi.webp'));
   nakresliSilnici();
   if (document.fonts) document.fonts.ready.then(nakresliSilnici);
   animujPostup();
@@ -217,6 +222,9 @@ async function hraj(n, rezim = '') {
   casovaceMapy.forEach(clearTimeout);
   stav.posledniSvet = n;
   app.dataset.svet = n;
+  // fotka světa jako pozadí her
+  app.style.setProperty('--foto', cssUrl(`obrazky/svet${n}-800.webp`));
+  app.style.setProperty('--foto-y', `${KOTVY[n] ?? 50}%`);
   app.innerHTML = '<p class="nacitani">Načítám svět…</p>';
   try {
     cache[n] ||= await nactiSvet(n, PLNA);
