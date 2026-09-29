@@ -270,3 +270,142 @@ h1, h2 { font-family: "Baloo 2", "Atkinson Hyperlegible", system-ui, sans-serif;
 .obrana .kontext mark { background: color-mix(in srgb, var(--accent, #1f6f5c) 22%, transparent); color: var(--ink); font-weight: 800; padding: 0 3px; border-radius: 4px; }
 .obrana .kontext .prazdny { color: var(--muted); font-size: .95rem; }
 .obrana.ve-vetach .arena { height: clamp(230px, 38vh, 420px); }
+
+/* Mapa: dobytí oblasti a odkrytí skrytých oblastí */
+.uzemi i.nova { animation: dobyti .7s cubic-bezier(.3, 1.6, .5, 1) both; }
+@keyframes dobyti {
+  0% { transform: scale(0); }
+  60% { transform: scale(1.4); box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 35%, transparent); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 transparent; }
+}
+.uzemi i.ceka { opacity: 0; transform: scale(0); }
+.uzemi i.odkryta { animation: odkryti .6s ease-out both; }
+@keyframes odkryti { 0% { opacity: 0; transform: scale(0) rotate(-90deg); } 70% { opacity: 1; transform: scale(1.25) rotate(8deg); } 100% { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .uzemi i.nova, .uzemi i.odkryta { animation: none; } .uzemi i.ceka { opacity: 1; transform: none; } }
+
+/* Krajiny: jemné animace (js/krajiny.js) */
+.krajina-svg .a-mraky { animation: k-mraky 60s linear infinite alternate; }
+@keyframes k-mraky { to { transform: translateX(-40px); } }
+.krajina-svg .a-ptaci { animation: k-ptaci 24s ease-in-out infinite alternate; }
+@keyframes k-ptaci { to { transform: translate(60px, -8px); } }
+.krajina-svg .a-voda { stroke-dasharray: 8 10; animation: k-voda 3s linear infinite; }
+@keyframes k-voda { to { stroke-dashoffset: -36; } }
+.krajina-svg .a-list { animation: k-list 7s linear infinite; }
+@keyframes k-list { 0% { transform: translate(0, 0) rotate(0); opacity: 0; } 10% { opacity: 1; } 100% { transform: translate(40px, 180px) rotate(360deg); opacity: .9; } }
+.krajina-svg .a-rakos { animation: k-rakos 4s ease-in-out infinite alternate; }
+@keyframes k-rakos { from { transform: rotate(-2deg); } to { transform: rotate(3deg); } }
+.krajina-svg .a-mlha { animation: k-mlha 18s ease-in-out infinite alternate; }
+.krajina-svg .a-mlha2 { animation: k-mlha 23s ease-in-out infinite alternate-reverse; }
+@keyframes k-mlha { to { transform: translateX(70px); } }
+.krajina-svg .a-orel { animation: k-orel 14s linear infinite; }
+@keyframes k-orel { to { transform: rotate(360deg); } }
+.krajina-svg .a-vlajka { transform-box: fill-box; transform-origin: left center; animation: k-vlajka 1.2s ease-in-out infinite alternate; }
+@keyframes k-vlajka { to { transform: scaleY(.6) skewY(6deg); } }
+.krajina-svg .a-hvezda { animation: k-hvezda 2.6s ease-in-out infinite alternate; }
+@keyframes k-hvezda { from { opacity: .25; } to { opacity: 1; } }
+.krajina-svg .a-okno { animation: k-okno 3.5s ease-in-out infinite alternate; }
+@keyframes k-okno { from { opacity: .75; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .krajina-svg * { animation: none !important; } }
+
+/* =====================================================================
+   Nový vzhled (1. 10.): mapa jako cesta krajinou, karty s hloubkou,
+   výraznější tlačítka, prostředí her podle světa.
+   ===================================================================== */
+:root, [data-theme="light"] { --stin: 0 10px 28px rgba(30, 50, 40, .12), 0 2px 6px rgba(30, 50, 40, .08); --silnice: #e9d6ae; --silnice-okraj: #cdb487; }
+[data-theme="dark"] { --stin: 0 10px 28px rgba(0, 0, 0, .45), 0 2px 6px rgba(0, 0, 0, .3); --silnice: #4a4232; --silnice-okraj: #3a3326; }
+[data-theme="girl"] { --stin: 0 10px 28px rgba(120, 40, 80, .12), 0 2px 6px rgba(120, 40, 80, .08); --silnice: #f7d9e6; --silnice-okraj: #ebbcd0; }
+.svet-1 { --svet: #4f9a45; } .svet-2 { --svet: #d2642c; } .svet-3 { --svet: #4d8274; } .svet-4 { --svet: #4f73a6; } .svet-5 { --svet: #6a4a9a; }
+
+body { background:
+  radial-gradient(1200px 500px at 10% -10%, color-mix(in srgb, var(--accent) 10%, transparent), transparent 60%),
+  radial-gradient(900px 500px at 110% 20%, color-mix(in srgb, #ffd54a 10%, transparent), transparent 60%),
+  var(--bg); background-attachment: fixed; }
+.znacka { font-size: 1.5rem; font-weight: 800; letter-spacing: -.01em; }
+
+/* tlačítka: hlavní s hloubkou */
+.akce-sveta > button, .ovladani button:not(.napoveda):not(.mapa), .volba-hrace button, .vysledek .znovu {
+  background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 88%, #fff), var(--accent));
+  color: var(--accent-ink); border: 0; border-radius: 14px; font-weight: 800; font-size: 1.05rem; padding: 11px 24px;
+  box-shadow: 0 4px 0 color-mix(in srgb, var(--accent) 70%, #000), 0 8px 18px color-mix(in srgb, var(--accent) 30%, transparent);
+  transition: transform .08s, box-shadow .08s;
+}
+.akce-sveta > button:active, .ovladani button:not(.napoveda):not(.mapa):active, .volba-hrace button:active, .vysledek .znovu:active {
+  transform: translateY(3px); box-shadow: 0 1px 0 color-mix(in srgb, var(--accent) 70%, #000);
+}
+.svet .akce-sveta > button { background: linear-gradient(180deg, color-mix(in srgb, var(--svet) 85%, #fff), var(--svet));
+  box-shadow: 0 4px 0 color-mix(in srgb, var(--svet) 65%, #000), 0 8px 18px color-mix(in srgb, var(--svet) 30%, transparent); color: #fff; }
+.svet .akce-sveta > button:active { box-shadow: 0 1px 0 color-mix(in srgb, var(--svet) 65%, #000); }
+.jiny-rezim { color: var(--muted); font-size: .92rem; }
+.odkaz { background: none; border: 0; padding: 0; color: var(--svet, var(--accent)); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+
+/* mapa: cesta krajinou */
+.cesta-mapou { position: relative; padding: 24px 0 8px; border-radius: 28px;
+  background: linear-gradient(180deg,
+    color-mix(in srgb, #7fc463 18%, transparent) 0%, color-mix(in srgb, #e8a05a 16%, transparent) 30%,
+    color-mix(in srgb, #7ea79d 18%, transparent) 52%, color-mix(in srgb, #7c9cc8 18%, transparent) 74%,
+    color-mix(in srgb, #7a5aa8 20%, transparent) 100%); }
+.silnice { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
+.silnice path { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.silnice .okraj { stroke: var(--silnice-okraj); stroke-width: 30; }
+.silnice .povrch { stroke: var(--silnice); stroke-width: 24; }
+.silnice .stred { stroke: color-mix(in srgb, #fff 80%, transparent); stroke-width: 2.5; stroke-dasharray: 10 12; }
+.svety { position: relative; display: flex !important; flex-direction: column; gap: 76px; max-width: 640px; margin: 0 auto; padding: 0 12px; }
+.svety > li { width: 90%; }
+.svety > li:nth-child(odd) { align-self: flex-start; }
+.svety > li:nth-child(even) { align-self: flex-end; }
+.svet { position: relative; overflow: visible; border: 0; border-radius: 22px; box-shadow: var(--stin); transition: transform .2s, box-shadow .2s; }
+.svet:hover { transform: translateY(-3px); }
+.svet .krajina { height: 150px; border-radius: 22px 22px 0 0; overflow: hidden; position: relative; }
+.svet .krajina::after { content: ""; position: absolute; inset: auto 0 0; height: 36px; background: linear-gradient(transparent, color-mix(in srgb, var(--panel) 35%, transparent)); }
+.svet .obsah { padding: 16px 18px 18px; }
+.svet h2 { font-size: 1.55rem; font-weight: 800; }
+.svet h2 .poradi { display: none; }
+.zastavka { position: absolute; top: -22px; z-index: 2; width: 44px; height: 44px; margin-left: -22px; border-radius: 50%;
+  display: grid; place-items: center; color: #fff; font: 800 1.25rem/1 "Baloo 2", system-ui, sans-serif;
+  background: radial-gradient(circle at 35% 30%, color-mix(in srgb, var(--svet) 55%, #fff), var(--svet) 70%);
+  border: 3px solid #fff; box-shadow: 0 4px 10px rgba(0, 0, 0, .25); }
+.svety > li:nth-child(odd) .zastavka { left: 22%; }
+.svety > li:nth-child(even) .zastavka { left: 78%; }
+.dokonceny .zastavka { border-color: #f2c14e; box-shadow: 0 0 0 4px color-mix(in srgb, #f2c14e 40%, transparent), 0 4px 10px rgba(0, 0, 0, .25); }
+.prapor { position: absolute; left: 28px; top: -16px; width: 3px; height: 26px; background: #6b4a2e; border-radius: 2px; }
+.prapor::after { content: ""; position: absolute; left: 3px; top: 1px; width: 18px; height: 12px; background: #f2c14e; clip-path: polygon(0 0, 100% 50%, 0 100%); animation: k-vlajka 1.2s ease-in-out infinite alternate; transform-origin: left center; }
+.tady { position: absolute; top: -34px; z-index: 3; animation: tady 1.6s ease-in-out infinite; }
+.svety > li:nth-child(odd) .tady { left: calc(22% + 26px); }
+.svety > li:nth-child(even) .tady { left: calc(78% - 66px); }
+.tady .avatar { width: 40px; height: 40px; margin: 0; border-width: 3px; }
+.tady .bez-postavy { background: var(--accent); }
+@keyframes tady { 50% { transform: translateY(-5px); } }
+.uzemi { gap: 4px; }
+.uzemi i { border-radius: 6px; background: color-mix(in srgb, var(--line) 80%, transparent); }
+.uzemi i.moje { background: linear-gradient(180deg, color-mix(in srgb, var(--svet, var(--accent)) 75%, #fff), var(--svet, var(--accent))); }
+@media (max-width: 520px) {
+  .svety > li { width: 96%; }
+  .svet .krajina { height: 130px; }
+}
+@media (prefers-reduced-motion: reduce) { .tady, .prapor::after { animation: none; } .svet:hover { transform: none; } }
+
+/* horní volby na mapě */
+.volba-hrdiny { background: var(--panel); border-radius: 18px; padding: 10px 12px; box-shadow: var(--stin); }
+.parta .bublina { box-shadow: 0 4px 14px rgba(0, 0, 0, .06); }
+
+/* herní obrazovky */
+.krajina-pruh { height: 84px; border-radius: 18px; box-shadow: var(--stin); }
+.hud { background: var(--panel); border-radius: 16px; padding: 8px 10px; box-shadow: var(--stin); }
+.cil, .ukol { border-radius: 18px; box-shadow: var(--stin); }
+.slovo { box-shadow: 0 3px 0 color-mix(in srgb, var(--line) 90%, #000 4%); border-radius: 14px; }
+.slovo.sede { box-shadow: none; }
+.volby button { border-radius: 14px; box-shadow: 0 3px 0 color-mix(in srgb, var(--line) 90%, #000 4%); transition: transform .08s; }
+.volby button:active:not(:disabled) { transform: translateY(2px); box-shadow: none; }
+.vysledek { border: 0; border-radius: 24px; box-shadow: var(--stin); }
+.vysledek h2 { font-size: 2rem; font-weight: 800; }
+
+/* prostředí her podle světa (app nastaví data-svet) */
+#app[data-svet="1"] { --nebe: linear-gradient(#bfe6ff, #eaf7ff 70%, #f4fbe9); --zem: linear-gradient(#9fd585, #6fb95a); }
+#app[data-svet="2"] { --nebe: linear-gradient(#ffd9a8, #fff0da 70%, #fbe7cf); --zem: linear-gradient(#d8a766, #b87a44); }
+#app[data-svet="3"] { --nebe: linear-gradient(#bcd5d1, #e8efea 70%, #eef1e6); --zem: linear-gradient(#9dbfb2, #6f9a8c); }
+#app[data-svet="4"] { --nebe: linear-gradient(#9ec9f0, #dcecfb 70%, #eef6fd); --zem: linear-gradient(#a9c78f, #7ea46a); }
+#app[data-svet="5"] { --nebe: linear-gradient(#3b3570, #7a5aa8 55%, #f0b184); --zem: linear-gradient(#6a5a8a, #463a63); }
+#app[data-svet] .padani .arena { background: var(--nebe); border: 0; box-shadow: var(--stin); }
+#app[data-svet] .obrana .arena { background: var(--zem); border: 0; box-shadow: var(--stin); }
+#app[data-svet] .obrana .cesta polyline { stroke: color-mix(in srgb, #f3e2bf 85%, transparent); }
+#app[data-svet="5"] .padani .slovo, #app[data-svet="5"] .obrana .na-ceste { box-shadow: 0 3px 0 rgba(0, 0, 0, .3); }
