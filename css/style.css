@@ -456,3 +456,22 @@ body { background:
 .foto-vrstva .f-mrak { animation: f-mrak 38s ease-in-out infinite alternate; }
 @keyframes f-mrak { to { transform: translateX(160px); } }
 .foto-vrstva .f-kavky { transform-origin: 420px 120px; animation: f-orel 26s linear infinite; }
+
+/* Fotky ve hrách: jemné pozadí celé obrazovky a fotka v aréně (app nastaví --foto, --foto-y) */
+#app[data-svet]::before { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background: linear-gradient(color-mix(in srgb, var(--bg) 80%, transparent), color-mix(in srgb, var(--bg) 90%, transparent)), var(--foto) 50% var(--foto-y, 50%) / cover; }
+#app[data-svet] .padani .arena { background: linear-gradient(rgba(255, 255, 255, .1), rgba(0, 0, 0, .08)), var(--foto) 50% var(--foto-y, 50%) / cover; }
+#app[data-svet] .obrana .arena { background: linear-gradient(rgba(0, 0, 0, .1), rgba(0, 0, 0, .18)), var(--foto) 50% var(--foto-y, 50%) / cover; }
+#app[data-svet] .obrana .cesta polyline { stroke: rgba(236, 214, 170, .88); }
+#app[data-svet] .stavba { background: linear-gradient(180deg, transparent 0 62%, rgba(84, 160, 206, .82) 62% 100%), var(--foto) 50% var(--foto-y, 50%) / cover; box-shadow: var(--stin); }
+#app[data-svet] .stavba::before, #app[data-svet] .stavba::after { background: linear-gradient(#7a9a55, #5d7a40); }
+#app[data-svet] .padani .arena .slovo, #app[data-svet] .obrana .na-ceste { box-shadow: 0 4px 12px rgba(0, 0, 0, .28); }
+
+/* Mapa: panorama nahoře a rozmazané panorama za celou cestou */
+.vyhled { position: relative; height: clamp(110px, 24vw, 170px); margin: -24px 0 34px; border-radius: 28px 28px 22px 22px; overflow: hidden; box-shadow: var(--stin); z-index: 1; }
+.vyhled img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.foto-vrstva .f-vyhled { animation-duration: 34s; }
+.cesta-mapou { background:
+  linear-gradient(180deg, color-mix(in srgb, var(--bg) 35%, transparent), color-mix(in srgb, var(--bg) 60%, transparent)),
+  var(--mapa-pozadi, none) center / cover; }
+.cesta-mapou .silnice { z-index: 0; }

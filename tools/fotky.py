@@ -1,4 +1,5 @@
-"""Fotky krajin pro hru: fotky/svetN.jpg → obrazky/svetN-800.webp a obrazky/svetN-1600.webp.
+"""Fotky krajin pro hru: fotky/svetN.jpg → obrazky/svetN-800.webp a obrazky/svetN-1600.webp,
+fotky/mapa.jpg (panorama) → obrazky/mapa-800|1600.webp a rozmazané pozadí obrazky/mapa-pozadi.webp.
 
 Ořízne fotku na poměr 2:1 podle výřezu níže (zlomky šířky a výšky), jemně sjednotí barvy
 a uloží dvě velikosti WebP. Zdroje ve fotky/ jsou Janovy fotky zmenšené na 2400 px.
@@ -10,7 +11,7 @@ Použití:
 import sys
 from pathlib import Path
 
-from PIL import Image, ImageEnhance, ImageOps
+from PIL import Image, ImageEnhance, ImageFilter, ImageOps
 
 KOREN = Path(__file__).resolve().parent.parent
 FOTKY, OBRAZKY = KOREN / 'fotky', KOREN / 'obrazky'
@@ -50,6 +51,22 @@ def zpracuj(n):
         print(f'{vystup.relative_to(KOREN)} {vystup.stat().st_size // 1024} kB')
 
 
+def zpracuj_mapu():
+    """Panorama nad mapou (ostré) a rozmazané pozadí za celou mapou (malé, prohlížeč ho roztáhne)."""
+    im = Image.open(FOTKY / 'mapa.jpg').convert('RGB')
+    im = ImageEnhance.Color(im).enhance(1.08)
+    for s in SIRKY:
+        vystup = OBRAZKY / f'mapa-{s}.webp'
+        im.resize((s, round(im.height * s / im.width)), Image.LANCZOS).save(vystup, quality=80, method=6)
+        print(f'{vystup.relative_to(KOREN)} {vystup.stat().st_size // 1024} kB')
+    # pozadí: střední část panoramatu, na výšku, silně rozmazaná
+    stred = im.crop((im.width * 0.3, 0, im.width * 0.7, im.height)).resize((160, 240), Image.LANCZOS)
+    stred = stred.filter(ImageFilter.GaussianBlur(6))
+    vystup = OBRAZKY / 'mapa-pozadi.webp'
+    stred.save(vystup, quality=70)
+    print(f'{vystup.relative_to(KOREN)} {vystup.stat().st_size // 1024} kB')
+
+
 if __name__ == '__main__':
     if len(sys.argv) == 4 and sys.argv[1] == '--zdroj':
         uloz_zdroj(int(sys.argv[2]), sys.argv[3])
@@ -57,3 +74,5 @@ if __name__ == '__main__':
         for n in VYREZY:
             if (FOTKY / f'svet{n}.jpg').exists():
                 zpracuj(n)
+        if (FOTKY / 'mapa.jpg').exists():
+            zpracuj_mapu()
