@@ -1,0 +1,22 @@
+{"svet": 5, "aktivni": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],"vety":[
+{"id":"s5-0001","jevy":[],"slova":[{"t":"Terezka","d":1},{"t":"má","d":5},{"t":"novou","d":2,"p":"tvrde"},{"t":"červenou","d":2,"p":"tvrde"},{"t":"tašku","d":1,"i":"."}]},
+{"id":"s5-0002","jevy":[],"slova":[{"t":"Jarní","d":2,"p":"mekke"},{"t":"slunce","d":1},{"t":"hřeje","d":5,"i":"."}]},
+{"id":"s5-0003","jevy":[],"slova":[{"t":"Otcův","d":2,"p":"privlastnovaci"},{"t":"klobouk","d":1},{"t":"visí","d":5},{"t":"na","d":7},{"t":"věšáku","d":1,"i":"."}]},
+{"id":"s5-0004","jevy":[],"slova":[{"t":"Maminčin","d":2,"p":"privlastnovaci"},{"t":"dort","d":1},{"t":"je","d":5},{"t":"sladký","d":2,"p":"tvrde","i":"."}]},
+{"id":"s5-0005","jevy":[],"slova":[{"t":"Babiččina","d":2,"p":"privlastnovaci"},{"t":"zahrada","d":1},{"t":"je","d":5},{"t":"plná","d":2,"p":"tvrde"},{"t":"květin","d":1,"i":"."}]},
+{"id":"s5-0006","jevy":[],"slova":[{"t":"Dědečkův","d":2,"p":"privlastnovaci"},{"t":"pes","d":1},{"t":"je","d":5},{"t":"starý","d":2,"p":"tvrde","i":"."}]},
+{"id":"s5-0007","jevy":[],"slova":[{"t":"Terezčina","d":2,"p":"privlastnovaci"},{"t":"kočka","d":1},{"t":"spí","d":5},{"t":"na","d":7},{"t":"okně","d":1,"i":"."}]},
+{"id":"s5-0008","jevy":[],"slova":[{"t":"Matýskovo","d":2,"p":"privlastnovaci"},{"t":"kolo","d":1},{"t":"stojí","d":5},{"t":"v","d":7},{"t":"garáži","d":1,"i":"."}]},
+{"id":"s5-0009","jevy":[],"slova":[{"t":"Zimní","d":2,"p":"mekke"},{"t":"bunda","d":1},{"t":"je","d":5},{"t":"teplá","d":2,"p":"tvrde","i":"."}]},
+{"id":"s5-0010","jevy":[],"slova":[{"t":"Lesní","d":2,"p":"mekke"},{"t":"cesta","d":1},{"t":"vede","d":5},{"t":"k","d":7},{"t":"chatě","d":1,"i":"."}]},
+{"id":"s5-0011","jevy":[],"slova":[{"t":"Dnešní","d":2,"p":"mekke"},{"t":"úkol","d":1},{"t":"je","d":5},{"t":"lehký","d":2,"p":"tvrde","i":"."}]},
+{"id":"s5-0012","jevy":[],"slova":[{"t":"Sousední","d":2,"p":"mekke"},{"t":"dům","d":1},{"t":"má","d":5},{"t":"zelenou","d":2,"p":"tvrde"},{"t":"střechu","d":1,"i":"."}]},
+{"id":"s5-0013","jevy":[],"slova":[{"t":"Ranní","d":2,"p":"mekke"},{"t":"vlak","d":1},{"t":"jede","d":5},{"t":"do","d":7},{"t":"Prahy","d":1,"i":"."}]},
+{"id":"s5-0014","jevy":[],"slova":[{"t":"Letní","d":2,"p":"mekke"},{"t":"prázdniny","d":1},{"t":"jsou","d":5},{"t":"dlouhé","d":2,"p":"tvrde","i":"."}]},
+{"id":"s5-0015","jevy":[],"slova":[{"t":"Sestřin","d":2,"p":"privlastnovaci"},{"t":"pokoj","d":1},{"t":"je","d":5},{"t":"malý","d":2,"p":"tvrde","i":"."}]},
+{"id":"s5-0016","jevy":[],"slova":[{"t":"Bratrova","d":2,"p":"privlastnovaci"},{"t":"kytara","d":1},{"t":"je","d":5},{"t":"stará","d":2,"p":"tvrde","i":"."}]},
+{"id":"s5-0017","jevy":[],"slova":[{"t":"Cizí","d":2,"p":"mekke"},{"t":"pes","d":1},{"t":"běhal","d":5},{"t":"po","d":7},{"t":"zahradě","d":1,"i":"."}]},
+{"id":"s5-0018","jevy":[],"slova":[{"t":"Včerejší","d":2,"p":"mekke"},{"t":"dort","d":1},{"t":"byl","d":5},{"t":"výborný","d":2,"p":"tvrde","i":"."}]},
+{"id":"s5-0019","jevy":[],"slova":[{"t":"Ptačí","d":2,"p":"mekke"},{"t":"hnízdo","d":1},{"t":"je","d":5},{"t":"na","d":7},{"t":"stromě","d":1,"i":"."}]},
+{"id":"s5-0020","jevy":[],"slova":[{"t":"Učitelčina","d":2,"p":"privlastnovaci"},{"t":"taška","d":1},{"t":"leží","d":5},{"t":"na","d":7},{"t":"stole","d":1,"i":"."}]}
+]}

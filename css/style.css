@@ -178,6 +178,7 @@ h1, h2 { font-family: "Baloo 2", "Atkinson Hyperlegible", system-ui, sans-serif;
   border: 2px solid var(--line); background: var(--panel); color: var(--ink); font-size: 1rem; }
 .volby button:hover:not(:disabled) { border-color: var(--ink); }
 .volby button:disabled { opacity: .5; cursor: default; }
+.volby.poddruhy { margin-top: 8px; padding-top: 8px; border-top: 2px dashed var(--c, var(--line, #ccc)); }
 @media (prefers-reduced-motion: reduce) { .postava { transition: none; } .prkna i.polozene { animation: none; } }
 
 /* ---------- postavička s bublinou ---------- */

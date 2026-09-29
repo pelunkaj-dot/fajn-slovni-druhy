@@ -1,5 +1,5 @@
 // Herní režim LOV: ve větě najdi všechna slova daného druhu.
-import { DRUHY, zbyvaText } from '../druhy.js';
+import { DRUHY, PODDRUHY, zbyvaText, nazevDruhu, mnozneDruhu } from '../druhy.js';
 import * as eng from '../engine.js';
 import * as srs from '../srs.js';
 import { esc, cislo, vysledekSerie, parta } from './spolecne.js';
@@ -40,11 +40,12 @@ export function spustLov(koren, { data, krajina = '', opakovani, hrdina, ulozit,
 
   function vykresliVetu() {
     const v = vety[poradi];
-    const cil = srs.vyberCil(opakovani, v, data.aktivni);
-    st = eng.novaVeta(v, cil, data.aktivni);
-    const d = DRUHY[cil];
+    // svět 5: loví se poddruhy, tedy jen druhy, které poddruhy mají
+    const sPoddruhem = [...new Set(v.slova.filter(s => s.p).map(s => s.d))];
+    const cil = srs.vyberCil(opakovani, v, sPoddruhem.length ? sPoddruhem : data.aktivni);
+    st = eng.novaVeta(v, cil, data.aktivni, srs.vyberPoddruh(v, cil));
     $('.cil').style.setProperty('--c', `var(--d${cil})`);
-    $('.cil').innerHTML = `${cislo(cil)}<span>Najdi ${d.vse} <b>${d.mnozne}</b></span><span class="zbyva"></span>`;
+    $('.cil').innerHTML = `${cislo(cil)}<span>Najdi ${DRUHY[cil].vse} <b>${mnozneDruhu(cil, st.poddruh)}</b></span><span class="zbyva"></span>`;
     $('.veta').innerHTML = v.slova.map((s, i) => {
       const aktivni = data.aktivni.includes(s.d);
       return `<span class="skup"><button type="button" class="slovo${aktivni ? '' : ' sede'}" data-i="${i}"${aktivni ? '' : ' tabindex="-1" aria-disabled="true"'}>`
@@ -98,7 +99,7 @@ export function spustLov(koren, { data, krajina = '', opakovani, hrdina, ulozit,
     }
     const k = srs.klic(st.veta.slova[i]);
     chybnaSlova.set(k, st.veta.slova[i]);
-    const m = DRUHY[st.cil].nazev;
+    const m = nazevDruhu(st.cil, st.poddruh);
     if (r.krok === 1) {
       zprava(`„${textJednotky(i)}“ není ${m}. ${hlaska(hrdina, 'chyba1')}`, 'pozor');
     } else if (r.krok === 2) {
@@ -111,7 +112,8 @@ export function spustLov(koren, { data, krajina = '', opakovani, hrdina, ulozit,
 
   function ukazNapovedu() {
     const d = DRUHY[st.cil];
-    zprava(`${hlaska(hrdina, 'napoveda')} ${d.otazka} ${d.popis}`, 'rada');
+    const text = st.poddruh ? PODDRUHY[st.cil][st.poddruh].otazka : `${d.otazka} ${d.popis}`;
+    zprava(`${hlaska(hrdina, 'napoveda')} ${text}`, 'rada');
     $('button.napoveda').hidden = true;
   }
 
@@ -149,7 +151,7 @@ export function spustLov(koren, { data, krajina = '', opakovani, hrdina, ulozit,
           b.querySelector('.nad').innerHTML = cislo(st.cil);
         }
       }
-      zprava(`Tady jsou ${DRUHY[st.cil].vse} ${DRUHY[st.cil].mnozne}. ${hlaska(hrdina, 'odhaleniLov')}`, 'odhaleni');
+      zprava(`Tady jsou ${DRUHY[st.cil].vse} ${mnozneDruhu(st.cil, st.poddruh)}. ${hlaska(hrdina, 'odhaleniLov')}`, 'odhaleni');
       $('.dalsi').hidden = false;
       $('.dalsi').focus();
     } else {

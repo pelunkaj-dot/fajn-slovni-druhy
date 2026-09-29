@@ -1,6 +1,6 @@
 // Herní režim STAVBA MOSTU: urči druh každého slova ve větě; každé správně určené slovo je dílek mostu.
 // Poslední věta série je nejdelší – „velký most“.
-import { DRUHY } from '../druhy.js';
+import { DRUHY, PODDRUHY, nazevDruhu } from '../druhy.js';
 import * as eng from '../engine.js';
 import * as srs from '../srs.js';
 import { esc, cislo, vysledekSerie, parta } from './spolecne.js';
@@ -31,6 +31,7 @@ export function spustMost(koren, { data, krajina = '', opakovani, hrdina, ulozit
       <div class="volby" role="group" aria-label="Slovní druhy">
         ${data.aktivni.map(d => `<button type="button" data-d="${d}">${cislo(d)}<span>${DRUHY[d].nazev}</span></button>`).join('')}
       </div>
+      <div class="volby poddruhy" role="group" aria-label="Poddruhy" hidden></div>
       <div class="parta"></div>
       <div class="ovladani">
         <button type="button" class="napoveda" hidden>Nápověda</button>
@@ -44,6 +45,7 @@ export function spustMost(koren, { data, krajina = '', opakovani, hrdina, ulozit
   $('button.napoveda').onclick = () => ukazNapovedu();
   $('.dalsi').onclick = () => dalsiVeta();
   $('.volby').onclick = e => { const b = e.target.closest('button[data-d]'); if (b) zpracujTip(+b.dataset.d); };
+  $('.poddruhy').onclick = e => { const b = e.target.closest('button[data-p]'); if (b) zpracujTip(null, b.dataset.p); };
 
   function zastav() { cancelAnimationFrame(casovac); clearTimeout(dalsiTimeout); }
 
@@ -62,6 +64,7 @@ export function spustMost(koren, { data, krajina = '', opakovani, hrdina, ulozit
     $('button.napoveda').hidden = true;
     $('.dalsi').hidden = true;
     koren.querySelectorAll('.volby button').forEach(b => { b.disabled = false; });
+    ukazPoddruhy();
     koren.querySelectorAll('.tecky li').forEach((li, i) => li.classList.toggle('ted', i === poradi));
     limit = eng.limitMostu(m);
     start = performance.now();
@@ -78,6 +81,19 @@ export function spustMost(koren, { data, krajina = '', opakovani, hrdina, ulozit
     const cl = eng.clenove(m.veta, eng.aktualniSlovo(m));
     for (const j of cl) koren.querySelector(`.slovo[data-i="${j}"]`).classList.add('ted');
     pozn.textContent = cl.length > 1 ? 'Zvýrazněná slova tvoří jeden slovesný tvar. Urči ho jednou.' : '';
+  }
+
+  // Svět 5: po správném druhu se objeví druhá řada – poddruhy daného druhu.
+  function ukazPoddruhy() {
+    const el = $('.poddruhy');
+    const poddruh = m.faze === 'poddruh';
+    $('.volby:not(.poddruhy)').hidden = poddruh;  // na malém displeji by druhá řada byla až pod ohybem
+    el.hidden = !poddruh;
+    if (!poddruh) { el.innerHTML = ''; return; }
+    const d = m.veta.slova[eng.aktualniSlovo(m)].d;
+    el.style.setProperty('--c', `var(--d${d})`);
+    el.innerHTML = Object.entries(PODDRUHY[d]).map(([p, x]) => `<button type="button" data-p="${p}">${cislo(d)}<span>${x.jed}</span></button>`).join('');
+    el.querySelector('button').focus({ preventScroll: true });
   }
 
   function tik() {
@@ -99,12 +115,20 @@ export function spustMost(koren, { data, krajina = '', opakovani, hrdina, ulozit
     prkno.style.setProperty('--c', `var(--d${s.d})`);
   }
 
-  function zpracujTip(druh) {
+  function zpracujTip(druh, poddruh) {
     const i = eng.aktualniSlovo(m);
     const s = m.veta.slova[i];
     const t = eng.clenove(m.veta, i).map(j => m.veta.slova[j].t).join(' ');
-    const r = eng.tip(m, druh);
+    const vPoddruhu = m.faze === 'poddruh';
+    const r = vPoddruhu ? eng.tipPoddruhu(m, poddruh) : eng.tip(m, druh);
+    const spatne = vPoddruhu ? nazevDruhu(s.d, poddruh) : DRUHY[druh] && DRUHY[druh].nazev;
     if (r.typ === 'nic') return;
+    if (r.typ === 'druh') {
+      $('button.napoveda').hidden = true;
+      zprava(`Ano, ${DRUHY[s.d].nazev}. Teď urči poddruh.`, 'dilek');
+      ukazPoddruhy();
+      return;
+    }
     if (r.typ === 'zasah') {
       polozDilek(i, false);
       if (!m.spatne.includes(i)) srs.uspech(opakovani, srs.klic(s));
@@ -117,23 +141,27 @@ export function spustMost(koren, { data, krajina = '', opakovani, hrdina, ulozit
       }
       srs.chyba(opakovani, srs.klic(s));
       chybnaSlova.set(srs.klic(s), s);
-      if (r.krok === 1) zprava(`„${t}“ není ${DRUHY[druh].nazev}. ${hlaska(hrdina, 'chyba1')}`, 'pozor');
+      if (r.krok === 1) zprava(`„${t}“ není ${spatne}. ${hlaska(hrdina, 'chyba1')}`, 'pozor');
       else if (r.krok === 2) {
-        zprava(`„${t}“ není ${DRUHY[druh].nazev}. ${hlaska(hrdina, 'chyba2')}`, 'pozor');
+        zprava(`„${t}“ není ${spatne}. ${hlaska(hrdina, 'chyba2')}`, 'pozor');
         $('button.napoveda').hidden = false;
       } else {
         polozDilek(i, true);
         $('button.napoveda').hidden = true;
-        zprava(`„${t}“ je ${DRUHY[s.d].nazev}. ${DRUHY[s.d].otazka} ${hlaska(hrdina, 'odhaleniMost')}`, 'odhaleni');
+        const proc = vPoddruhu ? PODDRUHY[s.d][s.p].otazka : DRUHY[s.d].otazka;
+        zprava(`„${t}“ je ${nazevDruhu(s.d, s.p)}. ${proc} ${hlaska(hrdina, 'odhaleniMost')}`, 'odhaleni');
       }
     }
+    ukazPoddruhy();
     oznacAktualni();
     if (m.hotovo) dokonciVetu();
   }
 
   function ukazNapovedu() {
     const s = m.veta.slova[eng.aktualniSlovo(m)];
-    const text = s.n || data.aktivni.map(d => `${DRUHY[d].otazka} (${DRUHY[d].nazev})`).join(' · ');
+    const text = m.faze === 'poddruh'
+      ? Object.values(PODDRUHY[s.d]).map(x => `${x.jed}: ${x.otazka}`).join(' · ')
+      : s.n || data.aktivni.map(d => `${DRUHY[d].otazka} (${DRUHY[d].nazev})`).join(' · ');
     zprava(`${hlaska(hrdina, 'napoveda')} ${text}`, 'rada');
     $('button.napoveda').hidden = true;
   }

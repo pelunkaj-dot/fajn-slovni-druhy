@@ -1,0 +1,115 @@
+# Svět 5 – druh i poddruh. Poddruh se píše za dvojtečku: /2:tvrde, /3:osobni, /4:radova.
+# Přídavná jména: tvrde, mekke, privlastnovaci. Zájmena: osobni, zvratne (se, si, sebe), privlastnovaci,
+# ukazovaci, tazaci, vztazne, neurcite, zaporne. Číslovky: zakladni, radova, druhova, nasobna. (docs/sporna-pojeti.md, G)
+#
+# --- přídavná jména: tvrdá, měkká, přivlastňovací ---
+0001| Terezka/1 má/5 novou/2:tvrde červenou/2:tvrde tašku/1 .
+0002| Jarní/2:mekke slunce/1 hřeje/5 .
+0003| Otcův/2:privlastnovaci klobouk/1 visí/5 na/7 věšáku/1 .
+0004| Maminčin/2:privlastnovaci dort/1 je/5 sladký/2:tvrde .
+0005| Babiččina/2:privlastnovaci zahrada/1 je/5 plná/2:tvrde květin/1 .
+0006| Dědečkův/2:privlastnovaci pes/1 je/5 starý/2:tvrde .
+0007| Terezčina/2:privlastnovaci kočka/1 spí/5 na/7 okně/1 .
+0008| Matýskovo/2:privlastnovaci kolo/1 stojí/5 v/7 garáži/1 .
+0009| Zimní/2:mekke bunda/1 je/5 teplá/2:tvrde .
+0010| Lesní/2:mekke cesta/1 vede/5 k/7 chatě/1 .
+0011| Dnešní/2:mekke úkol/1 je/5 lehký/2:tvrde .
+0012| Sousední/2:mekke dům/1 má/5 zelenou/2:tvrde střechu/1 .
+0013| Ranní/2:mekke vlak/1 jede/5 do/7 Prahy/1 .
+0014| Letní/2:mekke prázdniny/1 jsou/5 dlouhé/2:tvrde .
+0015| Sestřin/2:privlastnovaci pokoj/1 je/5 malý/2:tvrde .
+0016| Bratrova/2:privlastnovaci kytara/1 je/5 stará/2:tvrde .
+0017| Cizí/2:mekke pes/1 běhal/5 po/7 zahradě/1 .
+0018| Včerejší/2:mekke dort/1 byl/5 výborný/2:tvrde .
+0019| Ptačí/2:mekke hnízdo/1 je/5 na/7 stromě/1 .
+0020| Učitelčina/2:privlastnovaci taška/1 leží/5 na/7 stole/1 .
+0021| Vy/3:osobni jste/5 šikovní/2:tvrde .
+# --- zájmena osobní a zvratná ---
+0022| Já/3:osobni půjdu/5 ven/6 a/8 ty/3:osobni zůstaneš/5 doma/6 .
+0023| On/3:osobni čte/5 a/8 ona/3:osobni píše/5 .
+0024| My/3:osobni jsme/5 kamarádi/1 .
+0025| Oni/3:osobni hrají/5 fotbal/1 .
+0026| Vidím/5 tě/3:osobni .
+0027| Pomůžu/5 ti/3:osobni .
+0028| Maminka/1 ho/3:osobni pochválila/5 .
+0029| Babička/1 nám/3:osobni upekla/5 koláč/1 .
+0030| Terezka/1 se/3:zvratne směje/5 .
+0031| Matýsek/1 si/3:zvratne čte/5 .
+# --- zájmena přivlastňovací ---
+0032| Můj/3:privlastnovaci bratr/1 je/5 vysoký/2:tvrde .
+0033| Tvoje/3:privlastnovaci taška/1 je/5 těžká/2:tvrde .
+0034| Jeho/3:privlastnovaci pes/1 je/5 hodný/2:tvrde .
+0035| Její/3:privlastnovaci kočka/1 je/5 černá/2:tvrde .
+0036| Náš/3:privlastnovaci dům/1 stojí/5 u/7 lesa/1 .
+0037| Váš/3:privlastnovaci pes/1 štěká/5 .
+0038| Jejich/3:privlastnovaci zahrada/1 je/5 velká/2:tvrde .
+0039| Matýsek/1 uklízí/5 svůj/3:privlastnovaci pokoj/1 .
+0040| Terezka/1 hledá/5 svou/3:privlastnovaci panenku/1 .
+# --- zájmena ukazovací ---
+0041| Ten/3:ukazovaci pes/1 je/5 můj/3:privlastnovaci .
+0042| Ta/3:ukazovaci kniha/1 je/5 zajímavá/2:tvrde .
+0043| To/3:ukazovaci je/5 pravda/1 .
+0044| Tento/3:ukazovaci obrázek/1 nakreslila/5 Terezka/1 .
+0045| Chci/5 takový/3:ukazovaci míč/1 .
+0046| Tamten/3:ukazovaci dům/1 je/5 starý/2:tvrde .
+0047| Dej/5 mi/3:osobni ta/3:ukazovaci dvě/4:zakladni jablka/1 .
+# --- zájmena tázací ---
+0048| Kdo/3:tazaci zazvonil/5 ?
+0049| Co/3:tazaci děláš/5 ?
+0050| Jaký/3:tazaci je/5 tvůj/3:privlastnovaci oblíbený/2:tvrde sport/1 ?
+0051| Který/3:tazaci míč/1 je/5 tvůj/3:privlastnovaci ?
+0052| Čí/3:tazaci je/5 ten/3:ukazovaci batoh/1 ?
+0053| Koho/3:tazaci hledáš/5 ?
+0054| Kdo/3:tazaci snědl/5 můj/3:privlastnovaci čokoládový/2:tvrde dort/1 ?
+# --- zájmena vztažná ---
+0055| To/3:ukazovaci je/5 kluk/1 , který/3:vztazne vyhrál/5 závod/1 .
+0056| Kniha/1 , kterou/3:vztazne čtu/5 , je/5 napínavá/2:tvrde .
+0057| Mám/5 kamarádku/1 , která/3:vztazne bydlí/5 v/7 Brně/1 .
+0058| Pes/1 , kterého/3:vztazne jsme/5+ našli/5+ , je/5 hodný/2:tvrde .
+0059| Dům/1 , ve/7 kterém/3:vztazne bydlíme/5 , je/5 starý/2:tvrde .
+0060| Dostal/5+ jsem/5+ takové/3:ukazovaci kolo/1 , jaké/3:vztazne jsem/5+2 chtěl/5+2 .
+# --- zájmena neurčitá ---
+0061| Někdo/3:neurcite klepe/5 na/7 dveře/1 .
+0062| Něco/3:neurcite spadlo/5 ze/7 stolu/1 .
+0063| Nějaký/3:neurcite pán/1 se/3:zvratne ptal/5 na/7 tebe/3:osobni .
+0064| Některé/3:neurcite děti/1 jezdí/5 do/7 školy/1 autobusem/1 .
+0065| Vezmi/5 si/3:zvratne nějakou/3:neurcite knihu/1 .
+0066| Našli/5+ jsme/5+ něčí/3:neurcite rukavici/1 .
+0067| Někdo/3:neurcite nechal/5 otcovy/2:privlastnovaci brýle/1 na/7 lavičce/1 .
+# --- zájmena záporná ---
+0068| Nikdo/3:zaporne nepřišel/5 .
+0069| Nic/3:zaporne nevidím/5 .
+0070| Žádný/3:zaporne pes/1 neštěká/5 .
+0071| Nemám/5 žádnou/3:zaporne tužku/1 .
+0072| Nikomu/3:zaporne to/3:ukazovaci neříkej/5 !
+0073| Nikdo/3:zaporne nemá/5 takovou/3:ukazovaci modrou/2:tvrde čepici/1 jako/8 já/3:osobni .
+# --- číslovky základní ---
+0074| Mám/5 dva/4:zakladni bratry/1 .
+0075| Na/7 stole/1 leží/5 pět/4:zakladni jablek/1 .
+0076| Deset/4:zakladni ptáků/1 sedí/5 na/7 drátě/1 .
+0077| Terezka/1 má/5 jednu/4:zakladni sestru/1 .
+0078| Sto/4:zakladni dětí/1 zpívá/5 ve/7 sboru/1 .
+0079| Tři/4:zakladni kluci/1 běží/5 závod/1 .
+0080| Naše/3:privlastnovaci stará/2:tvrde fena/1 má/5 dvě/4:zakladni štěňata/1 .
+# --- číslovky řadové ---
+0081| Terezka/1 je/5 první/4:radova ve/7 třídě/1 .
+0082| Matýsek/1 chodí/5 do/7 třetí/4:radova třídy/1 .
+0083| Bydlíme/5 v/7 pátém/4:radova patře/1 .
+0084| Náš/3:privlastnovaci tým/1 skončil/5 druhý/4:radova .
+0085| Desátý/4:radova závodník/1 doběhl/5 do/7 cíle/1 .
+0086| Matýskova/2:privlastnovaci první/4:radova jednička/1 byla/5 z/7 matematiky/1 .
+# --- číslovky druhové ---
+0087| Mám/5 dvoje/4:druhova boty/1 .
+0088| Na/7 poličce/1 leží/5 dvoje/4:druhova nůžky/1 .
+0089| Ten/3:ukazovaci úkol/1 má/5 dvojí/4:druhova řešení/1 .
+0090| Babička/1 upekla/5 dvojí/4:druhova koláče/1 .
+0091| Koupili/5+ jsme/5+ patery/4:druhova rukavice/1 .
+# --- číslovky násobné ---
+0092| Dvakrát/4:nasobna jsem/5+ zazvonil/5+ .
+0093| Třikrát/4:nasobna týdně/6 plavu/5 .
+0094| Pětkrát/4:nasobna jsem/5+ skočil/5+ přes/7 švihadlo/1 .
+0095| Desetkrát/4:nasobna jsem/5+ to/3:ukazovaci opakoval/5+ .
+0096| Babiččin/2:privlastnovaci pes/1 štěká/5 dvakrát/4:nasobna denně/6 .
+# --- všechno dohromady ---
+0097| Ten/3:ukazovaci jarní/2:mekke den/1 byl/5 krásný/2:tvrde .
+0098| Tvůj/3:privlastnovaci letní/2:mekke klobouk/1 je/5 v/7 mé/3:privlastnovaci skříni/1 .

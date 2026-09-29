@@ -66,3 +66,9 @@ export function vyberCil(stav, veta, aktivni, nahoda = Math.random, ted = Date.n
   }
   return +Object.entries(skore).sort((a, b) => b[1] - a[1])[0][0];
 }
+
+// Svět 5: z lovených slov vybere poddruh (např. přivlastňovací), nebo '' když slova poddruh nemají.
+export function vyberPoddruh(veta, cil, nahoda = Math.random) {
+  const p = [...new Set(veta.slova.filter(s => s.d === cil && s.p).map(s => s.p))];
+  return p.length ? p[Math.floor(nahoda() * p.length)] : '';
+}
