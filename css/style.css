@@ -266,3 +266,7 @@ h1, h2 { font-family: "Baloo 2", "Atkinson Hyperlegible", system-ui, sans-serif;
 .efekty { position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 50; }
 .prepinac-zvuku { border: 1px solid var(--line); background: var(--panel); color: var(--ink); border-radius: 999px; padding: 4px 12px; font: inherit; font-size: .9rem; }
 .prepinac-zvuku[aria-pressed="false"] { color: var(--muted); }
+.obrana .kontext { margin: 6px 0 0; padding: 8px 12px; min-height: 2.6em; background: var(--panel); border: 2px solid var(--line); border-radius: 12px; font-size: 1.1rem; line-height: 1.5; }
+.obrana .kontext mark { background: color-mix(in srgb, var(--accent, #1f6f5c) 22%, transparent); color: var(--ink); font-weight: 800; padding: 0 3px; border-radius: 4px; }
+.obrana .kontext .prazdny { color: var(--muted); font-size: .95rem; }
+.obrana.ve-vetach .arena { height: clamp(230px, 38vh, 420px); }

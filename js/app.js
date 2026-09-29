@@ -19,8 +19,9 @@ const HRDINOVE = ['Terezka', 'Matýsek'];
 const REZIMY = { lov: { nazev: 'Lov', spust: spustLov }, most: { nazev: 'Stavba mostu', spust: spustMost }, padani: { nazev: 'Padající slova', spust: spustPadani }, obrana: { nazev: 'Obrana hradu', spust: spustObranu } };
 let DOSTUPNE = []; // světy, které mají data (z data/svety.json)
 let SLOVA = {};    // slova pro Padající slova podle světa (jen světy 1–2)
-// Režimy nabízené ve světě: Padající slova a Obrana hradu jen tam, kde jsou schválená samostatná slova.
-const rezimySveta = n => Object.entries(REZIMY).filter(([k]) => !['padani', 'obrana'].includes(k) || SLOVA[n]);
+// Režimy nabízené ve světě: Padající slova jen tam, kde jsou schválená samostatná slova.
+// Obrana hradu jde všude: ve světech 1–2 se samostatnými slovy, ve vyšších se slovy z vět.
+const rezimySveta = n => Object.entries(REZIMY).filter(([k]) => k !== 'padani' || SLOVA[n]);
 const parametry = new URLSearchParams(location.search);
 const PLNA = parametry.get('mode') === 'full';
 
@@ -154,7 +155,7 @@ async function hraj(n, rezim = '') {
   }
   REZIMY[rezim || stav.rezim].spust(app, {
     data: cache[n],
-    slova: SLOVA[n],
+    slova: (rezim === 'padani' || rezim === 'obrana') && n <= 2 ? SLOVA[n] : undefined,
     krajina: KRAJINY[n],
     opakovani: stav.opakovani,
     hrdina: mluvci(),
