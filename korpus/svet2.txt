@@ -170,7 +170,7 @@
 0167| Hurá/10 , sněží/5 !
 0168| Pozítří/6 jedeme/5 k/7 moři/1 .
 0169| Dole/6 stojí/5 auto/1 .
-0170| Deset/4 vajec/1 leží/5 v/7 košíku/1 .
+0170| V/7 košíku/1 leží/5 deset/4 vajec/1 .
 0171| Zvonek/1 zazvonil/5 dvakrát/4 .
 0172| Jeho/3 kamarád/1 hraje/5 hokej/1 .
 0173| Kdo/3 zvoní/5 ?
@@ -206,6 +206,6 @@
 0203| Kéž/9 zítra/6 svítí/5 slunce/1 !
 0204| Matýsek/1 hodil/5 míč/1 daleko/6 .
 0205| Tady/6 je/5 můj/3 pokoj/1 .
-0206| Pět/4 koťat/1 spí/5 v/7 krabici/1 .
+0206| V/7 krabici/1 spí/5 pět/4 koťat/1 .
 0207| Dnes/6 je/5 venku/6 hezky/6 .
 0208| Osm/4 kluků/1 hraje/5 fotbal/1 .

@@ -76,11 +76,10 @@
 0064| Večer/6*{Zeptej se: kdy čteme?} čteme/5 pohádky/1 .
 0065| Večer/1*{Zeptej se: co bylo teplé?} byl/5 teplý/2 .
 0066| Byl/5 to/3 krásný/2 večer/1*{Zeptej se: co bylo krásné?} .
-# --- tři: číslovka × sloveso třít ---
+# --- tři: jen číslovka (sloveso třít nepoužívat, docs/sporna-pojeti.md bod 17) ---
 0068| Tři/4*{Zeptej se: kolik kluků?} kluci/1 hrají/5 fotbal/1 .
 0069| Tři/4*{Zeptej se: kolik dní?} dny/1 pršelo/5 .
 0070| Tři/4*{Zeptej se: kolik ptáků?} ptáci/1 sedí/5 na/7 plotě/1 .
-0071| Tři/5*{Co máš udělat s dlaněmi?} dlaně/1 o/7 sebe/3 !
 0072| Tři/4*{Zeptej se: kolik koček?} kočky/1 spí/5 na/7 slunci/1 .
 # --- hodně: číslovka × příslovce ---
 0073| Na/7 koncertě/1 bylo/5 hodně/4*{Zeptej se: kolik lidí?} lidí/1 .
@@ -198,9 +197,8 @@
 0172| Dobré/2 ráno/1*{Zeptej se: dobré co?} !
 0173| Večer/6*{Zeptej se: kdy budeme číst?} budeme/5+ číst/5+ pohádku/1 .
 # --- várka 2: tři ---
-0174| Tři/4*{Zeptej se: kolik jablek?} jablka/1 leží/5 na/7 stole/1 .
+0174| Na/7 stole/1 leží/5 tři/4*{Zeptej se: kolik jablek?} jablka/1 .
 0175| Tři/4*{Zeptej se: kolik dětí?} děti/1 čekají/5 na/7 autobus/1 .
-0176| Tři/5*{Co máš udělat s podlahou?} podlahu/1 hadrem/1 !
 # --- várka 2: hodně ---
 0177| Ve/7 třídě/1 je/5 hodně/4*{Zeptej se: kolik dětí?} dětí/1 .
 0178| Matýsek/1 hodně/6*{Zeptej se: jak moc trénuje?} trénuje/5 .
@@ -226,5 +224,5 @@
 0193| Tisíc/4 lidí/1 přišlo/5 na/7 koncert/1 .
 0194| Město/1 má/5 milion/4 obyvatel/1 .
 0195| Třikrát/4 denně/6 krmím/5 rybičky/1 .
-0196| Sto/4 ovcí/1 se/3 pase/5 na/7 louce/1 .
+0196| Na/7 louce/1 se/3 pase/5 sto/4 ovcí/1 .
 0197| Ptáci/1 odletěli/5 na/7 jih/1 .

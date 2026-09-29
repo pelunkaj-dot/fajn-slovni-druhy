@@ -32,7 +32,7 @@ Sloupec **Svět** říká, odkud se jev smí objevit; do té doby se takové vě
 | 14 | Neurčité číslovky | *mnoho, málo, několik, pár* | 4 | 2 | *pár* může být podstatné jméno (*pár bot*) |
 | 15 | *hodně, moc* | *hodně lidí* × *hodně běhá* | 4 × 6 podle kontextu | 3 | často vždy příslovce |
 | 16 | *moc* jako podstatné jméno | *moc krále* | 1 | 3 | |
-| 17 | *tři* × *třít* | *Tři to hadrem!* | 5 v rozkazu | 3 | kontext |
+| 17 | *tři* × *třít* | *Tři to hadrem!* | sloveso *třít* **nepoužívat** (v češtině nepřirozené); *tři* jen jako číslovka | 3 | |
 | 18 | Číslovky napsané číslicí | *3 jablka* | nepoužívat, vždy slovy | – | |
 | 19 | *dvakrát, poprvé, dvojí* | | 4 (násobná, řadová, druhová) | 2 | *poprvé* může být příslovce |
 | 20 | *oba* | *oba kluci* | 4 | 3 | značí jako číslovku |
