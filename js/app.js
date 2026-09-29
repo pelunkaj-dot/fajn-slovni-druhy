@@ -6,6 +6,7 @@ import { OBLASTI, DOKONCENI } from './engine.js';
 import { spustLov } from './rezimy/lov.js';
 import { spustMost } from './rezimy/most.js';
 import { spustPadani } from './rezimy/padani.js';
+import { spustObranu } from './rezimy/obrana.js';
 import { avatar } from './postavy.js';
 import { KRAJINY } from './krajiny.js';
 import { hlaska, nastavHrace } from './hlasky.js';
@@ -14,11 +15,11 @@ import { parta } from './rezimy/spolecne.js';
 const KLIC = 'fajn-slovni-druhy:v1';
 const MOTIVY = { light: 'Světlý', dark: 'Tmavý', girl: 'Dívčí' };
 const HRDINOVE = ['Terezka', 'Matýsek'];
-const REZIMY = { lov: { nazev: 'Lov', spust: spustLov }, most: { nazev: 'Stavba mostu', spust: spustMost }, padani: { nazev: 'Padající slova', spust: spustPadani } };
+const REZIMY = { lov: { nazev: 'Lov', spust: spustLov }, most: { nazev: 'Stavba mostu', spust: spustMost }, padani: { nazev: 'Padající slova', spust: spustPadani }, obrana: { nazev: 'Obrana hradu', spust: spustObranu } };
 let DOSTUPNE = []; // světy, které mají data (z data/svety.json)
 let SLOVA = {};    // slova pro Padající slova podle světa (jen světy 1–2)
-// Režimy nabízené ve světě: Padající slova jen tam, kde jsou schválená samostatná slova.
-const rezimySveta = n => Object.entries(REZIMY).filter(([k]) => k !== 'padani' || SLOVA[n]);
+// Režimy nabízené ve světě: Padající slova a Obrana hradu jen tam, kde jsou schválená samostatná slova.
+const rezimySveta = n => Object.entries(REZIMY).filter(([k]) => !['padani', 'obrana'].includes(k) || SLOVA[n]);
 const parametry = new URLSearchParams(location.search);
 const PLNA = parametry.get('mode') === 'full';
 

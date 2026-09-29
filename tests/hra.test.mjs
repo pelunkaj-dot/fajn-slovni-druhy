@@ -221,3 +221,36 @@ test('padání: výběr slov upřednostní slabá slova', () => {
   assert.deepEqual(srs.vyberSlova(st, slova, 1, () => 0, t + 1), [{ t: 'kočka', d: 1 }]);
   assert.equal(srs.vyberSlova(st, slova, 5, Math.random, t + 1).length, 3);
 });
+
+// ---------- Obrana hradu ----------
+const slovaObrany = [{ t: 'pes', d: 1 }, { t: 'běží', d: 5 }, { t: 'malý', d: 2 }, { t: 'kočka', d: 1 }, { t: 'spí', d: 5 }];
+
+test('obrana: vlny, zásah, chyby a odhalení', () => {
+  const o = eng.novaObrana(slovaObrany, [2, 3]);
+  assert.equal(eng.krokObrany(o, 0.1)[0].typ, 'nove');
+  eng.krokObrany(o, 4);
+  assert.equal(o.aktivni.length, 2);
+  assert.equal(eng.cilObrany(o).s.t, 'pes');
+  assert.deepEqual(eng.vystrel(o, 0, 5), { typ: 'chyba', krok: 1 });
+  assert.equal(eng.vystrel(o, 0, 1).vysledek, 'chyba');
+  const r = eng.vystrel(o, 1, 5);
+  assert.equal(r.vysledek, 'ciste');
+  assert.deepEqual(r.udalosti, [{ typ: 'vlna' }]);
+  assert.deepEqual(eng.krokObrany(o, 5), []);
+  eng.dalsiVlna(o);
+  eng.krokObrany(o, 1.1);
+  const w = eng.cilObrany(o);
+  eng.vystrel(o, w.id, 1); eng.vystrel(o, w.id, 1);
+  assert.equal(eng.vystrel(o, w.id, 1).vysledek, 'odhaleno');
+  assert.deepEqual(o.vysledky, ['chyba', 'ciste', 'odhaleno']);
+});
+
+test('obrana: slovo u hradu ubere život, bez životů konec', () => {
+  const o = eng.novaObrana(slovaObrany, [5]);
+  let hrad = 0, konec = false;
+  for (let t = 0; t < 200 && !o.hotovo; t++) for (const u of eng.krokObrany(o, 1)) { if (u.typ === 'hrad') hrad++; if (u.typ === 'konec') konec = true; }
+  assert.ok(konec && o.hotovo);
+  assert.equal(hrad, 5);
+  assert.equal(o.zivoty, 0);
+  assert.ok(!eng.serieUspesna(o.vysledky, eng.DELKA_OBRANY));
+});

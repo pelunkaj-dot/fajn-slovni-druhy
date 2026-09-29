@@ -187,3 +187,80 @@ export function bodyZaSlovo(vysledek, zbyva) {
 export function dobaPadu(i, n) {
   return 9 - 4.5 * (n > 1 ? i / (n - 1) : 0);
 }
+
+// ---------- Obrana hradu: slova jdou po cestě k hradu, věž správného druhu je zastaví ----------
+
+export const VLNY = [5, 6, 7];      // slov ve vlnách jedné série
+export const DELKA_OBRANY = VLNY.reduce((a, b) => a + b, 0);
+export const ZIVOTY = 5;
+const DOBA_CESTY = [18, 15, 12];    // sekund, než slovo dojde k hradu (podle vlny)
+const ROZESTUP = [3.5, 2.8, 2.2];   // sekund mezi slovy ve vlně
+
+export function novaObrana(slova, vlny = VLNY) {
+  const fronta = [];
+  let k = 0;
+  vlny.forEach((n, v) => { for (let j = 0; j < n && k < slova.length; j++) fronta.push({ id: k, s: slova[k++], vlna: v }); });
+  return { fronta, aktivni: [], vysledky: [], zivoty: ZIVOTY, vlna: 0, pocetVln: vlny.length, cas: 0, dalsi: 0, cekaNaVlnu: false, hotovo: fronta.length === 0 };
+}
+
+// Posune hru o dt sekund. Vrátí události: { typ: 'nove' | 'hrad' | 'vlna' | 'konec', slovo }.
+export function krokObrany(o, dt) {
+  const udalosti = [];
+  if (o.hotovo || o.cekaNaVlnu) return udalosti;
+  o.cas += dt;
+  const dalsiVeVlne = o.fronta[0] && o.fronta[0].vlna === o.vlna;
+  if (dalsiVeVlne && o.cas >= o.dalsi) {
+    const w = { ...o.fronta.shift(), x: 0, chyby: 0 };
+    o.aktivni.push(w);
+    o.dalsi = o.cas + ROZESTUP[Math.min(o.vlna, ROZESTUP.length - 1)];
+    udalosti.push({ typ: 'nove', slovo: w });
+  }
+  for (const w of [...o.aktivni]) {
+    w.x += dt / DOBA_CESTY[Math.min(w.vlna, DOBA_CESTY.length - 1)];
+    if (w.x >= 1) {
+      odeber(o, w, 'odhaleno');
+      o.zivoty -= 1;
+      udalosti.push({ typ: 'hrad', slovo: w });
+    }
+  }
+  udalosti.push(...kontrolaKonce(o));
+  return udalosti;
+}
+
+function kontrolaKonce(o) {
+  if (o.hotovo) return [];
+  if (o.zivoty <= 0 || (!o.fronta.length && !o.aktivni.length)) { o.hotovo = true; return [{ typ: 'konec' }]; }
+  if (!o.aktivni.length && o.fronta[0].vlna !== o.vlna) { o.cekaNaVlnu = true; return [{ typ: 'vlna' }]; }
+  return [];
+}
+
+export function dalsiVlna(o) {
+  if (!o.cekaNaVlnu) return;
+  o.cekaNaVlnu = false;
+  o.vlna += 1;
+  o.dalsi = o.cas + 1;
+}
+
+// Zaměřené slovo: to, které je nejblíž hradu.
+export const cilObrany = o => o.aktivni.reduce((a, w) => (!a || w.x > a.x ? w : a), null);
+
+// Výstřel věže druhu `druh` na slovo `id`. Vrátí { typ: 'zasah' | 'chyba' | 'nic', krok, vysledek, udalosti }.
+export function vystrel(o, id, druh) {
+  const w = o.aktivni.find(x => x.id === id);
+  if (o.hotovo || !w) return { typ: 'nic', krok: 0 };
+  if (w.s.d === druh) {
+    const vysledek = w.chyby ? 'chyba' : 'ciste';
+    odeber(o, w, vysledek);
+    return { typ: 'zasah', krok: 0, vysledek, udalosti: kontrolaKonce(o) };
+  }
+  w.chyby += 1;
+  const krok = Math.min(w.chyby, 3);
+  if (krok < 3) return { typ: 'chyba', krok };
+  odeber(o, w, 'odhaleno');
+  return { typ: 'chyba', krok, vysledek: 'odhaleno', udalosti: kontrolaKonce(o) };
+}
+
+function odeber(o, w, vysledek) {
+  o.aktivni = o.aktivni.filter(x => x !== w);
+  o.vysledky.push(vysledek);
+}
