@@ -6,6 +6,8 @@ import * as srs from '../srs.js';
 import { esc, cislo, vysledekSerie, parta } from './spolecne.js';
 import { avatar } from '../postavy.js';
 import { hlaska } from '../hlasky.js';
+import { zvuk } from '../zvuky.js';
+import { efektZasahu, efektChyby, efektBodu } from '../efekty.js';
 
 export function spustMost(koren, { data, krajina = '', opakovani, hrdina, ulozit, serieHotova, konec }) {
   const pocetSlov = v => v.slova.filter(s => data.aktivni.includes(s.d)).length;
@@ -14,6 +16,7 @@ export function spustMost(koren, { data, krajina = '', opakovani, hrdina, ulozit
   const vety = [...vybrane.filter(v => v !== nejdelsi), nejdelsi].filter(Boolean);
   const vysledky = [];
   const chybnaSlova = new Map();
+  let rada = 0; // zásahy bez chyby za sebou (zvedají tón)
   let poradi = 0, body = 0, m = null, start = 0, limit = 0, casovac = 0, dalsiTimeout = 0;
 
   koren.innerHTML = `
@@ -124,6 +127,8 @@ export function spustMost(koren, { data, krajina = '', opakovani, hrdina, ulozit
     const spatne = vPoddruhu ? nazevDruhu(s.d, poddruh) : DRUHY[druh] && DRUHY[druh].nazev;
     if (r.typ === 'nic') return;
     if (r.typ === 'druh') {
+      zvuk('zasah', { rada: rada++ });
+      efektZasahu(koren.querySelector(`.slovo[data-i="${i}"]`), s.d);
       $('button.napoveda').hidden = true;
       zprava(`Ano, ${DRUHY[s.d].nazev}. Teď urči poddruh.`, 'dilek');
       ukazPoddruhy();
@@ -131,6 +136,8 @@ export function spustMost(koren, { data, krajina = '', opakovani, hrdina, ulozit
     }
     if (r.typ === 'zasah') {
       polozDilek(i, false);
+      zvuk('zasah', { rada: rada++ });
+      efektZasahu(koren.querySelector(`.slovo[data-i="${i}"]`), s.d);
       if (!m.spatne.includes(i)) srs.uspech(opakovani, srs.klic(s));
       $('button.napoveda').hidden = true;
       if (!m.hotovo && !$('.zprava').classList.contains('odhaleni')) zprava(hlaska(hrdina, 'dilek'), 'dilek');
@@ -141,6 +148,9 @@ export function spustMost(koren, { data, krajina = '', opakovani, hrdina, ulozit
       }
       srs.chyba(opakovani, srs.klic(s));
       chybnaSlova.set(srs.klic(s), s);
+      rada = 0;
+      zvuk(r.krok === 3 ? 'odhaleni' : 'chyba');
+      efektChyby(koren.querySelector(`.slovo[data-i="${i}"]`));
       if (r.krok === 1) zprava(`„${t}“ není ${spatne}. ${hlaska(hrdina, 'chyba1')}`, 'pozor');
       else if (r.krok === 2) {
         zprava(`„${t}“ není ${spatne}. ${hlaska(hrdina, 'chyba2')}`, 'pozor');
@@ -162,6 +172,7 @@ export function spustMost(koren, { data, krajina = '', opakovani, hrdina, ulozit
     const text = m.faze === 'poddruh'
       ? Object.values(PODDRUHY[s.d]).map(x => `${x.jed}: ${x.otazka}`).join(' · ')
       : s.n || data.aktivni.map(d => `${DRUHY[d].otazka} (${DRUHY[d].nazev})`).join(' · ');
+    zvuk('napoveda');
     zprava(`${hlaska(hrdina, 'napoveda')} ${text}`, 'rada');
     $('button.napoveda').hidden = true;
   }
@@ -189,6 +200,8 @@ export function spustMost(koren, { data, krajina = '', opakovani, hrdina, ulozit
     } else {
       const skupina = vysl !== 'ciste' ? 'vetaSChybou' : sekund < limit / 2 ? 'rychle' : 'vetaCista';
       zprava(`${hlaska(hrdina, skupina)} +${ziskano}`, 'hura');
+      setTimeout(() => zvuk('hotovo'), 300);
+      efektBodu($('.body'), ziskano, 5);
       dalsiTimeout = setTimeout(dalsiVeta, 1200);
     }
   }

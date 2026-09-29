@@ -200,10 +200,6 @@ h1, h2 { font-family: "Baloo 2", "Atkinson Hyperlegible", system-ui, sans-serif;
 
 /* ---------- oslava dokončeného světa ---------- */
 .vysledek { position: relative; overflow: hidden; }
-.konfety { position: absolute; inset: 0; pointer-events: none; }
-.konfety i { position: absolute; top: -12px; width: 8px; height: 12px; border-radius: 2px; opacity: 0; animation: konfeta 3s ease-in 1 forwards; }
-@keyframes konfeta { 0% { opacity: 1; transform: translateY(0) rotate(0); } 100% { opacity: 0; transform: translateY(420px) rotate(540deg); } }
-@media (prefers-reduced-motion: reduce) { .konfety { display: none; } }
 
 /* ---------- kdo hraje ---------- */
 .uvitani { max-width: 520px; margin: 24px auto 0; }
@@ -243,3 +239,30 @@ h1, h2 { font-family: "Baloo 2", "Atkinson Hyperlegible", system-ui, sans-serif;
 .kose.male { grid-template-columns: repeat(5, 1fr); gap: 6px; }
 .kose.male button { flex-direction: column; gap: 2px; padding: 6px 4px; font-size: .8rem; text-align: center; }
 @media (min-width: 700px) { .kose.male button { font-size: .95rem; } }
+
+/* Obrana hradu */
+.obrana .hud .zivoty { display: flex; gap: 2px; font-style: normal; }
+.obrana .hud .zivoty i { font-style: normal; color: var(--line); font-size: 1.1rem; }
+.obrana .hud .zivoty i.plny { color: #e0564f; }
+.obrana .hud .vlna-cislo { flex: 1; text-align: center; font-weight: 700; color: var(--muted); }
+.obrana .arena { position: relative; height: clamp(260px, 46vh, 460px); margin: 8px 0; border-radius: 14px; overflow: hidden;
+  background: color-mix(in srgb, var(--ok, #5cc98a) 12%, var(--panel)); border: 2px solid var(--line); }
+.obrana .cesta { position: absolute; inset: 0; width: 100%; height: 100%; }
+.obrana .cesta polyline { fill: none; stroke: color-mix(in srgb, #c9a36b 55%, var(--panel)); stroke-width: 34; stroke-linejoin: round; stroke-linecap: round; }
+.obrana .hrad { position: absolute; right: 2%; top: 80%; width: 56px; transform: translateY(-78%); }
+.obrana .arena.zasah-hradu .hrad { animation: vedle .45s; }
+.obrana .na-ceste { position: absolute; left: 0; top: 0; font-size: 1.05rem; padding: 3px 9px; box-shadow: 0 2px 0 var(--line); white-space: nowrap; }
+.obrana .na-ceste.cil { border-color: var(--ink); box-shadow: 0 0 0 3px color-mix(in srgb, var(--ink) 25%, transparent); z-index: 2; }
+.obrana .na-ceste.chyceno { opacity: 0; transition: opacity .4s .1s; }
+.obrana .na-ceste .nad { height: auto; }
+.obrana .arena .napoveda { position: absolute; right: 8px; top: 8px; z-index: 3; background: var(--panel); color: var(--ink);
+  border: 1px solid var(--line); border-radius: 8px; padding: 6px 12px; }
+.obrana .strela { position: absolute; left: -6px; top: -6px; width: 12px; height: 12px; border-radius: 50%; background: var(--c);
+  box-shadow: 0 0 8px var(--c); transition: transform .18s linear; z-index: 4; pointer-events: none; }
+.veze button { border-radius: 10px 10px 4px 4px; }
+@media (prefers-reduced-motion: reduce) { .obrana .strela { transition: none; } .obrana .arena.zasah-hradu .hrad { animation: none; } }
+
+/* Efekty a zvuk */
+.efekty { position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 50; }
+.prepinac-zvuku { border: 1px solid var(--line); background: var(--panel); color: var(--ink); border-radius: 999px; padding: 4px 12px; font: inherit; font-size: .9rem; }
+.prepinac-zvuku[aria-pressed="false"] { color: var(--muted); }

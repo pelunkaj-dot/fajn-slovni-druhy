@@ -4,11 +4,14 @@ import * as eng from '../engine.js';
 import * as srs from '../srs.js';
 import { esc, cislo, vysledekSerie, parta } from './spolecne.js';
 import { hlaska } from '../hlasky.js';
+import { zvuk } from '../zvuky.js';
+import { efektZasahu, efektChyby, efektBodu } from '../efekty.js';
 
 export function spustLov(koren, { data, krajina = '', opakovani, hrdina, ulozit, serieHotova, konec }) {
   const vety = srs.vyberVety(opakovani, data.vety, data.aktivni, eng.DELKA_SERIE);
   const vysledky = [];
   const chybnaSlova = new Map();
+  let rada = 0; // zásahy bez chyby za sebou (zvedají tón)
   let poradi = 0, body = 0, st = null, start = 0, limit = 0, casovac = 0, dalsiTimeout = 0;
 
   koren.innerHTML = `
@@ -88,6 +91,8 @@ export function spustLov(koren, { data, krajina = '', opakovani, hrdina, ulozit,
         btn.querySelector('.nad').innerHTML = cislo(st.cil);
       }
       aktualizujZbyva();
+      zvuk('zasah', { rada: rada++ });
+      efektZasahu(tlacitka(i)[0], st.cil);
       if (!st.hotovo && Math.random() < 0.5) rekni(hlaska(hrdina, 'zasah'), 'radost');
       if (st.hotovo) dokonciVetu();
       return;
@@ -99,6 +104,9 @@ export function spustLov(koren, { data, krajina = '', opakovani, hrdina, ulozit,
     }
     const k = srs.klic(st.veta.slova[i]);
     chybnaSlova.set(k, st.veta.slova[i]);
+    rada = 0;
+    zvuk(r.krok === 3 ? 'odhaleni' : 'chyba');
+    efektChyby(tlacitka(i)[0]);
     const m = nazevDruhu(st.cil, st.poddruh);
     if (r.krok === 1) {
       zprava(`„${textJednotky(i)}“ není ${m}. ${hlaska(hrdina, 'chyba1')}`, 'pozor');
@@ -113,6 +121,7 @@ export function spustLov(koren, { data, krajina = '', opakovani, hrdina, ulozit,
   function ukazNapovedu() {
     const d = DRUHY[st.cil];
     const text = st.poddruh ? PODDRUHY[st.cil][st.poddruh].otazka : `${d.otazka} ${d.popis}`;
+    zvuk('napoveda');
     zprava(`${hlaska(hrdina, 'napoveda')} ${text}`, 'rada');
     $('button.napoveda').hidden = true;
   }
@@ -157,6 +166,8 @@ export function spustLov(koren, { data, krajina = '', opakovani, hrdina, ulozit,
     } else {
       const skupina = vysl !== 'ciste' ? 'vetaSChybou' : sekund < limit / 2 ? 'rychle' : 'vetaCista';
       zprava(`${hlaska(hrdina, skupina)} +${ziskano}`, 'hura');
+      setTimeout(() => zvuk('hotovo'), 250);
+      efektBodu($('.body'), ziskano, st.cil);
       dalsiTimeout = setTimeout(dalsiVeta, 1100);
     }
   }

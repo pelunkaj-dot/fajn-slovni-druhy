@@ -6,19 +6,21 @@ import { OBLASTI, DOKONCENI } from './engine.js';
 import { spustLov } from './rezimy/lov.js';
 import { spustMost } from './rezimy/most.js';
 import { spustPadani } from './rezimy/padani.js';
+import { spustObranu } from './rezimy/obrana.js';
 import { avatar } from './postavy.js';
 import { KRAJINY } from './krajiny.js';
 import { hlaska, nastavHrace } from './hlasky.js';
 import { parta } from './rezimy/spolecne.js';
+import { nastavZvuk, odemkni } from './zvuky.js';
 
 const KLIC = 'fajn-slovni-druhy:v1';
 const MOTIVY = { light: 'Světlý', dark: 'Tmavý', girl: 'Dívčí' };
 const HRDINOVE = ['Terezka', 'Matýsek'];
-const REZIMY = { lov: { nazev: 'Lov', spust: spustLov }, most: { nazev: 'Stavba mostu', spust: spustMost }, padani: { nazev: 'Padající slova', spust: spustPadani } };
+const REZIMY = { lov: { nazev: 'Lov', spust: spustLov }, most: { nazev: 'Stavba mostu', spust: spustMost }, padani: { nazev: 'Padající slova', spust: spustPadani }, obrana: { nazev: 'Obrana hradu', spust: spustObranu } };
 let DOSTUPNE = []; // světy, které mají data (z data/svety.json)
 let SLOVA = {};    // slova pro Padající slova podle světa (jen světy 1–2)
-// Režimy nabízené ve světě: Padající slova jen tam, kde jsou schválená samostatná slova.
-const rezimySveta = n => Object.entries(REZIMY).filter(([k]) => k !== 'padani' || SLOVA[n]);
+// Režimy nabízené ve světě: Padající slova a Obrana hradu jen tam, kde jsou schválená samostatná slova.
+const rezimySveta = n => Object.entries(REZIMY).filter(([k]) => !['padani', 'obrana'].includes(k) || SLOVA[n]);
 const parametry = new URLSearchParams(location.search);
 const PLNA = parametry.get('mode') === 'full';
 
@@ -28,7 +30,7 @@ const cache = {};
 function nacti() {
   try { return JSON.parse(localStorage.getItem(KLIC)) || {}; } catch { return {}; }
 }
-const stav = { hrdina: HRDINOVE[0], postavicky: true, motiv: 'light', rezim: 'lov', svety: {}, opakovani: srs.novyStav(), ...nacti() };
+const stav = { hrdina: HRDINOVE[0], postavicky: true, zvuk: true, motiv: 'light', rezim: 'lov', svety: {}, opakovani: srs.novyStav(), ...nacti() };
 // Pozdrav podle toho, kdy hráč hrál naposledy (zjistí se jednou při načtení stránky).
 const DEN = 864e5;
 let pozdrav = !stav.naposledy ? 'pozdravPrvni' : Date.now() - stav.naposledy > 3 * DEN ? 'pozdravPoDlouhe' : 'pozdravZnovu';
@@ -174,6 +176,16 @@ document.querySelector('.motivy').innerHTML = Object.entries(MOTIVY)
   .map(([m, nazev]) => `<button type="button" data-m="${m}">${nazev}</button>`).join('');
 document.querySelectorAll('.motivy button').forEach(b => b.onclick = () => nastavMotiv(b.dataset.m));
 document.querySelector('.znacka').onclick = mapa;
+function ukazZvuk() {
+  const b = document.querySelector('.prepinac-zvuku');
+  b.setAttribute('aria-pressed', stav.zvuk);
+  b.textContent = stav.zvuk ? 'Zvuk: zapnutý' : 'Zvuk: vypnutý';
+  nastavZvuk(stav.zvuk);
+}
+document.querySelector('.prepinac-zvuku').onclick = () => { stav.zvuk = !stav.zvuk; ulozit(); ukazZvuk(); };
+ukazZvuk();
+// prohlížeč pustí zvuk až po první interakci
+document.addEventListener('pointerdown', () => { if (stav.zvuk) odemkni(); }, { once: true });
 nastavMotiv(MOTIVY[parametry.get('theme')] ? parametry.get('theme') : stav.motiv);
 ulozit();
 Promise.all([nactiSeznam(), nactiSlova(PLNA)]).then(([s, slova]) => { DOSTUPNE = Object.keys(s).map(Number); SLOVA = slova; mapa(); });
