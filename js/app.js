@@ -89,9 +89,12 @@ function mapa() {
         </span>
       </div>
       <div class="parta"></div>
-      <ol class="svety">
-        ${Object.entries(SVETY).map(([n, s]) => kartaSveta(+n, s)).join('')}
-      </ol>
+      <div class="cesta-mapou">
+        <svg class="silnice" aria-hidden="true"><path class="okraj"/><path class="povrch"/><path class="stred"/></svg>
+        <ol class="svety">
+          ${Object.entries(SVETY).map(([n, s]) => kartaSveta(+n, s)).join('')}
+        </ol>
+      </div>
     </section>`;
   const rekni = parta(app.querySelector('.parta'), mluvci());
   const text = pozdrav ? hlaska(mluvci(), pozdrav) : '';
@@ -115,8 +118,33 @@ function mapa() {
     mapa();
   });
   app.querySelectorAll('.svety button[data-svet]').forEach(b => b.onclick = () => { zvuk('start'); hraj(+b.dataset.svet, b.dataset.rezim || ''); });
+  delete app.dataset.svet;
+  nakresliSilnici();
+  if (document.fonts) document.fonts.ready.then(nakresliSilnici);
   animujPostup();
 }
+
+// Klikatá cesta krajinou: vede od zastávky ke zastávce (kulaté značky na kartách světů).
+function nakresliSilnici() {
+  const obal = app.querySelector('.cesta-mapou');
+  if (!obal) return;
+  const r0 = obal.getBoundingClientRect();
+  // zastávka = [x, y středu, spodek karty]; mezi kartami se cesta stáčí k další zastávce
+  const body = [...obal.querySelectorAll('.zastavka')].map(z => {
+    const r = z.getBoundingClientRect(), k = z.parentElement.getBoundingClientRect();
+    return [r.left + r.width / 2 - r0.left, r.top + r.height / 2 - r0.top, k.bottom - r0.top];
+  });
+  if (body.length < 2) return;
+  let d = `M${body[0][0]} ${body[0][1] - 40} L${body[0][0]} ${body[0][1]}`;
+  for (let i = 1; i < body.length; i++) {
+    const [x0, , dole] = body[i - 1], [x1, y1] = body[i], mezera = y1 - dole;
+    d += ` L${x0} ${dole} C${x0} ${dole + mezera * 0.9} ${x1} ${y1 - mezera * 0.9} ${x1} ${y1}`;
+  }
+  const svg = obal.querySelector('.silnice');
+  svg.setAttribute('viewBox', `0 0 ${r0.width} ${r0.height}`);
+  svg.querySelectorAll('path').forEach(p => p.setAttribute('d', d));
+}
+addEventListener('resize', () => { clearTimeout(nakresliSilnici.t); nakresliSilnici.t = setTimeout(nakresliSilnici, 150); });
 
 // Po návratu z úspěšné série se nové oblasti „dobudou“ (zvuk + efekt), po dokončení světa se odkryjí skryté.
 // st.videno = kolik oblastí už hráč na mapě viděl.
@@ -167,7 +195,9 @@ function kartaSveta(n, s) {
     </div>`;
   const procent = Math.round(st.uzemi / OBLASTI * 100);
   return `
-    <li class="svet svet-${n}${hratelny(n) ? '' : ' zamceny'}">
+    <li class="svet svet-${n}${hratelny(n) ? '' : ' zamceny'}${dokonceno ? ' dokonceny' : ''}">
+      <span class="zastavka" aria-hidden="true">${n}${dokonceno ? '<i class="prapor"></i>' : ''}</span>
+      ${stav.posledniSvet === n ? `<span class="tady" title="Tady jsi byl${stav.hrac === 'holka' ? 'a' : ''} naposledy">${avatar(stav.postavicky ? stav.hrdina : '', 'maly')}</span>` : ''}
       <div class="krajina" aria-hidden="true">${KRAJINY[n]}</div>
       <div class="obsah">
         <h2><span class="poradi">${n}</span>${s.nazev}</h2>
@@ -185,6 +215,8 @@ function kartaSveta(n, s) {
 // rezim = '' → režimy se po sérii střídají; 'lov'/'most' → hraje se jen zvolený režim
 async function hraj(n, rezim = '') {
   casovaceMapy.forEach(clearTimeout);
+  stav.posledniSvet = n;
+  app.dataset.svet = n;
   app.innerHTML = '<p class="nacitani">Načítám svět…</p>';
   try {
     cache[n] ||= await nactiSvet(n, PLNA);
