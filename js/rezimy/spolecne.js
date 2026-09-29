@@ -2,6 +2,8 @@
 import * as eng from '../engine.js';
 import { avatar, obrazek, POSTAVY } from '../postavy.js';
 import { hlaska } from '../hlasky.js';
+import { zvuk } from '../zvuky.js';
+import { oslava } from '../efekty.js';
 
 export const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 export const cislo = d => `<span class="num" style="--c:var(--d${d})">${d}</span>`;
@@ -21,15 +23,6 @@ export function parta(el, hrdina) {
   };
 }
 
-const BARVY_KONFET = ['#ff6b8a', '#ffd54a', '#5cc98a', '#6d9bf2', '#c77dff', '#ffb13d'];
-function konfety() {
-  const kusy = Array.from({ length: 40 }, (_, i) => {
-    const x = Math.random() * 100, zpozdeni = Math.random() * 1.2, doba = 2 + Math.random() * 1.5;
-    return `<i style="left:${x}%;background:${BARVY_KONFET[i % BARVY_KONFET.length]};animation-delay:${zpozdeni}s;animation-duration:${doba}s"></i>`;
-  }).join('');
-  return `<div class="konfety" aria-hidden="true">${kusy}</div>`;
-}
-
 // jednotka: tvary pro počet ve statistice (věta/věty/vět, u Padajících slov slovo/slova/slov)
 export function vysledekSerie(koren, { vysledky, body, chybnaSlova, hrdina, serieHotova, konec, delka = eng.DELKA_SERIE, jednotka = ['věta', 'věty', 'vět'] }) {
   const uspesna = eng.serieUspesna(vysledky, delka);
@@ -40,7 +33,6 @@ export function vysledekSerie(koren, { vysledky, body, chybnaSlova, hrdina, seri
   koren.innerHTML = `
     <section class="vysledek">
       <div class="parta"></div>
-      ${svetDokoncen ? konfety() : ''}
       <h2>${svetDokoncen ? 'Svět dokončen!' : uspesna ? 'Nová oblast je tvoje!' : 'Série dokončena'}</h2>
       <p class="procenta"><b>${procent} %</b> úspěšnost</p>
       <p>${svetDokoncen ? 'Na mapě se objevily skryté oblasti.' : uspesna ? 'Na mapě ti přibyl kousek území.' : `Na novou oblast potřebuješ aspoň ${Math.round(eng.PRAH_USPECHU * 100)} %. Zkus další sérii!`}</p>
@@ -57,6 +49,8 @@ export function vysledekSerie(koren, { vysledky, body, chybnaSlova, hrdina, seri
       </div>
     </section>`;
   parta(koren.querySelector('.parta'), hrdina)(hlaska(hrdina, svetDokoncen ? 'oslavaSveta' : uspesna ? 'serieUspech' : 'serieNeuspech'), uspesna ? 'radost' : 'zakladni');
+  zvuk(svetDokoncen ? 'svet' : uspesna ? 'uspech' : 'neuspech');
+  if (svetDokoncen || uspesna) oslava(svetDokoncen ? 'svet' : 'uspech');
   koren.querySelector('.znovu').onclick = () => konec({ znovu: true });
   koren.querySelector('.mapa').onclick = () => konec({ znovu: false });
   koren.querySelector('.znovu').focus();

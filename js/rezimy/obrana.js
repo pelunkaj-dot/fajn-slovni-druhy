@@ -5,6 +5,8 @@ import * as eng from '../engine.js';
 import * as srs from '../srs.js';
 import { esc, cislo, vysledekSerie, parta } from './spolecne.js';
 import { hlaska } from '../hlasky.js';
+import { zvuk } from '../zvuky.js';
+import { efektZasahu, efektChyby, efektBodu } from '../efekty.js';
 
 // Cesta v poměrných souřadnicích arény: tři řady tam a zpět, na konci hrad.
 const CESTA = [[0.07, 0.14], [0.9, 0.14], [0.9, 0.47], [0.1, 0.47], [0.1, 0.8], [0.8, 0.8]];
@@ -21,6 +23,7 @@ export function spustObranu(koren, { data, slova, krajina = '', opakovani, hrdin
   const chybnaSlova = new Map();
   const prvky = new Map();          // id slova → prvek na cestě
   let faze = 'hra';                 // 'hra' | 'pauza' (nápověda) | 'ceka' (ukázaná odpověď) | 'vlna' | 'konec'
+  let rada = 0; // zničená slova bez chyby za sebou (zvedají tón)
   let zamereno = null, posledni = 0, casovac = 0, odlozene = 0, body = 0, odhalene = null;
 
   koren.innerHTML = `
@@ -125,12 +128,16 @@ export function spustObranu(koren, { data, slova, krajina = '', opakovani, hrdin
       oznacCil();
     } else if (u.typ === 'hrad') {
       arena.classList.remove('zasah-hradu'); void arena.offsetWidth; arena.classList.add('zasah-hradu');
+      rada = 0;
+      zvuk('hrad');
+      efektChyby($('.hrad'));
       zapisChybu(u.slovo.s);
       ukazZivoty();
       odhal(u.slovo, `Slovo „${u.slovo.s.t}“ došlo až k hradu!`);
     } else if (u.typ === 'vlna') {
       if (faze === 'ceka') return; // vlna začne po „Pokračovat“
       faze = 'vlna';
+      zvuk('vlna');
       rekni(`Vlna ${o.vlna + 2} z ${o.pocetVln}! Slova budou rychlejší.`, 'radost');
       odlozene = setTimeout(() => { eng.dalsiVlna(o); ukazVlnu(); faze = 'hra'; }, 2200);
     } else if (u.typ === 'konec') {
@@ -158,6 +165,7 @@ export function spustObranu(koren, { data, slova, krajina = '', opakovani, hrdin
     const el = prvky.get(w.id);
     const zbyva = 1 - w.x;
     letStrely(vez, el, druh);
+    zvuk('strela');
     const r = eng.vystrel(o, w.id, druh);
     if (r.typ === 'nic') return;
     if (r.typ === 'zasah') {
@@ -165,6 +173,8 @@ export function spustObranu(koren, { data, slova, krajina = '', opakovani, hrdin
       const ziskano = eng.bodyZaSlovo(r.vysledek, zbyva);
       body += ziskano;
       $('.body').textContent = body;
+      const r2 = r.vysledek === 'ciste' ? rada++ : (rada = 0);
+      setTimeout(() => { zvuk('zasah', { rada: r2 }); efektZasahu(el, w.s.d); efektBodu(el, ziskano, w.s.d); }, 170);
       znic(w, el, 'chyceno');
       if (Math.random() < 0.35) rekni(hlaska(hrdina, 'zasah'), 'radost');
       $('.arena .napoveda').hidden = true;
@@ -174,6 +184,8 @@ export function spustObranu(koren, { data, slova, krajina = '', opakovani, hrdin
       return;
     }
     el.classList.remove('vedle'); void el.offsetWidth; el.classList.add('vedle');
+    rada = 0;
+    setTimeout(() => { zvuk(r.krok === 3 ? 'odhaleni' : 'chyba'); efektChyby(el); }, 170);
     if (r.krok === 1) zapisChybu(w.s);
     if (r.krok === 3) { odhal(w, ''); for (const u of r.udalosti) zpracujUdalost(u); return; }
     rekni(`„${w.s.t}“ není ${DRUHY[druh].nazev}. ${hlaska(hrdina, r.krok === 1 ? 'chyba1' : 'chyba2')}`, 'premysli', 'pozor');
@@ -247,6 +259,7 @@ export function spustObranu(koren, { data, slova, krajina = '', opakovani, hrdin
   function ukazNapovedu() {
     if (faze !== 'hra') return;
     faze = 'pauza';
+    zvuk('napoveda');
     $('.arena .napoveda').hidden = true;
     rekni(`${hlaska(hrdina, 'napoveda')} ${data.aktivni.map(d => `${DRUHY[d].otazka} (${DRUHY[d].nazev})`).join(' · ')}`, 'zakladni', 'rada');
   }
@@ -269,6 +282,7 @@ export function spustObranu(koren, { data, slova, krajina = '', opakovani, hrdin
   ukazVlnu();
   nakresliCestu();
   rekni(hlaska(hrdina, 'uvodObrana'));
+  zvuk('vlna');
   faze = 'vlna';
   odlozene = setTimeout(() => { faze = 'hra'; posledni = performance.now(); }, 1500);
   posledni = performance.now();

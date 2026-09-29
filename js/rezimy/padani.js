@@ -5,12 +5,15 @@ import * as eng from '../engine.js';
 import * as srs from '../srs.js';
 import { esc, cislo, vysledekSerie, parta } from './spolecne.js';
 import { hlaska } from '../hlasky.js';
+import { zvuk } from '../zvuky.js';
+import { efektZasahu, efektChyby, efektBodu } from '../efekty.js';
 
 export function spustPadani(koren, { data, slova, krajina = '', opakovani, hrdina, ulozit, serieHotova, konec }) {
   const vybrana = srs.vyberSlova(opakovani, slova || [], eng.DELKA_PADANI);
   const p = eng.novePadani(vybrana);
   const chybnaSlova = new Map();
   // stav jednoho slova: 'pada' | 'pauza' (nápověda) | 'ceka' (odhaleno, čeká na „Pokračovat“) | 'mezi'
+  let rada = 0; // chycená slova bez chyby za sebou (zvedají tón)
   let faze = 'mezi', y = 0, doba = 1, posledni = 0, casovac = 0, dalsiTimeout = 0, body = 0;
 
   koren.innerHTML = `
@@ -101,6 +104,9 @@ export function spustPadani(koren, { data, slova, krajina = '', opakovani, hrdin
       body += ziskano;
       $('.body').textContent = body;
       if (vysl === 'ciste') srs.uspech(opakovani, srs.klic(s));
+      zvuk('zasah', { rada: vysl === 'ciste' ? rada++ : (rada = 0) });
+      efektZasahu(slovoEl, s.d);
+      efektBodu(slovoEl, ziskano, s.d);
       koren.querySelectorAll('.tecky li')[i].className = vysl;
       koren.querySelector(`.kose button[data-d="${s.d}"]`).classList.add('spravny');
       if (Math.random() < 0.4) rekni(hlaska(hrdina, 'zasah'), 'radost');
@@ -109,6 +115,9 @@ export function spustPadani(koren, { data, slova, krajina = '', opakovani, hrdin
       return;
     }
     slovoEl.classList.remove('vedle'); void slovoEl.offsetWidth; slovoEl.classList.add('vedle');
+    rada = 0;
+    zvuk(r.krok === 3 ? 'odhaleni' : 'chyba');
+    efektChyby(slovoEl);
     if (r.krok === 1) {
       srs.chyba(opakovani, srs.klic(s));
       chybnaSlova.set(srs.klic(s), s);
@@ -122,6 +131,9 @@ export function spustPadani(koren, { data, slova, krajina = '', opakovani, hrdin
     const s = eng.padajici(p);
     const i = p.i;
     eng.dopad(p);
+    rada = 0;
+    zvuk('odhaleni');
+    efektChyby(slovoEl);
     if (!chybnaSlova.has(srs.klic(s))) { srs.chyba(opakovani, srs.klic(s)); chybnaSlova.set(srs.klic(s), s); }
     odhal(s, i);
   }
@@ -148,6 +160,7 @@ export function spustPadani(koren, { data, slova, krajina = '', opakovani, hrdin
   function ukazNapovedu() {
     if (faze !== 'pada') return;
     faze = 'pauza';
+    zvuk('napoveda');
     $('.arena .napoveda').hidden = true;
     const text = data.aktivni.map(d => `${DRUHY[d].otazka} (${DRUHY[d].nazev})`).join(' · ');
     rekni(`${hlaska(hrdina, 'napoveda')} ${text}`, 'zakladni', 'rada');

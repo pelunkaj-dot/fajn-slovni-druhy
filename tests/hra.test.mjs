@@ -254,3 +254,10 @@ test('obrana: slovo u hradu ubere život, bez životů konec', () => {
   assert.equal(o.zivoty, 0);
   assert.ok(!eng.serieUspesna(o.vysledky, eng.DELKA_OBRANY));
 });
+
+// ---------- Zvuky a efekty: dostatek variant ----------
+test('zvuky: každá kategorie má desítky variant', async () => {
+  const { variant } = await import('../js/zvuky.js');
+  for (const kat of ['zasah', 'chyba']) assert.ok(variant(kat) >= 100, kat);
+  for (const kat of ['odhaleni', 'napoveda', 'hotovo', 'uspech', 'neuspech', 'vlna', 'strela']) assert.ok(variant(kat) >= 20, kat);
+});
