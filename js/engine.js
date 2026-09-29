@@ -264,3 +264,19 @@ function odeber(o, w, vysledek) {
   o.aktivni = o.aktivni.filter(x => x !== w);
   o.vysledky.push(vysledek);
 }
+
+// Obrana hradu ve světech 3–5: z každé věty jedno slovo (u složeného tvaru celá skupina) s odkazem na větu,
+// aby hra mohla ukázat kontext. skore(slovo) říká, jak moc slovo „chce“ na řadu (opakování).
+export function jednotkyZVet(vety, aktivni, skore = () => 0, nahoda = Math.random) {
+  return vety.map(veta => {
+    let nej = -1, nejSkore = -Infinity;
+    veta.slova.forEach((s, i) => {
+      if (!aktivni.includes(s.d) || reprezentant(veta, i) !== i) return;
+      const k = skore(s) + (s.v ? 0.5 : 0) + nahoda();
+      if (k > nejSkore) { nej = i; nejSkore = k; }
+    });
+    if (nej < 0) return null;
+    const s = veta.slova[nej];
+    return { t: clenove(veta, nej).map(j => veta.slova[j].t).join(' '), d: s.d, slovo: s, veta, i: nej };
+  }).filter(Boolean);
+}

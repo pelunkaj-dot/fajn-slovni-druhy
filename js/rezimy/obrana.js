@@ -1,5 +1,7 @@
 // Herní režim OBRANA HRADU: slova jdou po cestě k hradu, hráč je zastaví věží správného slovního druhu.
-// Střílí se na zaměřené slovo (nejblíž hradu, nebo to, na které hráč ťukne). Slova jsou jako v Padajících slovech.
+// Střílí se na zaměřené slovo (nejblíž hradu, nebo to, na které hráč ťukne).
+// Světy 1–2: samostatná jednoznačná slova (jako v Padajících slovech).
+// Světy 3–5: slova z vět; nad arénou je celá věta se zvýrazněným zaměřeným slovem (druh určuje kontext).
 import { DRUHY } from '../druhy.js';
 import * as eng from '../engine.js';
 import * as srs from '../srs.js';
@@ -18,7 +20,11 @@ const HRAD = `<svg class="hrad" viewBox="0 0 60 56" aria-hidden="true">
   <path d="M30 2v10" stroke="#5a4630" stroke-width="2"/><path d="M30 2h12l-4 3 4 3H30z" fill="#e0564f"/></svg>`;
 
 export function spustObranu(koren, { data, slova, krajina = '', opakovani, hrdina, ulozit, serieHotova, konec }) {
-  const vybrana = srs.vyberSlova(opakovani, slova || [], eng.DELKA_OBRANY);
+  const veVetach = !slova;
+  const vybrana = veVetach
+    ? eng.jednotkyZVet(srs.vyberVety(opakovani, data.vety, data.aktivni, eng.DELKA_OBRANY), data.aktivni, s => srs.naleha(opakovani, srs.klic(s)))
+    : srs.vyberSlova(opakovani, slova, eng.DELKA_OBRANY);
+  const klic = s => srs.klic(s.slovo || s);
   const o = eng.novaObrana(vybrana);
   const chybnaSlova = new Map();
   const prvky = new Map();          // id slova → prvek na cestě
@@ -27,7 +33,7 @@ export function spustObranu(koren, { data, slova, krajina = '', opakovani, hrdin
   let zamereno = null, posledni = 0, casovac = 0, odlozene = 0, body = 0, odhalene = null;
 
   koren.innerHTML = `
-    <section class="lov obrana">
+    <section class="lov obrana${veVetach ? ' ve-vetach' : ''}">
       <div class="krajina-pruh" aria-hidden="true">${krajina}</div>
       <div class="hud">
         <button type="button" class="zpet">← Mapa</button>
@@ -36,6 +42,7 @@ export function spustObranu(koren, { data, slova, krajina = '', opakovani, hrdin
         <span class="body" aria-label="Body">0</span>
       </div>
       <div class="parta"></div>
+      ${veVetach ? '<p class="kontext" aria-live="polite"></p>' : ''}
       <div class="arena">
         <svg class="cesta" aria-hidden="true"><polyline /></svg>
         ${HRAD}
@@ -154,6 +161,15 @@ export function spustObranu(koren, { data, slova, krajina = '', opakovani, hrdin
   function oznacCil() {
     const c = aktualniCil();
     prvky.forEach((el, id) => el.classList.toggle('cil', !!c && c.id === id));
+    if (veVetach) ukazKontext(c);
+  }
+
+  // Věta zaměřeného slova, slovo (nebo složený tvar) zvýrazněné.
+  function ukazKontext(w) {
+    const el = $('.kontext');
+    if (!w) { el.innerHTML = '<span class="prazdny">Tady uvidíš větu zaměřeného slova.</span>'; return; }
+    const cl = eng.clenove(w.s.veta, w.s.i);
+    el.innerHTML = w.s.veta.slova.map((s, j) => `${cl.includes(j) ? `<mark>${esc(s.t)}</mark>` : esc(s.t)}${s.i ? esc(s.i) : ''}`).join(' ');
   }
 
   // ---------- střelba ----------
@@ -169,7 +185,7 @@ export function spustObranu(koren, { data, slova, krajina = '', opakovani, hrdin
     const r = eng.vystrel(o, w.id, druh);
     if (r.typ === 'nic') return;
     if (r.typ === 'zasah') {
-      if (r.vysledek === 'ciste') srs.uspech(opakovani, srs.klic(w.s));
+      if (r.vysledek === 'ciste') srs.uspech(opakovani, klic(w.s));
       const ziskano = eng.bodyZaSlovo(r.vysledek, zbyva);
       body += ziskano;
       $('.body').textContent = body;
@@ -208,7 +224,7 @@ export function spustObranu(koren, { data, slova, krajina = '', opakovani, hrdin
   }
 
   function zapisChybu(s) {
-    const k = srs.klic(s);
+    const k = klic(s);
     if (!chybnaSlova.has(k)) { srs.chyba(opakovani, k); chybnaSlova.set(k, s); }
   }
 
@@ -261,7 +277,9 @@ export function spustObranu(koren, { data, slova, krajina = '', opakovani, hrdin
     faze = 'pauza';
     zvuk('napoveda');
     $('.arena .napoveda').hidden = true;
-    rekni(`${hlaska(hrdina, 'napoveda')} ${data.aktivni.map(d => `${DRUHY[d].otazka} (${DRUHY[d].nazev})`).join(' · ')}`, 'zakladni', 'rada');
+    const w = aktualniCil();
+    const vlastni = w && w.s.slovo && w.s.slovo.n;
+    rekni(`${hlaska(hrdina, 'napoveda')} ${vlastni || data.aktivni.map(d => `${DRUHY[d].otazka} (${DRUHY[d].nazev})`).join(' · ')}`, 'zakladni', 'rada');
   }
 
   function ukazZivoty() {
@@ -272,6 +290,7 @@ export function spustObranu(koren, { data, slova, krajina = '', opakovani, hrdin
 
   function dokonci() {
     zastav();
+    if (veVetach) vybrana.forEach(j => srs.zapamatujVetu(opakovani, j.veta.id));
     ulozit();
     // při ztrátě hradu je výsledků méně než slov v sérii, takže série není úspěšná
     vysledekSerie(koren, { vysledky: o.vysledky, body, chybnaSlova, hrdina, serieHotova, konec, delka: eng.DELKA_OBRANY, jednotka: ['slovo', 'slova', 'slov'] });

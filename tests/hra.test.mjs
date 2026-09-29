@@ -261,3 +261,15 @@ test('zvuky: každá kategorie má desítky variant', async () => {
   for (const kat of ['zasah', 'chyba']) assert.ok(variant(kat) >= 100, kat);
   for (const kat of ['odhaleni', 'napoveda', 'hotovo', 'uspech', 'neuspech', 'vlna', 'strela']) assert.ok(variant(kat) >= 20, kat);
 });
+
+test('obrana ve vyšších světech: z věty jedno slovo, složený tvar vcelku', () => {
+  const v = { id: 's3-x', slova: [{ t: 'Včera', d: 6 }, { t: 'jsem', d: 5, g: 1 }, { t: 'psal', d: 5, g: 1 }, { t: 'dopis', d: 1 }] };
+  const j = eng.jednotkyZVet([v], [5], () => 0, () => 0);
+  assert.equal(j.length, 1);
+  assert.equal(j[0].t, 'jsem psal');
+  assert.equal(j[0].d, 5);
+  assert.equal(j[0].i, 1);
+  const k = eng.jednotkyZVet([v], [1, 5, 6], s => (s.t === 'dopis' ? 5 : 0), () => 0);
+  assert.equal(k[0].t, 'dopis');
+  assert.equal(eng.jednotkyZVet([v], [9]).length, 0);
+});
