@@ -30,8 +30,9 @@ function konfety() {
   return `<div class="konfety" aria-hidden="true">${kusy}</div>`;
 }
 
-export function vysledekSerie(koren, { vysledky, body, chybnaSlova, hrdina, serieHotova, konec }) {
-  const uspesna = eng.serieUspesna(vysledky);
+// jednotka: tvary pro počet ve statistice (věta/věty/vět, u Padajících slov slovo/slova/slov)
+export function vysledekSerie(koren, { vysledky, body, chybnaSlova, hrdina, serieHotova, konec, delka = eng.DELKA_SERIE, jednotka = ['věta', 'věty', 'vět'] }) {
+  const uspesna = eng.serieUspesna(vysledky, delka);
   const svetDokoncen = serieHotova(uspesna) === 'dokonceno';
   const procent = Math.round(eng.uspesnost(vysledky) * 100);
   const pocet = t => vysledky.filter(v => v === t).length;
@@ -44,7 +45,7 @@ export function vysledekSerie(koren, { vysledky, body, chybnaSlova, hrdina, seri
       <p class="procenta"><b>${procent} %</b> úspěšnost</p>
       <p>${svetDokoncen ? 'Na mapě se objevily skryté oblasti.' : uspesna ? 'Na mapě ti přibyl kousek území.' : `Na novou oblast potřebuješ aspoň ${Math.round(eng.PRAH_USPECHU * 100)} %. Zkus další sérii!`}</p>
       <ul class="statistika">
-        <li><b>${pocet('ciste')}</b> ${tvar(pocet('ciste'), 'věta', 'věty', 'vět')} bez chyby</li>
+        <li><b>${pocet('ciste')}</b> ${tvar(pocet('ciste'), ...jednotka)} bez chyby</li>
         <li><b>${pocet('chyba')}</b> s chybou</li>
         <li><b>${pocet('odhaleno')}</b> s ukázanou odpovědí</li>
         <li><b>${body}</b> ${tvar(body, 'bod', 'body', 'bodů')}</li>

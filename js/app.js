@@ -1,10 +1,11 @@
 // Mapa světů, motivy, ukládání postupu a spuštění režimu.
 import { SVETY } from './druhy.js';
-import { nactiSvet, nactiSeznam } from './data.js';
+import { nactiSvet, nactiSeznam, nactiSlova } from './data.js';
 import * as srs from './srs.js';
 import { OBLASTI, DOKONCENI } from './engine.js';
 import { spustLov } from './rezimy/lov.js';
 import { spustMost } from './rezimy/most.js';
+import { spustPadani } from './rezimy/padani.js';
 import { avatar } from './postavy.js';
 import { KRAJINY } from './krajiny.js';
 import { hlaska, nastavHrace } from './hlasky.js';
@@ -13,8 +14,11 @@ import { parta } from './rezimy/spolecne.js';
 const KLIC = 'fajn-slovni-druhy:v1';
 const MOTIVY = { light: 'Světlý', dark: 'Tmavý', girl: 'Dívčí' };
 const HRDINOVE = ['Terezka', 'Matýsek'];
-const REZIMY = { lov: { nazev: 'Lov', spust: spustLov }, most: { nazev: 'Stavba mostu', spust: spustMost } };
+const REZIMY = { lov: { nazev: 'Lov', spust: spustLov }, most: { nazev: 'Stavba mostu', spust: spustMost }, padani: { nazev: 'Padající slova', spust: spustPadani } };
 let DOSTUPNE = []; // světy, které mají data (z data/svety.json)
+let SLOVA = {};    // slova pro Padající slova podle světa (jen světy 1–2)
+// Režimy nabízené ve světě: Padající slova jen tam, kde jsou schválená samostatná slova.
+const rezimySveta = n => Object.entries(REZIMY).filter(([k]) => k !== 'padani' || SLOVA[n]);
 const parametry = new URLSearchParams(location.search);
 const PLNA = parametry.get('mode') === 'full';
 
@@ -117,7 +121,7 @@ function kartaSveta(n, s) {
   if (!DOSTUPNE.includes(n)) akce = '<span class="zamek">Připravujeme</span>';
   else akce = `<div class="akce-sveta">
       <button type="button" data-svet="${n}">Vyrazit</button>
-      <span class="jiny-rezim">nebo jen: ${Object.entries(REZIMY).map(([k, r]) => `<button type="button" class="odkaz" data-svet="${n}" data-rezim="${k}">${r.nazev}</button>`).join(' · ')}</span>
+      <span class="jiny-rezim">nebo jen: ${rezimySveta(n).map(([k, r]) => `<button type="button" class="odkaz" data-svet="${n}" data-rezim="${k}">${r.nazev}</button>`).join(' · ')}</span>
     </div>`;
   const procent = Math.round(st.uzemi / OBLASTI * 100);
   return `
@@ -148,6 +152,7 @@ async function hraj(n, rezim = '') {
   }
   REZIMY[rezim || stav.rezim].spust(app, {
     data: cache[n],
+    slova: SLOVA[n],
     krajina: KRAJINY[n],
     opakovani: stav.opakovani,
     hrdina: mluvci(),
@@ -171,4 +176,4 @@ document.querySelectorAll('.motivy button').forEach(b => b.onclick = () => nasta
 document.querySelector('.znacka').onclick = mapa;
 nastavMotiv(MOTIVY[parametry.get('theme')] ? parametry.get('theme') : stav.motiv);
 ulozit();
-nactiSeznam().then(s => { DOSTUPNE = Object.keys(s).map(Number); mapa(); });
+Promise.all([nactiSeznam(), nactiSlova(PLNA)]).then(([s, slova]) => { DOSTUPNE = Object.keys(s).map(Number); SLOVA = slova; mapa(); });

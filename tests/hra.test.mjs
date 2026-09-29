@@ -193,3 +193,31 @@ test('názvy poddruhů se shodují s druhem', async () => {
   const zdroj = { 2: ['tvrde', 'mekke', 'privlastnovaci'], 3: ['osobni', 'zvratne', 'privlastnovaci', 'ukazovaci', 'tazaci', 'vztazne', 'neurcite', 'zaporne'], 4: ['zakladni', 'radova', 'druhova', 'nasobna'] };
   for (const d of [2, 3, 4]) assert.deepEqual(Object.keys(PODDRUHY[d]), zdroj[d]);
 });
+
+// ---------- Padající slova ----------
+test('padání: zásah, chyby a odhalení', () => {
+  const p = eng.novePadani([{ t: 'pes', d: 1 }, { t: 'běží', d: 5 }, { t: 'malý', d: 2 }, { t: 'kočka', d: 1 }]);
+  assert.deepEqual(eng.tipPadani(p, 1), { typ: 'zasah', krok: 0 });
+  assert.deepEqual(eng.tipPadani(p, 1), { typ: 'chyba', krok: 1 });
+  assert.deepEqual(eng.tipPadani(p, 5), { typ: 'zasah', krok: 0 });
+  eng.tipPadani(p, 1); eng.tipPadani(p, 5);
+  assert.deepEqual(eng.tipPadani(p, 1), { typ: 'chyba', krok: 3 });
+  eng.dopad(p);
+  assert.ok(p.hotovo);
+  assert.deepEqual(p.vysledky, ['ciste', 'chyba', 'odhaleno', 'odhaleno']);
+  assert.equal(eng.tipPadani(p, 1).typ, 'nic');
+  assert.equal(eng.bodyZaSlovo('ciste', 1), 10);
+  assert.equal(eng.bodyZaSlovo('odhaleno', 1), 0);
+  assert.ok(eng.dobaPadu(0, 16) > eng.dobaPadu(15, 16));
+  assert.ok(eng.serieUspesna(Array(16).fill('ciste'), 16));
+  assert.ok(!eng.serieUspesna(Array(16).fill('ciste')));
+});
+
+test('padání: výběr slov upřednostní slabá slova', () => {
+  const st = srs.novyStav(), t = 1e12;
+  const slova = [{ t: 'pes', d: 1 }, { t: 'kočka', d: 1 }, { t: 'běží', d: 5 }];
+  slova.forEach(s => srs.uspech(st, srs.klic(s), t));
+  srs.chyba(st, 'kočka|1', t);
+  assert.deepEqual(srs.vyberSlova(st, slova, 1, () => 0, t + 1), [{ t: 'kočka', d: 1 }]);
+  assert.equal(srs.vyberSlova(st, slova, 5, Math.random, t + 1).length, 3);
+});
