@@ -2,15 +2,16 @@
 import { DRUHY, PODDRUHY, zbyvaText, nazevDruhu, mnozneDruhu } from '../druhy.js';
 import * as eng from '../engine.js';
 import * as srs from '../srs.js';
-import { esc, cislo, vysledekSerie, parta } from './spolecne.js';
+import { esc, cislo, vysledekSerie, parta, zapisovac, textyVety } from './spolecne.js';
 import { hlaska } from '../hlasky.js';
 import { zvuk } from '../zvuky.js';
 import { efektZasahu, efektChyby, efektBodu } from '../efekty.js';
 
-export function spustLov(koren, { data, krajina = '', opakovani, hrdina, ulozit, serieHotova, konec }) {
+export function spustLov(koren, { data, krajina = '', opakovani, hrdina, ulozit, serieHotova, konec, zaznam }) {
   const vety = srs.vyberVety(opakovani, data.vety, data.aktivni, eng.DELKA_SERIE);
   const vysledky = [];
   const chybnaSlova = new Map();
+  const stat = zapisovac(zaznam);
   let rada = 0; // zásahy bez chyby za sebou (zvedají tón)
   let poradi = 0, body = 0, st = null, start = 0, limit = 0, casovac = 0, dalsiTimeout = 0;
 
@@ -47,6 +48,7 @@ export function spustLov(koren, { data, krajina = '', opakovani, hrdina, ulozit,
     const sPoddruhem = [...new Set(v.slova.filter(s => s.p).map(s => s.d))];
     const cil = srs.vyberCil(opakovani, v, sPoddruhem.length ? sPoddruhem : data.aktivni);
     st = eng.novaVeta(v, cil, data.aktivni, srs.vyberPoddruh(v, cil));
+    stat.novy();
     $('.cil').style.setProperty('--c', `var(--d${cil})`);
     $('.cil').innerHTML = `${cislo(cil)}<span>Najdi ${DRUHY[cil].vse} <b>${mnozneDruhu(cil, st.poddruh)}</b></span><span class="zbyva"></span>`;
     $('.veta').innerHTML = v.slova.map((s, i) => {
@@ -104,6 +106,9 @@ export function spustLov(koren, { data, krajina = '', opakovani, hrdina, ulozit,
     }
     const k = srs.klic(st.veta.slova[i]);
     chybnaSlova.set(k, st.veta.slova[i]);
+    const d = st.veta.slova[i].d;
+    // dítě si myslelo, že slovo je hledaný druh (u poddruhů druh sedí – záměna druhů to není)
+    stat.zapis(i, { d, zvoleno: d === st.cil ? null : st.cil, ok: false, text: textJednotky(i), veta: textyVety(st.veta), i });
     rada = 0;
     zvuk(r.krok === 3 ? 'odhaleni' : 'chyba');
     efektChyby(tlacitka(i)[0]);
@@ -142,6 +147,7 @@ export function spustLov(koren, { data, krajina = '', opakovani, hrdina, ulozit,
 
     for (const i of st.cile) {
       const s = st.veta.slova[i];
+      stat.zapis(i, { d: s.d, ok: st.nalezene.has(i), text: textJednotky(i), veta: textyVety(st.veta), i });
       if (st.nalezene.has(i)) srs.uspech(opakovani, srs.klic(s));
       else { srs.chyba(opakovani, srs.klic(s)); chybnaSlova.set(srs.klic(s), s); }
     }
