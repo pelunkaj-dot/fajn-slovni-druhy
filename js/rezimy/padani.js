@@ -11,6 +11,7 @@ import { efektZasahu, efektChyby, efektBodu } from '../efekty.js';
 
 export function spustPadani(koren, { data, slova, krajina = '', opakovani, hrdina, ulozit, serieHotova, konec, zaznam, vsuvka, pomoc = {} }) {
   const vybrana = srs.vyberSlova(opakovani, slova || [], eng.DELKA_PADANI);
+  srs.zapamatujSlova(opakovani, vybrana.map(srs.klic));
   const stat = zapisovac(zaznam); // klíčem je pořadí slova v sérii
   const p = eng.novePadani(vybrana);
   const chybnaSlova = new Map();

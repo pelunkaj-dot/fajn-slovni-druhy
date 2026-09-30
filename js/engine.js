@@ -267,15 +267,20 @@ function odeber(o, w, vysledek) {
 
 // Obrana hradu ve světech 3–5: z každé věty jedno slovo (u složeného tvaru celá skupina) s odkazem na větu,
 // aby hra mohla ukázat kontext. skore(slovo) říká, jak moc slovo „chce“ na řadu (opakování).
+// Stejné slovo (tvar + druh) se v jedné sérii neobjeví dvakrát; věta, ve které už žádné nové slovo
+// není, se vynechá.
 export function jednotkyZVet(vety, aktivni, skore = () => 0, nahoda = Math.random) {
+  const pouzite = new Set();
+  const klic = (veta, i) => `${clenove(veta, i).map(j => veta.slova[j].t).join(' ').toLowerCase()}|${veta.slova[i].d}`;
   return vety.map(veta => {
     let nej = -1, nejSkore = -Infinity;
     veta.slova.forEach((s, i) => {
-      if (!aktivni.includes(s.d) || reprezentant(veta, i) !== i) return;
+      if (!aktivni.includes(s.d) || reprezentant(veta, i) !== i || pouzite.has(klic(veta, i))) return;
       const k = skore(s) + (s.v ? 0.5 : 0) + nahoda();
       if (k > nejSkore) { nej = i; nejSkore = k; }
     });
     if (nej < 0) return null;
+    pouzite.add(klic(veta, nej));
     const s = veta.slova[nej];
     return { t: clenove(veta, nej).map(j => veta.slova[j].t).join(' '), d: s.d, slovo: s, veta, i: nej };
   }).filter(Boolean);

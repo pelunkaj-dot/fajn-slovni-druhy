@@ -273,3 +273,28 @@ test('obrana ve vyšších světech: z věty jedno slovo, složený tvar vcelku'
   assert.equal(k[0].t, 'dopis');
   assert.equal(eng.jednotkyZVet([v], [9]).length, 0);
 });
+
+test('obrana ve větách: stejné slovo se v sérii neopakuje', () => {
+  const v = id => ({ id, slova: [{ t: 'Pes', d: 1 }, { t: 'se', d: 3 }, { t: 'myje', d: 5 }] });
+  const w = { id: 'x', slova: [{ t: 'Kočka', d: 1 }, { t: 'se', d: 3 }, { t: 'myje', d: 5 }] };
+  // skóre nutí vybrat „se“ – smí jen jednou
+  const j = eng.jednotkyZVet([v('a'), w, v('b')], [1, 3, 5], s => (s.t === 'se' ? 10 : 0), () => 0);
+  const klice = j.map(x => `${x.t.toLowerCase()}|${x.d}`);
+  assert.equal(new Set(klice).size, klice.length);
+  assert.equal(klice.filter(k => k === 'se|3').length, 1);
+});
+
+test('padající slova: nedávná slova dostanou přestávku, chybná se vracejí', () => {
+  const st = srs.novyStav(), t = 1e12;
+  const slova = ['pes', 'kočka', 'strom', 'dům', 'les', 'řeka'].map(x => ({ t: x, d: 1 }));
+  const prvni = srs.vyberSlova(st, slova, 3, () => 0, t);
+  srs.zapamatujSlova(st, prvni.map(srs.klic));
+  prvni.forEach(s => srs.uspech(st, srs.klic(s), t));
+  srs.chyba(st, srs.klic(prvni[0]), t);
+  const druha = srs.vyberSlova(st, slova, 3, () => 0, t + 1).map(s => s.t);
+  assert.ok(druha.includes(prvni[0].t), 'slovo s chybou se vrací');
+  assert.ok(!druha.includes(prvni[1].t) && !druha.includes(prvni[2].t), 'správně určená slova mají přestávku');
+  // duplicitní tvar v seznamu se vybere jen jednou
+  const dvakrat = srs.vyberSlova(srs.novyStav(), [{ t: 'Pes', d: 1 }, { t: 'pes', d: 1 }, { t: 'les', d: 1 }], 3, () => 0, t);
+  assert.equal(dvakrat.length, 2);
+});
