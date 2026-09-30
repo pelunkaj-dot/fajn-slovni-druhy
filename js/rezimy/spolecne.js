@@ -2,8 +2,9 @@
 import * as eng from '../engine.js';
 import { avatar, obrazek, POSTAVY } from '../postavy.js';
 import { hlaska } from '../hlasky.js';
+import { DRUHY } from '../druhy.js';
 import { zvuk } from '../zvuky.js';
-import { oslava } from '../efekty.js';
+import { oslava, efektZasahu } from '../efekty.js';
 import { hvezdy as hvezdyZa } from '../statistika.js';
 
 export const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -82,4 +83,78 @@ export function vysledekSerie(koren, { vysledky, body, chybnaSlova, hrdina, seri
   koren.querySelector('.znovu').onclick = () => konec({ znovu: true });
   koren.querySelector('.mapa').onclick = () => konec({ znovu: false });
   koren.querySelector('.znovu').focus();
+}
+
+// ---------- didaktická vsuvka ----------
+// Věta vsuvky: [{t}, {t, d}] – slovo s druhem je zvýrazněné. Interpunkce se připojí k předchozímu slovu.
+const vetaVsuvky = slova => slova.map(s => (s.d ? `<mark${s.d === 'x' ? '' : ` style="--c:var(--d${s.d})"`}>${esc(s.t)}</mark>` : esc(s.t)))
+  .join(' ').replace(/ ([,.!?:;])/g, '$1');
+const druhVety = slova => slova.find(s => s.d).d;
+
+// vsuvka = { dalsi(): vsuvka na řadě nebo null, hotovo(v, ok) } – dodává app.js.
+// Když je nějaká na řadě, ukáže ji a pak zavolá dal(); jinak dal() hned.
+export function moznaVsuvka(koren, vsuvka, hrdina, dal) {
+  const v = vsuvka && vsuvka.dalsi();
+  if (!v) { dal(); return; }
+  prestavka(koren, v, hrdina).then(ok => { vsuvka.hotovo(v, ok); dal(); });
+}
+// Klávesy hry se během vsuvky nepočítají.
+export const bezVsuvky = () => !document.querySelector('.vsuvka-obal');
+
+// Zastaví hru a vysvětlí, co se plete: pravidlo, dva příklady, mini-úkol.
+// Vrací Promise, který se splní po „Hrajeme dál“ (hodnota: mini-úkol napoprvé správně). Hra mezitím stojí.
+export function prestavka(koren, v, hrdina) {
+  return new Promise(hotovo => {
+    let vysledek = false;
+    const obal = document.createElement('div');
+    obal.className = 'vsuvka-obal';
+    const spravne = druhVety(v.ukol.slova);
+    obal.innerHTML = `
+      <section class="vsuvka" role="dialog" aria-modal="true" aria-labelledby="vsuvka-nadpis">
+        <div class="parta"></div>
+        <h2 id="vsuvka-nadpis">${esc(v.nadpis)}</h2>
+        <p class="pravidlo">${esc(v.pravidlo)}</p>
+        <div class="priklady">
+          ${v.priklady.map(p => `<div class="priklad" style="--c:var(--d${druhVety(p.slova)})">
+            <p class="veta-vsuvky">${vetaVsuvky(p.slova)}</p>
+            <p class="proc">${cislo(druhVety(p.slova))} ${esc(p.vysvetleni)}</p>
+          </div>`).join('')}
+        </div>
+        <div class="ukol-vsuvky">
+          <p class="zadani"><b>Zkus to:</b> jaký slovní druh je zvýrazněné slovo?</p>
+          <p class="veta-vsuvky">${vetaVsuvky(v.ukol.slova.map(s => (s.d ? { t: s.t, d: 'x' } : s)))}</p>
+          <div class="moznosti">${v.moznosti.map(d => `<button type="button" data-d="${d}">${cislo(d)} ${esc(DRUHY[d].nazev)}</button>`).join('')}</div>
+          <p class="odezva" aria-live="polite"></p>
+        </div>
+        <button type="button" class="hrajeme-dal" hidden>Hrajeme dál →</button>
+      </section>`;
+    koren.appendChild(obal);
+    const $ = s => obal.querySelector(s);
+    const rekni = parta($('.parta'), hrdina);
+    const uvod = hlaska(hrdina, 'vsuvka');
+    if (uvod) rekni(uvod); else $('.parta').hidden = true;
+    zvuk('napoveda');
+    obal.querySelector('.moznosti button').focus({ preventScroll: true });
+    obal.querySelectorAll('.moznosti button').forEach(b => b.onclick = () => {
+      const d = +b.dataset.d;
+      const ok = d === spravne;
+      vysledek = ok;
+      obal.querySelectorAll('.moznosti button').forEach(x => {
+        x.disabled = true;
+        if (+x.dataset.d === spravne) x.classList.add('spravna');
+      });
+      if (!ok) b.classList.add('spatna');
+      const mark = obal.querySelector('.ukol-vsuvky mark');
+      mark.style.setProperty('--c', `var(--d${spravne})`);
+      mark.classList.add('odhaleno');
+      zvuk(ok ? 'zasah' : 'chyba');
+      if (ok) efektZasahu(b, d);
+      const reakce = hlaska(hrdina, ok ? 'vsuvkaSpravne' : 'vsuvkaChyba');
+      if (reakce) rekni(reakce, ok ? 'radost' : 'premysli');
+      $('.odezva').innerHTML = `${cislo(spravne)} ${esc(v.ukol.vysvetleni)}`;
+      $('.hrajeme-dal').hidden = false;
+      $('.hrajeme-dal').focus();
+    });
+    $('.hrajeme-dal').onclick = () => { zvuk('klik'); obal.remove(); hotovo(vysledek); };
+  });
 }

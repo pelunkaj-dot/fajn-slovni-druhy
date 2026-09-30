@@ -3,12 +3,12 @@
 import { DRUHY } from '../druhy.js';
 import * as eng from '../engine.js';
 import * as srs from '../srs.js';
-import { esc, cislo, vysledekSerie, parta, zapisovac, textyVety } from './spolecne.js';
+import { esc, cislo, vysledekSerie, parta, zapisovac, textyVety, moznaVsuvka, bezVsuvky } from './spolecne.js';
 import { hlaska } from '../hlasky.js';
 import { zvuk } from '../zvuky.js';
 import { efektZasahu, efektChyby, efektBodu } from '../efekty.js';
 
-export function spustPadani(koren, { data, slova, krajina = '', opakovani, hrdina, ulozit, serieHotova, konec, zaznam }) {
+export function spustPadani(koren, { data, slova, krajina = '', opakovani, hrdina, ulozit, serieHotova, konec, zaznam, vsuvka }) {
   const vybrana = srs.vyberSlova(opakovani, slova || [], eng.DELKA_PADANI);
   const stat = zapisovac(zaznam); // klíčem je pořadí slova v sérii
   const p = eng.novePadani(vybrana);
@@ -45,6 +45,7 @@ export function spustPadani(koren, { data, slova, krajina = '', opakovani, hrdin
   $('.dalsi').onclick = () => dalsiSlovo();
   const klavesy = e => {
     if (!koren.contains($('.padani'))) { document.removeEventListener('keydown', klavesy); return; }
+    if (!bezVsuvky()) return;
     const d = e.key === '0' ? 10 : +e.key;
     if (d && data.aktivni.includes(d)) zpracujTip(d);
   };
@@ -177,7 +178,7 @@ export function spustPadani(koren, { data, slova, krajina = '', opakovani, hrdin
       vysledekSerie(koren, { vysledky: p.vysledky, body, chybnaSlova, hrdina, serieHotova, konec, delka: eng.DELKA_PADANI, jednotka: ['slovo', 'slova', 'slov'] });
       return;
     }
-    spustSlovo();
+    moznaVsuvka(koren, vsuvka, hrdina, spustSlovo);
   }
 
   if (!vybrana.length) { koren.innerHTML = '<p class="chyba">V tomto světě zatím nejsou žádná slova.</p>'; return; }

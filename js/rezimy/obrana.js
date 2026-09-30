@@ -5,7 +5,7 @@
 import { DRUHY } from '../druhy.js';
 import * as eng from '../engine.js';
 import * as srs from '../srs.js';
-import { esc, cislo, vysledekSerie, parta, zapisovac, textyVety } from './spolecne.js';
+import { esc, cislo, vysledekSerie, parta, zapisovac, textyVety, moznaVsuvka, bezVsuvky } from './spolecne.js';
 import { hlaska } from '../hlasky.js';
 import { zvuk } from '../zvuky.js';
 import { efektZasahu, efektChyby, efektBodu } from '../efekty.js';
@@ -19,7 +19,7 @@ const HRAD = `<svg class="hrad" viewBox="0 0 60 56" aria-hidden="true">
   <rect x="14" y="28" width="6" height="7" rx="2" fill="#ffd54a"/><rect x="40" y="28" width="6" height="7" rx="2" fill="#ffd54a"/>
   <path d="M30 2v10" stroke="#5a4630" stroke-width="2"/><path d="M30 2h12l-4 3 4 3H30z" fill="#e0564f"/></svg>`;
 
-export function spustObranu(koren, { data, slova, krajina = '', opakovani, hrdina, ulozit, serieHotova, konec, zaznam }) {
+export function spustObranu(koren, { data, slova, krajina = '', opakovani, hrdina, ulozit, serieHotova, konec, zaznam, vsuvka }) {
   const veVetach = !slova;
   const vybrana = veVetach
     ? eng.jednotkyZVet(srs.vyberVety(opakovani, data.vety, data.aktivni, eng.DELKA_OBRANY), data.aktivni, s => srs.naleha(opakovani, srs.klic(s)))
@@ -69,6 +69,7 @@ export function spustObranu(koren, { data, slova, krajina = '', opakovani, hrdin
   $('.dalsi').onclick = () => pokracuj();
   const klavesy = e => {
     if (!koren.contains(arena)) { document.removeEventListener('keydown', klavesy); return; }
+    if (!bezVsuvky()) return;
     const d = e.key === '0' ? 10 : +e.key;
     if (d && data.aktivni.includes(d)) strel(d, koren.querySelector(`.veze button[data-d="${d}"]`));
   };
@@ -265,8 +266,13 @@ export function spustObranu(koren, { data, slova, krajina = '', opakovani, hrdin
     $('.dalsi').focus();
   }
 
+  // Po odhaleném slově hra stojí – vhodná chvíle na vsuvku.
   function pokracuj() {
     $('.dalsi').hidden = true;
+    moznaVsuvka(koren, vsuvka, hrdina, pokracujDal);
+  }
+
+  function pokracujDal() {
     if (odhalene) { odhalene.remove(); odhalene = null; }
     koren.querySelectorAll('.veze button').forEach(b => b.classList.remove('spravny'));
     zamereno = null;

@@ -2,12 +2,12 @@
 import { DRUHY, PODDRUHY, zbyvaText, nazevDruhu, mnozneDruhu } from '../druhy.js';
 import * as eng from '../engine.js';
 import * as srs from '../srs.js';
-import { esc, cislo, vysledekSerie, parta, zapisovac, textyVety } from './spolecne.js';
+import { esc, cislo, vysledekSerie, parta, zapisovac, textyVety, moznaVsuvka } from './spolecne.js';
 import { hlaska } from '../hlasky.js';
 import { zvuk } from '../zvuky.js';
 import { efektZasahu, efektChyby, efektBodu } from '../efekty.js';
 
-export function spustLov(koren, { data, krajina = '', opakovani, hrdina, ulozit, serieHotova, konec, zaznam }) {
+export function spustLov(koren, { data, krajina = '', opakovani, hrdina, ulozit, serieHotova, konec, zaznam, vsuvka }) {
   const vety = srs.vyberVety(opakovani, data.vety, data.aktivni, eng.DELKA_SERIE);
   const vysledky = [];
   const chybnaSlova = new Map();
@@ -181,8 +181,7 @@ export function spustLov(koren, { data, krajina = '', opakovani, hrdina, ulozit,
   function dalsiVeta() {
     clearTimeout(dalsiTimeout);
     poradi += 1;
-    if (poradi < vety.length) vykresliVetu();
-    else vyhodnot();
+    moznaVsuvka(koren, vsuvka, hrdina, () => { if (poradi < vety.length) vykresliVetu(); else vyhodnot(); });
   }
 
   function vyhodnot() {

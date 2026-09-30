@@ -1,0 +1,186 @@
+# Didaktické vsuvky: krátký výklad, dva kontrastní příklady a mini-úkol.
+# Kontroluje Jan. Do hry jdou jen vsuvky, jejichž id je v korpus/schvalene.txt.
+#
+# == id | druhy        – „2 6“ = dvojice, která se plete; „6“ = vysvětlení jednoho druhu
+# nadpis:              – krátký titulek
+# pravidlo:            – výklad (1–3 věty, tyká se)
+# priklad: věta | vysvětlení       – [slovo]/druh = zvýrazněné slovo; interpunkce odděleně
+# ukol: věta | vysvětlení          – mini-úkol, dítě určuje zvýrazněné slovo
+# moznosti: 6 2        – nabízené druhy v úkolu (u dvojice se nepíše, nabízí se obě)
+#
+# Jazyková pojetí podle docs/sporna-pojeti.md.
+
+# ---------- dvojice, které se pletou ----------
+
+== v-2-6 | 2 6
+nadpis: Jaký? nebo Jak?
+pravidlo: Přídavné jméno popisuje osobu nebo věc – ptáš se jaký? jaká? jaké? Příslovce popisuje děj, to, jak se něco děje – ptáš se jak? kde? kdy?
+priklad: Po louce běží [rychlý]/2 pes . | Jaký pes? Rychlý – přídavné jméno.
+priklad: Pes běží [rychle]/6 . | Jak běží? Rychle – příslovce.
+ukol: Babička mluví [tiše]/6 . | Jak mluví? Tiše – příslovce. Popisuje, jak se mluví.
+
+== v-1-5 | 1 5
+nadpis: Jméno činnosti, nebo činnost?
+pravidlo: I činnost může mít své jméno: běh, zpěv, skok, procházka. To jsou podstatná jména – dá se před ně říct ten, ta, to. Sloveso říká, co kdo dělá, a dá se časovat: já zpívám, ty zpíváš, on zpívá.
+priklad: Z kuchyně je slyšet [zpěv]/1 . | Co je slyšet? Ten zpěv – podstatné jméno.
+priklad: Maminka v kuchyni [zpívá]/5 . | Co dělá maminka? Zpívá – sloveso.
+ukol: Po obědě půjdeme na [procházku]/1 . | Ta procházka – je to jméno činnosti, tedy podstatné jméno.
+
+== v-1-3 | 1 3
+nadpis: Jméno, nebo jeho zástupce?
+pravidlo: Podstatné jméno osobu nebo věc pojmenovává: Terezka, pes, škola. Zájmeno ji jen zastupuje, abychom nemuseli jméno pořád opakovat: ona, on, my, někdo, nikdo.
+priklad: [Terezka]/1 čte knihu . | Kdo čte? Terezka – pojmenovává ji, podstatné jméno.
+priklad: [Ona]/3 čte knihu . | Kdo čte? Ona – jen zastupuje jméno Terezka, zájmeno.
+ukol: [My]/3 jdeme do školy . | My – zastupuje jména těch, kdo jdou. Je to zájmeno.
+
+== v-2-4 | 2 4
+nadpis: Jaký? nebo Kolikátý?
+pravidlo: Slova první, druhý, pátý vypadají jako přídavná jména, ale říkají pořadí. Když se na slovo ptáš kolikátý?, je to číslovka. Když se ptáš jaký?, je to přídavné jméno.
+priklad: Sedím v [první]/4 lavici . | Kolikátá lavice? První – číslovka.
+priklad: Sedím v [nové]/2 lavici . | Jaká lavice? Nová – přídavné jméno.
+ukol: Bydlíme ve [třetím]/4 patře . | Kolikáté patro? Třetí – číslovka.
+
+== v-6-7 | 6 7
+nadpis: Stojí před jménem, nebo samo?
+pravidlo: Předložka nikdy nestojí sama – vždy patří k jménu za ní: kolem domu, vedle školy. Když za slovem žádné jméno není a ptáš se na ně kudy? nebo kde?, je to příslovce.
+priklad: Pes běhá [kolem]/7 domu . | Kolem čeho? Kolem domu – předložka, patří k jménu domu.
+priklad: Auto projelo [kolem]/6 . | Kudy projelo? Kolem – za ním žádné jméno není, příslovce.
+ukol: Babička sedí [vedle]/7 dědečka . | Vedle koho? Vedle dědečka – předložka stojí před jménem.
+
+== v-7-8 | 7 8
+nadpis: Před jménem, nebo mezi?
+pravidlo: Předložka stojí před jménem a říká, kde nebo s čím něco je: v lese, na stole, s kamarádem. Spojka spojuje dvě slova nebo dvě věty: a, i, nebo, ale, protože.
+priklad: Houby rostou [v]/7 lese . | V čem rostou? V lese – předložka.
+priklad: Mám psa [a]/8 kočku . | A spojuje dvě slova – spojka.
+ukol: Půjdeme do parku , [nebo]/8 na hřiště ? | Nebo spojuje dvě možnosti – je to spojka.
+
+== v-8-9 | 8 9
+nadpis: Spojuje, nebo přeje?
+pravidlo: Spojka spojuje věty. Když ať stojí za čárkou uprostřed souvětí, je to spojka. Částice stojí na začátku věty a vyjadřuje přání nebo to, co řekl někdo jiný: kéž, prý, ať žije.
+priklad: Řekni mu , [ať]/8 přijde . | Ať spojuje dvě věty – spojka.
+priklad: [Ať]/9 žije král ! | Ať vyjadřuje přání – částice.
+ukol: [Kéž]/9 by už byly prázdniny ! | Kéž vyjadřuje přání – je to částice.
+
+== v-9-10 | 9 10
+nadpis: Zvuk a pocit, nebo přání?
+pravidlo: Citoslovce napodobuje zvuk nebo vyjadřuje pocit: haf, bum, au, jé, hurá. Částice nic nenapodobuje – vyjadřuje přání nebo to, co řekl někdo jiný: kéž, prý.
+priklad: [Au]/10 , to bolí ! | Au vyjadřuje bolest – citoslovce.
+priklad: [Prý]/9 bude pršet . | Prý – říkal to někdo jiný. Je to částice.
+ukol: [Mňau]/10 , ozvalo se ze sklepa . | Mňau napodobuje zvuk – je to citoslovce.
+
+== v-2-3 | 2 3
+nadpis: Popisuje, nebo ukazuje?
+pravidlo: Přídavné jméno říká, jaká věc je: velký, zelený, maminčin. Slova můj, tvůj, náš, váš, svůj, ten, tento, každý to neříkají – jen ukazují, o kterou nebo o čí věc jde. Jsou to zájmena. Tahle slova si zapamatuj.
+priklad: To je [velký]/2 pes . | Jaký pes? Velký – přídavné jméno.
+priklad: To je [můj]/3 pes . | Můj neříká, jaký pes je – je to zájmeno.
+ukol: [Ten]/3 dort upekla babička . | Ten jen ukazuje na dort – je to zájmeno.
+
+== v-1-6 | 1 6
+nadpis: Kdy? nebo Co?
+pravidlo: Slova ráno, večer, doma, venku mohou být příslovce i podstatná jména. Když se na ně ptáš kdy? nebo kde? a stojí u slovesa, je to příslovce. Když je to věc, o které se mluví, a má u sebe třeba přídavné jméno (krásné ráno, každý večer), je to podstatné jméno.
+priklad: [Ráno]/6 vstávám do školy . | Kdy vstávám? Ráno – příslovce.
+priklad: Bylo krásné [ráno]/1 . | Jaké ráno? Krásné – mluví se o ránu, je to podstatné jméno.
+ukol: [Večer]/6 si čtu pohádku . | Kdy si čtu? Večer – příslovce.
+
+== v-1-4 | 1 4
+nadpis: Počet, nebo věc?
+pravidlo: Číslovka říká, kolik čeho je – i velká čísla sto, tisíc, milion jsou číslovky. Ptáš se kolik? Podstatné jméno něco pojmenovává, třeba známku: jednička, pětka.
+priklad: Na louce se pase [tisíc]/4 ovcí . | Kolik ovcí? Tisíc – číslovka.
+priklad: Z diktátu mám [jedničku]/1 . | Co mám? Tu jedničku – je to známka, podstatné jméno.
+ukol: Na stadionu fandilo [sto]/4 lidí . | Kolik lidí? Sto – je to číslovka.
+
+== v-3-8 | 3 8
+nadpis: Který je zájmeno
+pravidlo: Spojky že, protože, když, aby jen spojují věty. Slova který, která, které, co zastupují jméno z první věty – proto jsou to zájmena, i když stojí na začátku druhé věty.
+priklad: Mám kamaráda , [který]/3 skvěle kreslí . | Který zastupuje slovo kamarád – zájmeno.
+priklad: Vím , [že]/8 skvěle kreslí . | Že jen spojuje dvě věty – spojka.
+ukol: Našla jsem knihu , [kterou]/3 jsem ztratila . | Kterou zastupuje slovo kniha – je to zájmeno.
+
+== v-6-8 | 6 8
+nadpis: Kde a kdy jsou příslovce
+pravidlo: Kde, kdy, jak a proč jsou příslovce – i když stojí na začátku druhé věty. Pořád se ptají na místo, čas nebo způsob. Spojky když, že, protože nic takového neříkají, jen spojují věty.
+priklad: Nevím , [kde]/6 bydlí . | Kde – ptá se na místo, je to příslovce.
+priklad: Zavolej , [když]/8 přijdeš domů . | Když spojuje dvě věty – spojka.
+ukol: Řekni mi , [kdy]/6 začíná film . | Kdy – ptá se na čas, je to příslovce.
+
+# ---------- jednotlivé druhy ----------
+
+== v-1 | 1
+nadpis: Podstatné jméno
+pravidlo: Podstatné jméno pojmenovává osoby, zvířata, věci, místa i to, na co nemůžeš sáhnout: radost, strach. Zeptej se kdo? co? a zkus před něj říct ten, ta, to.
+priklad: [Kočka]/1 spí na gauči . | Kdo spí? Ta kočka – podstatné jméno.
+priklad: Mám velkou [radost]/1 . | Co mám? Tu radost – podstatné jméno.
+ukol: Na podzim padá [listí]/1 . | Co padá? To listí – je to podstatné jméno.
+moznosti: 1 5
+
+== v-2 | 2
+nadpis: Přídavné jméno
+pravidlo: Přídavné jméno říká, jaká je osoba nebo věc, nebo čí je. Zeptej se jaký? jaká? jaké? čí? Většinou stojí u podstatného jména.
+priklad: Máme [zelený]/2 plot . | Jaký plot? Zelený – přídavné jméno.
+priklad: To je [maminčina]/2 taška . | Čí taška? Maminčina – přídavné jméno.
+ukol: Na stole voní [čerstvý]/2 chléb . | Jaký chléb? Čerstvý – je to přídavné jméno.
+moznosti: 2 6
+
+== v-3 | 3
+nadpis: Zájmeno
+pravidlo: Zájmeno zastupuje jméno nebo na ně ukazuje. Patří sem třeba já, ty, on, my, můj, tvůj, ten, kdo, co, nikdo, nic a také se, si.
+priklad: [Ty]/3 máš nové boty . | Kdo má nové boty? Ty – zastupuje jméno, zájmeno.
+priklad: Kočka [se]/3 myje . | Se patří ke slovesu myje – je to zájmeno.
+ukol: [Nic]/3 se nestalo . | Nic zastupuje věc, která se nestala – je to zájmeno.
+moznosti: 3 6
+
+== v-4 | 4
+nadpis: Číslovka
+pravidlo: Číslovka říká počet nebo pořadí. Zeptej se kolik? kolikátý? kolikrát?
+priklad: Na stromě sedí [tři]/4 ptáci . | Kolik ptáků? Tři – číslovka.
+priklad: Terezka doběhla [druhá]/4 . | Kolikátá doběhla? Druhá – číslovka.
+ukol: Zvonek zazvonil [dvakrát]/4 . | Kolikrát zazvonil? Dvakrát – je to číslovka.
+moznosti: 4 6
+
+== v-5 | 5
+nadpis: Sloveso
+pravidlo: Sloveso říká, co kdo dělá nebo co se s ním děje. Zeptej se co dělá? a zkus ho časovat: já píšu, ty píšeš, on píše. Slovesem je i slovo je.
+priklad: Pes [štěká]/5 na pošťáka . | Co dělá pes? Štěká – sloveso.
+priklad: Venku [je]/5 hezky . | Je patří ke slovesu být – sloveso.
+ukol: Děti se [smějí]/5 . | Co dělají děti? Smějí se – je to sloveso.
+moznosti: 5 1
+
+== v-6 | 6
+nadpis: Příslovce
+pravidlo: Příslovce říká, jak, kde, kdy nebo proč se něco děje. Zeptej se jak? kde? kdy? Většinou stojí u slovesa.
+priklad: Terezka píše [pěkně]/6 . | Jak píše? Pěkně – příslovce.
+priklad: [Zítra]/6 pojedeme k babičce . | Kdy pojedeme? Zítra – příslovce.
+ukol: Auto jede [pomalu]/6 . | Jak jede? Pomalu – je to příslovce.
+moznosti: 6 2
+
+== v-7 | 7
+nadpis: Předložka
+pravidlo: Předložka stojí před podstatným jménem nebo zájmenem a nikdy nestojí sama: v, na, do, pod, nad, u, s, z, k, za, před.
+priklad: Míč je [pod]/7 stolem . | Pod stojí před jménem stolem – předložka.
+priklad: Jdu [k]/7 babičce . | K stojí před jménem babičce – předložka.
+ukol: Hrnek stojí [na]/7 poličce . | Na stojí před jménem poličce – je to předložka.
+moznosti: 7 8
+
+== v-8 | 8
+nadpis: Spojka
+pravidlo: Spojka spojuje slova nebo celé věty. Patří sem a, i, ale, nebo, protože, že, když, aby.
+priklad: Maminka koupila rohlíky [a]/8 mléko . | A spojuje dvě slova – spojka.
+priklad: Zůstaneme doma , [protože]/8 prší . | Protože spojuje dvě věty – spojka.
+ukol: Matýsek chtěl jít ven , [ale]/8 pršelo . | Ale spojuje dvě věty – je to spojka.
+moznosti: 8 7
+
+== v-9 | 9
+nadpis: Částice
+pravidlo: Částice stojí většinou na začátku věty. Vyjadřuje přání nebo to, co řekl někdo jiný: kéž, ať, prý.
+priklad: [Kéž]/9 by svítilo slunce ! | Kéž vyjadřuje přání – částice.
+priklad: [Prý]/9 přijede cirkus . | Prý – říkal to někdo jiný. Částice.
+ukol: [Ať]/9 žije vítěz ! | Ať vyjadřuje přání – je to částice.
+moznosti: 9 8
+
+== v-10 | 10
+nadpis: Citoslovce
+pravidlo: Citoslovce napodobuje zvuky nebo vyjadřuje pocit: haf, mňau, bum, au, jé, hurá.
+priklad: [Hurá]/10 , máme prázdniny ! | Hurá vyjadřuje radost – citoslovce.
+priklad: [Bác]/10 , spadl hrnek . | Bác napodobuje zvuk – citoslovce.
+ukol: [Jé]/10 , to je krásné ! | Jé vyjadřuje údiv – je to citoslovce.
+moznosti: 10 9

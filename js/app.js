@@ -1,6 +1,6 @@
 // Mapa světů, motivy, ukládání postupu a spuštění režimu.
 import { SVETY } from './druhy.js';
-import { nactiSvet, nactiSeznam, nactiSlova } from './data.js';
+import { nactiSvet, nactiSeznam, nactiSlova, nactiVsuvky } from './data.js';
 import * as srs from './srs.js';
 import { OBLASTI, DOKONCENI } from './engine.js';
 import { spustLov } from './rezimy/lov.js';
@@ -15,12 +15,15 @@ import { nastavZvuk, odemkni, zvuk } from './zvuky.js';
 import { efektZasahu } from './efekty.js';
 import * as statistika from './statistika.js';
 import { ukazSbirku, ukazRodice } from './prehled.js';
+import * as vsuvky from './vsuvky.js';
 
 const KLIC = 'fajn-slovni-druhy:v1';
 const MOTIVY = { light: 'Světlý', dark: 'Tmavý', girl: 'Dívčí' };
 const HRDINOVE = ['Terezka', 'Matýsek'];
 const REZIMY = { lov: { nazev: 'Lov', spust: spustLov }, most: { nazev: 'Stavba mostu', spust: spustMost }, padani: { nazev: 'Padající slova', spust: spustPadani }, obrana: { nazev: 'Obrana hradu', spust: spustObranu } };
 let DOSTUPNE = []; // světy, které mají data (z data/svety.json)
+let VSUVKY = []; // didaktické vsuvky (data/vsuvky.json)
+const pametVsuvek = vsuvky.novaPamet(); // co se v tomto sezení plete
 let SLOVA = {};    // slova pro Padající slova podle světa (jen světy 1–2)
 // Režimy nabízené ve světě: Padající slova jen tam, kde jsou schválená samostatná slova.
 // Obrana hradu jde všude: ve světech 1–2 se samostatnými slovy, ve vyšších se slovy z vět.
@@ -129,7 +132,7 @@ function mapa() {
     mapa();
   });
   app.querySelector('.otevri-sbirku').onclick = () => { zvuk('vyber'); ukazSbirku(app, { st: stav.stat, dostupne: DOSTUPNE, zpet: mapa }); };
-  app.querySelector('.pro-rodice').onclick = () => { zvuk('klik'); ukazRodice(app, { st: stav.stat, hrac: stav.hrac, ulozit, zpet: mapa }); };
+  app.querySelector('.pro-rodice').onclick = () => { zvuk('klik'); ukazRodice(app, { st: stav.stat, hrac: stav.hrac, vsuvky: VSUVKY, ulozit, zpet: mapa }); };
   app.querySelectorAll('.svety button[data-svet]').forEach(b => b.onclick = () => { zvuk('start'); hraj(+b.dataset.svet, b.dataset.rezim || ''); });
   delete app.dataset.svet;
   app.style.removeProperty('--foto');
@@ -269,6 +272,15 @@ async function hraj(n, rezim = '') {
     ulozit,
     zaznam(odpoved) {
       odznakyBehem.push(...statistika.odpoved(stav.stat, { ...odpoved, svet: n }));
+      vsuvky.sleduj(pametVsuvek, odpoved);
+    },
+    vsuvka: {
+      dalsi() {
+        const v = vsuvky.vyber(pametVsuvek, VSUVKY, cache[n].aktivni);
+        if (v) vsuvky.ukazano(pametVsuvek, v);
+        return v;
+      },
+      hotovo(v, ok) { statistika.vsuvka(stav.stat, v.id, ok); ulozit(); },
     },
     serieHotova(uspesna, { hvezdy = 0, bezZtraty = false } = {}) {
       const st = svetStav(n);
@@ -302,4 +314,4 @@ ukazZvuk();
 document.addEventListener('pointerdown', () => { if (stav.zvuk) odemkni(); }, { once: true });
 nastavMotiv(MOTIVY[parametry.get('theme')] ? parametry.get('theme') : stav.motiv);
 ulozit();
-Promise.all([nactiSeznam(), nactiSlova(PLNA)]).then(([s, slova]) => { DOSTUPNE = Object.keys(s).map(Number); SLOVA = slova; mapa(); });
+Promise.all([nactiSeznam(), nactiSlova(PLNA), nactiVsuvky()]).then(([s, slova, v]) => { DOSTUPNE = Object.keys(s).map(Number); SLOVA = slova; VSUVKY = v; mapa(); });

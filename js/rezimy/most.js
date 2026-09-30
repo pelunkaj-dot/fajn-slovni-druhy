@@ -3,13 +3,13 @@
 import { DRUHY, PODDRUHY, nazevDruhu } from '../druhy.js';
 import * as eng from '../engine.js';
 import * as srs from '../srs.js';
-import { esc, cislo, vysledekSerie, parta, zapisovac, textyVety } from './spolecne.js';
+import { esc, cislo, vysledekSerie, parta, zapisovac, textyVety, moznaVsuvka } from './spolecne.js';
 import { avatar } from '../postavy.js';
 import { hlaska } from '../hlasky.js';
 import { zvuk } from '../zvuky.js';
 import { efektZasahu, efektChyby, efektBodu } from '../efekty.js';
 
-export function spustMost(koren, { data, krajina = '', opakovani, hrdina, ulozit, serieHotova, konec, zaznam }) {
+export function spustMost(koren, { data, krajina = '', opakovani, hrdina, ulozit, serieHotova, konec, zaznam, vsuvka }) {
   const pocetSlov = v => v.slova.filter(s => data.aktivni.includes(s.d)).length;
   const vybrane = srs.vyberVety(opakovani, data.vety, data.aktivni, eng.DELKA_SERIE);
   const nejdelsi = vybrane.reduce((a, v) => (pocetSlov(v) > pocetSlov(a) ? v : a), vybrane[0]);
@@ -215,8 +215,10 @@ export function spustMost(koren, { data, krajina = '', opakovani, hrdina, ulozit
   function dalsiVeta() {
     clearTimeout(dalsiTimeout);
     poradi += 1;
-    if (poradi < vety.length) vykresliVetu();
-    else vysledekSerie(koren, { vysledky, body, chybnaSlova, hrdina, serieHotova, konec });
+    moznaVsuvka(koren, vsuvka, hrdina, () => {
+      if (poradi < vety.length) vykresliVetu();
+      else vysledekSerie(koren, { vysledky, body, chybnaSlova, hrdina, serieHotova, konec });
+    });
   }
 
   if (!vety.length) { koren.innerHTML = '<p class="chyba">V tomto světě zatím nejsou žádné věty.</p>'; return; }
