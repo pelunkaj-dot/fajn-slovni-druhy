@@ -5,7 +5,7 @@
 import { DRUHY } from '../druhy.js';
 import * as eng from '../engine.js';
 import * as srs from '../srs.js';
-import { esc, cislo, vysledekSerie, parta } from './spolecne.js';
+import { esc, cislo, vysledekSerie, parta, zapisovac, textyVety } from './spolecne.js';
 import { hlaska } from '../hlasky.js';
 import { zvuk } from '../zvuky.js';
 import { efektZasahu, efektChyby, efektBodu } from '../efekty.js';
@@ -19,12 +19,15 @@ const HRAD = `<svg class="hrad" viewBox="0 0 60 56" aria-hidden="true">
   <rect x="14" y="28" width="6" height="7" rx="2" fill="#ffd54a"/><rect x="40" y="28" width="6" height="7" rx="2" fill="#ffd54a"/>
   <path d="M30 2v10" stroke="#5a4630" stroke-width="2"/><path d="M30 2h12l-4 3 4 3H30z" fill="#e0564f"/></svg>`;
 
-export function spustObranu(koren, { data, slova, krajina = '', opakovani, hrdina, ulozit, serieHotova, konec }) {
+export function spustObranu(koren, { data, slova, krajina = '', opakovani, hrdina, ulozit, serieHotova, konec, zaznam }) {
   const veVetach = !slova;
   const vybrana = veVetach
     ? eng.jednotkyZVet(srs.vyberVety(opakovani, data.vety, data.aktivni, eng.DELKA_OBRANY), data.aktivni, s => srs.naleha(opakovani, srs.klic(s)))
     : srs.vyberSlova(opakovani, slova, eng.DELKA_OBRANY);
   const klic = s => srs.klic(s.slovo || s);
+  const stat = zapisovac(zaznam); // klíčem je id slova na cestě
+  // ve světech 3–5 má jednotka odkaz na větu (kontext pro rodiče)
+  const odp = (s, ok, zvoleno = null) => ({ d: s.d, ok, zvoleno, text: s.t, veta: s.veta ? textyVety(s.veta) : null, i: s.veta ? s.i : null });
   const o = eng.novaObrana(vybrana);
   const chybnaSlova = new Map();
   const prvky = new Map();          // id slova → prvek na cestě
@@ -139,6 +142,7 @@ export function spustObranu(koren, { data, slova, krajina = '', opakovani, hrdin
       zvuk('hrad');
       efektChyby($('.hrad'));
       zapisChybu(u.slovo.s);
+      stat.zapis(u.slovo.id, odp(u.slovo.s, false));
       ukazZivoty();
       odhal(u.slovo, `Slovo „${u.slovo.s.t}“ došlo až k hradu!`);
     } else if (u.typ === 'vlna') {
@@ -184,6 +188,7 @@ export function spustObranu(koren, { data, slova, krajina = '', opakovani, hrdin
     zvuk('strela');
     const r = eng.vystrel(o, w.id, druh);
     if (r.typ === 'nic') return;
+    stat.zapis(w.id, r.typ === 'zasah' ? odp(w.s, true) : odp(w.s, false, druh));
     if (r.typ === 'zasah') {
       if (r.vysledek === 'ciste') srs.uspech(opakovani, klic(w.s));
       const ziskano = eng.bodyZaSlovo(r.vysledek, zbyva);
@@ -293,7 +298,7 @@ export function spustObranu(koren, { data, slova, krajina = '', opakovani, hrdin
     if (veVetach) vybrana.forEach(j => srs.zapamatujVetu(opakovani, j.veta.id));
     ulozit();
     // při ztrátě hradu je výsledků méně než slov v sérii, takže série není úspěšná
-    vysledekSerie(koren, { vysledky: o.vysledky, body, chybnaSlova, hrdina, serieHotova, konec, delka: eng.DELKA_OBRANY, jednotka: ['slovo', 'slova', 'slov'] });
+    vysledekSerie(koren, { vysledky: o.vysledky, body, chybnaSlova, hrdina, serieHotova, konec, delka: eng.DELKA_OBRANY, jednotka: ['slovo', 'slova', 'slov'], bezZtraty: o.zivoty === eng.ZIVOTY && o.vysledky.length === eng.DELKA_OBRANY });
   }
 
   if (!vybrana.length) { koren.innerHTML = '<p class="chyba">V tomto světě zatím nejsou žádná slova.</p>'; return; }

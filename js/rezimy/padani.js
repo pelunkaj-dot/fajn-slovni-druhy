@@ -3,13 +3,14 @@
 import { DRUHY } from '../druhy.js';
 import * as eng from '../engine.js';
 import * as srs from '../srs.js';
-import { esc, cislo, vysledekSerie, parta } from './spolecne.js';
+import { esc, cislo, vysledekSerie, parta, zapisovac, textyVety } from './spolecne.js';
 import { hlaska } from '../hlasky.js';
 import { zvuk } from '../zvuky.js';
 import { efektZasahu, efektChyby, efektBodu } from '../efekty.js';
 
-export function spustPadani(koren, { data, slova, krajina = '', opakovani, hrdina, ulozit, serieHotova, konec }) {
+export function spustPadani(koren, { data, slova, krajina = '', opakovani, hrdina, ulozit, serieHotova, konec, zaznam }) {
   const vybrana = srs.vyberSlova(opakovani, slova || [], eng.DELKA_PADANI);
+  const stat = zapisovac(zaznam); // klíčem je pořadí slova v sérii
   const p = eng.novePadani(vybrana);
   const chybnaSlova = new Map();
   // stav jednoho slova: 'pada' | 'pauza' (nápověda) | 'ceka' (odhaleno, čeká na „Pokračovat“) | 'mezi'
@@ -96,6 +97,7 @@ export function spustPadani(koren, { data, slova, krajina = '', opakovani, hrdin
     const zbyva = 1 - y;
     const r = eng.tipPadani(p, druh);
     if (r.typ === 'nic') return;
+    stat.zapis(i, r.typ === 'zasah' ? { d: s.d, ok: true, text: s.t } : { d: s.d, zvoleno: druh, ok: false, text: s.t });
     if (faze === 'pauza') faze = 'pada';
     if (r.typ === 'zasah') {
       const vysl = p.vysledky[i];
@@ -131,6 +133,7 @@ export function spustPadani(koren, { data, slova, krajina = '', opakovani, hrdin
     const s = eng.padajici(p);
     const i = p.i;
     eng.dopad(p);
+    stat.zapis(i, { d: s.d, ok: false, text: s.t });
     rada = 0;
     zvuk('odhaleni');
     efektChyby(slovoEl);

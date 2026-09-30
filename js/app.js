@@ -13,6 +13,8 @@ import { hlaska, nastavHrace } from './hlasky.js';
 import { parta } from './rezimy/spolecne.js';
 import { nastavZvuk, odemkni, zvuk } from './zvuky.js';
 import { efektZasahu } from './efekty.js';
+import * as statistika from './statistika.js';
+import { ukazSbirku, ukazRodice } from './prehled.js';
 
 const KLIC = 'fajn-slovni-druhy:v1';
 const MOTIVY = { light: 'Světlý', dark: 'Tmavý', girl: 'Dívčí' };
@@ -39,6 +41,7 @@ const stav = { hrdina: HRDINOVE[0], postavicky: true, zvuk: true, motiv: 'light'
 const DEN = 864e5;
 let pozdrav = !stav.naposledy ? 'pozdravPrvni' : Date.now() - stav.naposledy > 3 * DEN ? 'pozdravPoDlouhe' : 'pozdravZnovu';
 stav.naposledy = Date.now();
+stav.stat = statistika.doplnit(stav.stat);
 nastavHrace(stav.hrac);
 
 function ulozit() {
@@ -77,6 +80,7 @@ function otazkaHrac() {
 }
 
 function mapa() {
+  ukonciSezeni();
   if (!stav.hrac) { otazkaHrac(); return; }
   app.innerHTML = `
     <section class="mapa">
@@ -89,6 +93,10 @@ function mapa() {
           <button type="button" data-k="holka" aria-pressed="${stav.hrac === 'holka'}">holka</button>
           <button type="button" data-k="kluk" aria-pressed="${stav.hrac === 'kluk'}">kluk</button>
         </span>
+      </div>
+      <div class="sbirka-lista">
+        <button type="button" class="otevri-sbirku"><span aria-hidden="true">★</span> ${statistika.hvezdCelkem(stav.stat)} · Moje sbírka</button>
+        <button type="button" class="odkaz pro-rodice">Pro rodiče</button>
       </div>
       <div class="parta"></div>
       <div class="cesta-mapou">
@@ -120,6 +128,8 @@ function mapa() {
     pozdrav = 'predstaveni';
     mapa();
   });
+  app.querySelector('.otevri-sbirku').onclick = () => { zvuk('vyber'); ukazSbirku(app, { st: stav.stat, dostupne: DOSTUPNE, zpet: mapa }); };
+  app.querySelector('.pro-rodice').onclick = () => { zvuk('klik'); ukazRodice(app, { st: stav.stat, hrac: stav.hrac, ulozit, zpet: mapa }); };
   app.querySelectorAll('.svety button[data-svet]').forEach(b => b.onclick = () => { zvuk('start'); hraj(+b.dataset.svet, b.dataset.rezim || ''); });
   delete app.dataset.svet;
   app.style.removeProperty('--foto');
@@ -211,15 +221,32 @@ function kartaSveta(n, s) {
         <p>${s.popis}</p>
         ${hratelny(n) ? `
           <div class="uzemi" role="img" aria-label="Dobyté území ${procent} %">${oblasti}</div>
+          <p class="ziskane-hvezdy" aria-label="Získané hvězdy: ${stav.stat.hvezdy[n] || 0}">★ ${stav.stat.hvezdy[n] || 0}</p>
           <p class="stav">${dokonceno ? 'Svět dokončen! Objevily se skryté oblasti.' : `Území ${procent} %, svět dokončíš při ${Math.round(DOKONCENI / OBLASTI * 100)} %`}</p>` : ''}
         ${akce}
       </div>
     </li>`;
 }
 
+// Čas hraní: sezení běží od spuštění světa do návratu na mapu; při skrytí stránky se přeruší.
+let sezeni = 0;
+function ukonciSezeni() {
+  if (sezeni <= 0) { sezeni = 0; return; }
+  statistika.cas(stav.stat, Date.now() - sezeni);
+  sezeni = 0;
+  ulozit();
+}
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) { if (sezeni) { ukonciSezeni(); sezeni = -1; } }
+  else if (sezeni === -1) sezeni = Date.now();
+});
+
 // rezim = '' → režimy se po sérii střídají; 'lov'/'most' → hraje se jen zvolený režim
 async function hraj(n, rezim = '') {
   casovaceMapy.forEach(clearTimeout);
+  ukonciSezeni();
+  sezeni = Date.now();
+  let odznakyBehem = []; // odznaky získané během série (např. 10 v řadě) se ukážou ve výsledku
   stav.posledniSvet = n;
   app.dataset.svet = n;
   // fotka světa jako pozadí her
@@ -240,16 +267,22 @@ async function hraj(n, rezim = '') {
     opakovani: stav.opakovani,
     hrdina: mluvci(),
     ulozit,
-    serieHotova(uspesna) {
+    zaznam(odpoved) {
+      odznakyBehem.push(...statistika.odpoved(stav.stat, { ...odpoved, svet: n }));
+    },
+    serieHotova(uspesna, { hvezdy = 0, bezZtraty = false } = {}) {
       const st = svetStav(n);
       st.serie += 1;
       const predtim = st.uzemi;
       if (uspesna) st.uzemi = Math.min(OBLASTI, st.uzemi + 1);
       if (!rezim) stav.rezim = stav.rezim === 'lov' ? 'most' : 'lov'; // režimy se střídají po sérii
+      const dokoncene = DOSTUPNE.filter(k => svetStav(k).uzemi >= DOKONCENI);
+      const odznaky = [...odznakyBehem, ...statistika.serie(stav.stat, { svet: n, hvezdy, uspesna, bezZtraty, dokoncene })];
+      odznakyBehem = [];
       ulozit();
-      return predtim < DOKONCENI && st.uzemi >= DOKONCENI ? 'dokonceno' : '';
+      return { dokonceno: predtim < DOKONCENI && st.uzemi >= DOKONCENI, odznaky };
     },
-    konec(v) { if (v && v.znovu) hraj(n, rezim); else mapa(); },
+    konec(v) { ukonciSezeni(); if (v && v.znovu) hraj(n, rezim); else mapa(); },
   });
 }
 

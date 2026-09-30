@@ -475,3 +475,110 @@ body { background:
   linear-gradient(180deg, color-mix(in srgb, var(--bg) 35%, transparent), color-mix(in srgb, var(--bg) 60%, transparent)),
   var(--mapa-pozadi, none) center / cover; }
 .cesta-mapou .silnice { z-index: 0; }
+
+/* ---------- hvězdičky, odznaky, sbírka, přehled pro rodiče ---------- */
+:root { --zlata: #8f5f00; }
+[data-theme="dark"] { --zlata: #f2c14e; }
+[data-theme="girl"] { --zlata: #8f5f00; }
+.hvezdicky { display: inline-flex; gap: 4px; font-size: 1.6rem; line-height: 1; }
+.hvezdicky.velke { font-size: 2.6rem; align-self: flex-start; }
+.hvezdicky i { font-style: normal; color: var(--line); }
+.hvezdicky i.ma { color: var(--zlata); animation: hvezda-rozsvit .5s cubic-bezier(.3, 1.6, .5, 1) both; animation-delay: calc(var(--i) * .25s); }
+@keyframes hvezda-rozsvit { from { transform: scale(0) rotate(-40deg); opacity: 0; } to { transform: none; opacity: 1; } }
+
+.odznak { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--line); background: var(--panel); border-radius: 999px; padding: 4px 14px 4px 4px; font-size: .95rem; }
+.odznak b { display: inline-grid; place-items: center; min-width: 2.1em; height: 2.1em; padding: 0 4px; border-radius: 999px; background: var(--zlata); color: #fff; font-family: "Baloo 2", sans-serif; font-size: .9rem; }
+[data-theme="dark"] .odznak b { color: #1b1606; }
+.odznak.chybi { opacity: .55; }
+.odznak.chybi b { background: var(--line); color: var(--muted); }
+.nove-odznaky { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.nove-odznaky p { margin: 0; font-weight: 700; width: 100%; }
+.nove-odznaky .odznak { animation: hvezda-rozsvit .5s cubic-bezier(.3, 1.6, .5, 1) .8s both; }
+@media (prefers-reduced-motion: reduce) { .hvezdicky i.ma, .nove-odznaky .odznak { animation: none; } }
+
+.sbirka-lista { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; }
+.otevri-sbirku { border: 0; border-radius: 999px; padding: 8px 16px; font-weight: 700; background: var(--panel); color: var(--ink); box-shadow: var(--stin); }
+.otevri-sbirku span { color: var(--zlata); }
+.sbirka-lista .pro-rodice { margin-left: auto; font-size: .95rem; color: var(--muted); }
+.ziskane-hvezdy { color: var(--zlata) !important; font-weight: 700; }
+
+.sbirka, .rodice { display: flex; flex-direction: column; gap: 14px; max-width: 900px; margin: 0 auto; width: 100%; }
+.sbirka h2, .rodice h2 { margin: 0; font-family: "Baloo 2", sans-serif; font-size: 1.8rem; }
+.karta-sbirky { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 16px 18px; min-width: 0; }
+.karta-sbirky h3 { margin: 0 0 6px; display: flex; align-items: baseline; gap: 10px; font-size: 1.15rem; }
+.karta-sbirky h3 .pocet { color: var(--zlata); margin-left: auto; }
+.vysvetlivka { color: var(--muted); font-size: .9rem; margin: 0 0 10px; }
+.hvezdy-svetu, .zvladnuti, .zameny, .chyby { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.hvezdy-svetu li { display: flex; align-items: center; gap: 8px; }
+.hvezdy-svetu b { margin-left: auto; color: var(--zlata); }
+.zvladnuti li { display: grid; grid-template-columns: auto 1fr auto 6.5em; gap: 10px; align-items: center; }
+.meric { display: inline-flex; gap: 3px; }
+.meric i { width: 22px; height: 10px; border-radius: 3px; background: var(--line); }
+.meric i.ma { background: var(--c); }
+.uroven { font-weight: 700; font-size: .9rem; }
+.uroven.u-novacek { color: var(--muted); font-weight: 400; }
+.uroven.u-mistr { color: var(--zlata); }
+.odznaky { display: flex; flex-wrap: wrap; gap: 8px; }
+@media (max-width: 480px) { .zvladnuti li { grid-template-columns: auto 1fr auto 5.4em; gap: 8px; } .meric i { width: 12px; } .uroven { font-size: .8rem; } }
+
+.brana { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 12px; max-width: 420px; }
+.brana h2 { margin: 0; }
+.brana p { margin: 0; }
+.brana label { display: flex; flex-direction: column; gap: 4px; font-weight: 700; }
+.brana input { font: inherit; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); color: var(--ink); }
+.brana button[type="submit"] { border: 0; border-radius: 10px; padding: 10px 18px; font-weight: 700; background: var(--accent); color: var(--accent-ink); align-self: flex-start; }
+.brana .odkaz { align-self: flex-start; color: var(--muted); }
+.chyba-formulare { color: var(--bad); min-height: 1.2em; }
+.upozorneni { background: var(--warn-bg); border-radius: 12px; padding: 10px 14px; margin: 0; }
+
+.dlazdice { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; }
+.dlazdice > div { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; display: flex; flex-direction: column; gap: 2px; }
+.dlazdice span, .dlazdice small { color: var(--muted); font-size: .85rem; }
+.dlazdice b { font-family: "Baloo 2", sans-serif; font-size: 1.7rem; line-height: 1.1; font-variant-numeric: tabular-nums; }
+
+.tabulka-druhu { width: 100%; border-collapse: collapse; font-size: .95rem; }
+.tabulka-druhu th, .tabulka-druhu td { text-align: left; padding: 6px 8px 6px 0; border-bottom: 1px solid var(--line); vertical-align: middle; }
+.tabulka-druhu thead th { color: var(--muted); font-weight: 400; font-size: .85rem; }
+.tabulka-druhu tbody th { font-weight: 400; white-space: nowrap; }
+.tabulka-druhu .cislo { text-align: right; font-variant-numeric: tabular-nums; }
+.tabulka-druhu td:nth-child(2) { width: 40%; }
+.sloupec-pruh { display: flex; align-items: center; gap: 8px; }
+.pruh { flex: 1; height: 10px; background: var(--line); border-radius: 5px; overflow: hidden; }
+.pruh i { display: block; height: 100%; background: var(--c); border-radius: 0 4px 4px 0; }
+.sloupec-pruh .hodnota { width: 3.2em; text-align: right; font-variant-numeric: tabular-nums; }
+@media (max-width: 560px) { .tabulka-druhu thead th:nth-child(3), .tabulka-druhu td:nth-child(3) { display: none; } }
+
+.zameny li { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 14px; }
+.zameny li > span:not(.kolikrat) { display: inline-flex; align-items: center; gap: 6px; }
+.zameny .kolikrat { margin-left: auto; font-weight: 700; font-variant-numeric: tabular-nums; }
+.prazdne { color: var(--muted); margin: 0; }
+
+.dva-sloupce { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; }
+.kalendar { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; max-width: 340px; }
+.kalendar > b { text-align: center; font-size: .75rem; color: var(--muted); font-weight: 400; }
+.kalendar > span { aspect-ratio: 1; border-radius: 6px; display: grid; place-items: center; }
+.kalendar small { font-size: .7rem; color: var(--muted); }
+.kalendar .st2 small, .kalendar .st3 small { color: var(--accent-ink); }
+.kalendar .dnes { outline: 2px solid var(--ink); outline-offset: 1px; }
+.st0 { background: var(--line); }
+.st1 { background: color-mix(in srgb, var(--accent) 35%, var(--panel)); }
+.st2 { background: color-mix(in srgb, var(--accent) 70%, var(--panel)); }
+.st3 { background: var(--accent); }
+.kalendar .prazdny { background: none; }
+.legenda-kalendare { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; font-size: .8rem; color: var(--muted); margin: 10px 0 0; }
+.legenda-kalendare span { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+
+.vyvoj { display: grid; grid-template-columns: repeat(8, 1fr); gap: 6px; align-items: end; height: 170px; }
+.tyden { display: flex; flex-direction: column; align-items: center; gap: 4px; height: 100%; }
+.tyden .hodnota { font-size: .75rem; font-variant-numeric: tabular-nums; }
+.tyden .sloupec { flex: 1; width: 100%; max-width: 28px; display: flex; align-items: flex-end; }
+.tyden .sloupec i { display: block; width: 100%; background: var(--accent); border-radius: 4px 4px 0 0; }
+.tyden:hover .sloupec i { background: color-mix(in srgb, var(--accent) 75%, var(--ink)); }
+.tyden .od { font-size: .7rem; color: var(--muted); white-space: nowrap; }
+
+.chyby li { display: flex; flex-direction: column; gap: 2px; padding: 6px 0; border-bottom: 1px solid var(--line); }
+.chyby li:last-child { border-bottom: 0; }
+.veta-chyby { font-size: 1.05rem; }
+.veta-chyby mark { background: color-mix(in srgb, var(--bad) 18%, transparent); color: var(--ink); border-radius: 4px; padding: 0 3px; font-weight: 700; }
+.chyby small { color: var(--muted); }
+.dalsi-chyby summary { cursor: pointer; color: var(--accent); font-weight: 700; padding: 8px 0; }

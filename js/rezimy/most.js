@@ -3,19 +3,20 @@
 import { DRUHY, PODDRUHY, nazevDruhu } from '../druhy.js';
 import * as eng from '../engine.js';
 import * as srs from '../srs.js';
-import { esc, cislo, vysledekSerie, parta } from './spolecne.js';
+import { esc, cislo, vysledekSerie, parta, zapisovac, textyVety } from './spolecne.js';
 import { avatar } from '../postavy.js';
 import { hlaska } from '../hlasky.js';
 import { zvuk } from '../zvuky.js';
 import { efektZasahu, efektChyby, efektBodu } from '../efekty.js';
 
-export function spustMost(koren, { data, krajina = '', opakovani, hrdina, ulozit, serieHotova, konec }) {
+export function spustMost(koren, { data, krajina = '', opakovani, hrdina, ulozit, serieHotova, konec, zaznam }) {
   const pocetSlov = v => v.slova.filter(s => data.aktivni.includes(s.d)).length;
   const vybrane = srs.vyberVety(opakovani, data.vety, data.aktivni, eng.DELKA_SERIE);
   const nejdelsi = vybrane.reduce((a, v) => (pocetSlov(v) > pocetSlov(a) ? v : a), vybrane[0]);
   const vety = [...vybrane.filter(v => v !== nejdelsi), nejdelsi].filter(Boolean);
   const vysledky = [];
   const chybnaSlova = new Map();
+  const stat = zapisovac(zaznam);
   let rada = 0; // zásahy bez chyby za sebou (zvedají tón)
   let poradi = 0, body = 0, m = null, start = 0, limit = 0, casovac = 0, dalsiTimeout = 0;
 
@@ -55,6 +56,7 @@ export function spustMost(koren, { data, krajina = '', opakovani, hrdina, ulozit
   function vykresliVetu() {
     const v = vety[poradi];
     m = eng.novyMost(v, data.aktivni);
+    stat.novy();
     const boss = poradi === vety.length - 1 && vety.length > 1;
     $('.ukol').innerHTML = (boss
       ? '<b>Velký most!</b> Urči slovní druh každého slova.'
@@ -126,6 +128,10 @@ export function spustMost(koren, { data, krajina = '', opakovani, hrdina, ulozit
     const r = vPoddruhu ? eng.tipPoddruhu(m, poddruh) : eng.tip(m, druh);
     const spatne = vPoddruhu ? nazevDruhu(s.d, poddruh) : DRUHY[druh] && DRUHY[druh].nazev;
     if (r.typ === 'nic') return;
+    // statistika: jen první pokus o druh slova (poddruhy se nepočítají)
+    const odp = ok => ({ d: s.d, ok, text: t, veta: textyVety(m.veta), i });
+    if (!vPoddruhu && r.typ !== 'chyba') stat.zapis(i, odp(true));
+    else if (!vPoddruhu) stat.zapis(i, { ...odp(false), zvoleno: druh });
     if (r.typ === 'druh') {
       zvuk('zasah', { rada: rada++ });
       efektZasahu(koren.querySelector(`.slovo[data-i="${i}"]`), s.d);
