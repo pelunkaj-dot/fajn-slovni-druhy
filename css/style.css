@@ -582,3 +582,6 @@ body { background:
 .veta-chyby mark { background: color-mix(in srgb, var(--bad) 18%, transparent); color: var(--ink); border-radius: 4px; padding: 0 3px; font-weight: 700; }
 .chyby small { color: var(--muted); }
 .dalsi-chyby summary { cursor: pointer; color: var(--accent); font-weight: 700; padding: 8px 0; }
+.obnova { display: flex; flex-direction: column; gap: 8px; background: var(--warn-bg); border-radius: 10px; padding: 10px 12px; }
+.obnova button { align-self: flex-start; border: 1px solid var(--line); background: var(--panel); color: var(--ink); border-radius: 8px; padding: 6px 14px; font-weight: 700; }
+.obnova[hidden] { display: none; }

@@ -89,6 +89,10 @@ export function ukazRodice(koren, { st, hrac, ulozit, zpet }) {
         <p class="chyba-formulare" aria-live="polite"></p>
         <button type="submit">Otevřít přehled</button>
         <button type="button" class="odkaz zapomenute">Zapomněl(a) jsem heslo</button>
+        <div class="obnova" hidden>
+          <p>Heslo se smaže a nastavíte nové. Statistika zůstane, ale v přehledu bude vidět, kdy se heslo obnovovalo.</p>
+          <button type="button" class="potvrdit-obnovu">Obnovit heslo</button>
+        </div>
       </form>`);
     const f = koren.querySelector('form');
     f.h.focus();
@@ -98,8 +102,9 @@ export function ukazRodice(koren, { st, hrac, ulozit, zpet }) {
       f.querySelector('.chyba-formulare').textContent = 'Heslo nesouhlasí.';
       f.h.select();
     };
-    f.querySelector('.zapomenute').onclick = () => {
-      if (!confirm('Heslo se smaže a nastavíte nové. Statistika zůstane, ale v přehledu bude vidět, kdy se heslo obnovovalo. Pokračovat?')) return;
+    // potvrzení přímo ve stránce (okno confirm() může být v náhledu zablokované)
+    f.querySelector('.zapomenute').onclick = () => { f.querySelector('.obnova').hidden = false; };
+    f.querySelector('.potvrdit-obnovu').onclick = () => {
       stat.obnovHeslo(st);
       ulozit();
       znovu();
@@ -109,7 +114,6 @@ export function ukazRodice(koren, { st, hrac, ulozit, zpet }) {
 
   obal(prehled(st, hrac));
   koren.querySelector('.zmenit-heslo').onclick = () => {
-    if (!confirm('Nastavit nové heslo?')) return;
     delete st.rodic.hash;
     delete st.rodic.sul;
     ulozit();

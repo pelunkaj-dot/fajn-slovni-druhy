@@ -10,7 +10,7 @@ import sys
 from pathlib import Path
 
 KOREN = Path(__file__).resolve().parent.parent
-PORADI = ['druhy', 'postavy', 'hlasky', 'krajiny', 'data', 'srs', 'engine', 'zvuky', 'efekty', 'rezimy/spolecne', 'rezimy/lov', 'rezimy/most', 'rezimy/padani', 'rezimy/obrana', 'app']
+PORADI = ['druhy', 'postavy', 'hlasky', 'krajiny', 'data', 'srs', 'engine', 'statistika', 'zvuky', 'efekty', 'rezimy/spolecne', 'rezimy/lov', 'rezimy/most', 'rezimy/padani', 'rezimy/obrana', 'prehled', 'app']
 
 
 def modul(nazev):
@@ -21,7 +21,9 @@ def modul(nazev):
     def importuj(m):
         cesta = posixpath.normpath(posixpath.join(posixpath.dirname(nazev), m[2]))
         cil = 'M_' + cesta.removesuffix('.js').replace('/', '_')
-        return f'const {m[1].replace("* as ", "")} = {cil};'
+        # „* as x“ → „x“, „{ a as b }“ → destrukturace „{ a: b }“
+        jmena = re.sub(r'(\w+) as (\w+)', r'\1: \2', m[1].replace('* as ', ''))
+        return f'const {jmena} = {cil};'
     kod = re.sub(r"^import (.+?) from '(.+?)';", importuj, kod, flags=re.M)
     jmeno = 'M_' + nazev.replace('/', '_')
     return f'const {jmeno} = (() => {{\n{kod}\nreturn {{ {", ".join(exporty)} }};\n}})();'
