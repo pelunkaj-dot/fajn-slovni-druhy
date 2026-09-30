@@ -106,3 +106,14 @@ class TestPredlozky(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class TestNahled(unittest.TestCase):
+    def test_vsechny_moduly_v_nahledu(self):
+        # náhled skládá moduly podle seznamu PORADI – nový soubor v js/ se nesmí zapomenout
+        import nahled
+        js = {str(p.relative_to(nahled.KOREN / 'js').with_suffix('')) for p in (nahled.KOREN / 'js').rglob('*.js')}
+        self.assertEqual(js, set(nahled.PORADI))
+        kod = '\n'.join(nahled.modul(m) for m in nahled.PORADI)
+        self.assertNotRegex(kod, r'(?m)^\s*import ')
+        self.assertNotRegex(kod, r'const \{[^}]* as [^}]*\}')
