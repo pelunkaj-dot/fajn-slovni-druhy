@@ -246,12 +246,14 @@ function vysvetleni(st, vsuvky) {
   const druhy = id => id.slice(2).split('-').map(d => cislo(+d)).join(' ');
   return `
     <div class="karta-sbirky">
-      <h3>Vysvětlení, která hra ukázala</h3>
+      <h3>Vysvětlení</h3>
       <p class="vysvetlivka">Když se dítěti něco opakovaně plete, hra se zastaví, vysvětlí rozdíl a dá mu malý úkol na ověření.</p>
+      ${(() => { const o = st.otaznik || {}; const n = (o.naRade || 0) + (o.vyresene || 0);
+        return `<p class="otaznik-pocet">Samo si vysvětlení otevřelo (tlačítko ?): <b>${n}×</b>${n ? ` – ke slovu na řadě ${o.naRade || 0}×, k už vyřešenému slovu ${o.vyresene || 0}×` : ''}.</p>`; })()}
       ${ukazane.length ? `<ul class="vysvetleni">${ukazane.map(([id, x]) => `<li>
         <span class="druhy">${druhy(id)}</span>
         <span class="nazev">${esc(nazvy.get(id)?.nadpis || id)}</span>
         <small>${x.n}× · úkol správně ${x.ok}× · naposledy ${MESICE(x.kdy)}</small>
-      </li>`).join('')}</ul>` : '<p class="prazdne">Zatím nebylo potřeba nic vysvětlovat.</p>'}
+      </li>`).join('')}</ul>` : '<p class="prazdne">Hra zatím sama nic vysvětlovat nemusela.</p>'}
     </div>`;
 }

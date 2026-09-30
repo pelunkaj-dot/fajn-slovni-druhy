@@ -5,6 +5,7 @@
 import { DRUHY } from '../druhy.js';
 import * as eng from '../engine.js';
 import * as srs from '../srs.js';
+import { pridejOtaznik, zeSlova } from '../otaznik.js';
 import { esc, cislo, vysledekSerie, parta, zapisovac, textyVety, moznaVsuvka, bezVsuvky } from './spolecne.js';
 import { hlaska } from '../hlasky.js';
 import { zvuk } from '../zvuky.js';
@@ -19,7 +20,7 @@ const HRAD = `<svg class="hrad" viewBox="0 0 60 56" aria-hidden="true">
   <rect x="14" y="28" width="6" height="7" rx="2" fill="#ffd54a"/><rect x="40" y="28" width="6" height="7" rx="2" fill="#ffd54a"/>
   <path d="M30 2v10" stroke="#5a4630" stroke-width="2"/><path d="M30 2h12l-4 3 4 3H30z" fill="#e0564f"/></svg>`;
 
-export function spustObranu(koren, { data, slova, krajina = '', opakovani, hrdina, ulozit, serieHotova, konec, zaznam, vsuvka }) {
+export function spustObranu(koren, { data, slova, krajina = '', opakovani, hrdina, ulozit, serieHotova, konec, zaznam, vsuvka, pomoc = {} }) {
   const veVetach = !slova;
   const vybrana = veVetach
     ? eng.jednotkyZVet(srs.vyberVety(opakovani, data.vety, data.aktivni, eng.DELKA_OBRANY), data.aktivni, s => srs.naleha(opakovani, srs.klic(s)))
@@ -76,6 +77,21 @@ export function spustObranu(koren, { data, slova, krajina = '', opakovani, hrdin
   document.addEventListener('keydown', klavesy);
   addEventListener('resize', nakresliCestu);
 
+  // „?“: slova na cestě se zastaví
+  const historie = [];
+  let zastaveno = false;
+  const polozka = (s, vysledek) => ({ t: s.t, d: s.d, p: s.slovo?.p || '', n: s.slovo?.n || '', veta: s.veta ? s.veta.slova : null, i: s.i, vysledek });
+  pridejOtaznik($('.hud'), {
+    aktivni: data.aktivni, vsuvky: pomoc.vsuvky, pouzito: pomoc.pouzito || (() => {}),
+    naRade() {
+      const w = faze === 'hra' || faze === 'pauza' ? aktualniCil() : null;
+      return w ? { t: w.s.t, n: w.s.slovo?.n || '', veta: w.s.veta ? w.s.veta.slova : null, i: w.s.i } : null;
+    },
+    historie: () => historie,
+    zastav() { zastaveno = true; },
+    pokracuj() { zastaveno = false; },
+  });
+
   function zastav() {
     faze = 'konec';
     cancelAnimationFrame(casovac); clearTimeout(odlozene);
@@ -119,7 +135,7 @@ export function spustObranu(koren, { data, slova, krajina = '', opakovani, hrdin
   function tik(ted) {
     const dt = Math.min(0.1, (ted - posledni) / 1000);
     posledni = ted;
-    if (faze === 'hra') {
+    if (faze === 'hra' && !zastaveno) {
       for (const u of eng.krokObrany(o, dt)) zpracujUdalost(u);
       prvky.forEach(umisti);
     }
@@ -197,6 +213,7 @@ export function spustObranu(koren, { data, slova, krajina = '', opakovani, hrdin
       $('.body').textContent = body;
       const r2 = r.vysledek === 'ciste' ? rada++ : (rada = 0);
       setTimeout(() => { zvuk('zasah', { rada: r2 }); efektZasahu(el, w.s.d); efektBodu(el, ziskano, w.s.d); }, 170);
+      historie.push(polozka(w.s, r.vysledek));
       znic(w, el, 'chyceno');
       if (Math.random() < 0.35) rekni(hlaska(hrdina, 'zasah'), 'radost');
       $('.arena .napoveda').hidden = true;
@@ -247,6 +264,7 @@ export function spustObranu(koren, { data, slova, krajina = '', opakovani, hrdin
   // Ukáže správnou odpověď a počká na „Pokračovat“.
   function odhal(w, uvod) {
     faze = 'ceka';
+    historie.push(polozka(w.s, 'odhaleno'));
     if (odhalene) odhalene.remove();
     const el = prvky.get(w.id);
     if (el) {

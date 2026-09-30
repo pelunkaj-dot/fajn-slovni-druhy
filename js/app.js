@@ -282,6 +282,7 @@ async function hraj(n, rezim = '') {
       },
       hotovo(v, ok) { statistika.vsuvka(stav.stat, v.id, ok); ulozit(); },
     },
+    pomoc: { vsuvky: VSUVKY, pouzito(typ) { statistika.otaznik(stav.stat, typ); ulozit(); } },
     serieHotova(uspesna, { hvezdy = 0, bezZtraty = false } = {}) {
       const st = svetStav(n);
       st.serie += 1;

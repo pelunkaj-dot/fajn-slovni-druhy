@@ -3,13 +3,14 @@
 import { DRUHY, PODDRUHY, nazevDruhu } from '../druhy.js';
 import * as eng from '../engine.js';
 import * as srs from '../srs.js';
+import { pridejOtaznik, zeSlova } from '../otaznik.js';
 import { esc, cislo, vysledekSerie, parta, zapisovac, textyVety, moznaVsuvka } from './spolecne.js';
 import { avatar } from '../postavy.js';
 import { hlaska } from '../hlasky.js';
 import { zvuk } from '../zvuky.js';
 import { efektZasahu, efektChyby, efektBodu } from '../efekty.js';
 
-export function spustMost(koren, { data, krajina = '', opakovani, hrdina, ulozit, serieHotova, konec, zaznam, vsuvka }) {
+export function spustMost(koren, { data, krajina = '', opakovani, hrdina, ulozit, serieHotova, konec, zaznam, vsuvka, pomoc = {} }) {
   const pocetSlov = v => v.slova.filter(s => data.aktivni.includes(s.d)).length;
   const vybrane = srs.vyberVety(opakovani, data.vety, data.aktivni, eng.DELKA_SERIE);
   const nejdelsi = vybrane.reduce((a, v) => (pocetSlov(v) > pocetSlov(a) ? v : a), vybrane[0]);
@@ -52,6 +53,32 @@ export function spustMost(koren, { data, krajina = '', opakovani, hrdina, ulozit
   $('.poddruhy').onclick = e => { const b = e.target.closest('button[data-p]'); if (b) zpracujTip(null, b.dataset.p); };
 
   function zastav() { cancelAnimationFrame(casovac); clearTimeout(dalsiTimeout); }
+
+  // „?“: hra se zastaví i s časem věty; naplánovaný posun na další větu počká
+  const historie = [];
+  let pauzaOd = 0, odlozeno = null;
+  const textSlova = i => eng.clenove(m.veta, i).map(j => m.veta.slova[j].t).join(' ');
+  pridejOtaznik($('.hud'), {
+    aktivni: data.aktivni, vsuvky: pomoc.vsuvky, pouzito: pomoc.pouzito || (() => {}),
+    naRade() {
+      if (!m || m.hotovo) return null;
+      const i = eng.aktualniSlovo(m), s = m.veta.slova[i];
+      return m.faze === 'poddruh'
+        ? { poddruhy: true, t: textSlova(i), d: s.d, veta: m.veta.slova, i }
+        : { t: textSlova(i), n: s.n || '', veta: m.veta.slova, i };
+    },
+    historie: () => historie,
+    zastav() {
+      cancelAnimationFrame(casovac);
+      pauzaOd = performance.now();
+      if (dalsiTimeout) { clearTimeout(dalsiTimeout); dalsiTimeout = 0; odlozeno = dalsiVeta; }
+    },
+    pokracuj() {
+      start += performance.now() - pauzaOd;
+      if (m && !m.hotovo) tik();
+      if (odlozeno) { const f = odlozeno; odlozeno = null; f(); }
+    },
+  });
 
   function vykresliVetu() {
     const v = vety[poradi];
@@ -141,6 +168,7 @@ export function spustMost(koren, { data, krajina = '', opakovani, hrdina, ulozit
       return;
     }
     if (r.typ === 'zasah') {
+      historie.push(zeSlova(m.veta, i, t, m.spatne.includes(i) ? 'chyba' : 'ciste'));
       polozDilek(i, false);
       zvuk('zasah', { rada: rada++ });
       efektZasahu(koren.querySelector(`.slovo[data-i="${i}"]`), s.d);
@@ -162,6 +190,7 @@ export function spustMost(koren, { data, krajina = '', opakovani, hrdina, ulozit
         zprava(`„${t}“ není ${spatne}. ${hlaska(hrdina, 'chyba2')}`, 'pozor');
         $('button.napoveda').hidden = false;
       } else {
+        historie.push(zeSlova(m.veta, i, t, 'odhaleno'));
         polozDilek(i, true);
         $('button.napoveda').hidden = true;
         const proc = vPoddruhu ? PODDRUHY[s.d][s.p].otazka : DRUHY[s.d].otazka;
@@ -214,6 +243,7 @@ export function spustMost(koren, { data, krajina = '', opakovani, hrdina, ulozit
 
   function dalsiVeta() {
     clearTimeout(dalsiTimeout);
+    dalsiTimeout = 0;
     poradi += 1;
     moznaVsuvka(koren, vsuvka, hrdina, () => {
       if (poradi < vety.length) vykresliVetu();

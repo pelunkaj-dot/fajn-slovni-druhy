@@ -10,7 +10,7 @@ import sys
 from pathlib import Path
 
 KOREN = Path(__file__).resolve().parent.parent
-PORADI = ['druhy', 'postavy', 'hlasky', 'krajiny', 'data', 'srs', 'engine', 'statistika', 'vsuvky', 'zvuky', 'efekty', 'rezimy/spolecne', 'rezimy/lov', 'rezimy/most', 'rezimy/padani', 'rezimy/obrana', 'prehled', 'app']
+PORADI = ['druhy', 'postavy', 'hlasky', 'krajiny', 'data', 'srs', 'engine', 'statistika', 'vsuvky', 'zvuky', 'efekty', 'rezimy/spolecne', 'otaznik', 'rezimy/lov', 'rezimy/most', 'rezimy/padani', 'rezimy/obrana', 'prehled', 'app']
 
 
 def modul(nazev):
