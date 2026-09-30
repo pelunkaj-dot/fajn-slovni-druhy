@@ -585,3 +585,65 @@ body { background:
 .obnova { display: flex; flex-direction: column; gap: 8px; background: var(--warn-bg); border-radius: 10px; padding: 10px 12px; }
 .obnova button { align-self: flex-start; border: 1px solid var(--line); background: var(--panel); color: var(--ink); border-radius: 8px; padding: 6px 14px; font-weight: 700; }
 .obnova[hidden] { display: none; }
+
+/* ---------- didaktická vsuvka ---------- */
+.vsuvka-obal { position: fixed; inset: 0; z-index: 50; background: color-mix(in srgb, var(--ink) 45%, transparent); display: grid; place-items: center; padding: 16px; overflow-y: auto; animation: vsuvka-obal .25s ease both; }
+.vsuvka { background: var(--panel); color: var(--ink); border-radius: 20px; padding: 18px 20px 20px; width: min(600px, 100%); display: flex; flex-direction: column; gap: 12px; box-shadow: 0 20px 60px rgb(0 0 0 / .3); animation: vsuvka-karta .35s cubic-bezier(.3, 1.4, .5, 1) both; max-height: calc(100dvh - 32px); overflow-y: auto; }
+.vsuvka h2 { margin: 0; font-family: "Baloo 2", sans-serif; font-size: 1.6rem; line-height: 1.15; }
+.vsuvka .pravidlo { margin: 0; font-size: 1.08rem; line-height: 1.45; }
+.vsuvka .priklady { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+.vsuvka .priklad { border: 2px solid color-mix(in srgb, var(--c) 45%, var(--line)); border-radius: 14px; padding: 10px 12px; background: color-mix(in srgb, var(--c) 7%, var(--panel)); }
+.vsuvka .priklad p { margin: 0; }
+.vsuvka .proc { margin-top: 6px !important; color: var(--muted); font-size: .95rem; display: flex; gap: 6px; align-items: flex-start; }
+.veta-vsuvky { font-size: 1.3rem; line-height: 1.4; }
+.veta-vsuvky mark { background: color-mix(in srgb, var(--c, var(--accent)) 18%, transparent); color: var(--ink); border-bottom: 3px solid var(--c, var(--accent)); border-radius: 4px; padding: 0 3px; font-weight: 700; }
+.ukol-vsuvky { border-top: 2px dashed var(--line); padding-top: 12px; display: flex; flex-direction: column; gap: 8px; }
+.ukol-vsuvky p { margin: 0; }
+.ukol-vsuvky .moznosti { display: flex; flex-wrap: wrap; gap: 8px; }
+.ukol-vsuvky .moznosti button { display: inline-flex; align-items: center; gap: 8px; border: 2px solid var(--line); background: var(--panel); color: var(--ink); border-radius: 12px; padding: 8px 14px; font-size: 1rem; }
+.ukol-vsuvky .moznosti button:hover:not(:disabled) { border-color: var(--ink); }
+.ukol-vsuvky .moznosti button.spravna { border-color: var(--ok); background: color-mix(in srgb, var(--ok) 12%, var(--panel)); }
+.ukol-vsuvky .moznosti button.spatna { border-color: var(--bad); opacity: .75; }
+.ukol-vsuvky .moznosti button:disabled { cursor: default; }
+.ukol-vsuvky .odezva:not(:empty) { display: flex; gap: 6px; align-items: flex-start; background: var(--hint-bg); border-radius: 10px; padding: 8px 10px; }
+.hrajeme-dal { align-self: flex-end; border: 0; border-radius: 12px; padding: 10px 20px; font-weight: 700; font-size: 1.05rem; background: var(--accent); color: var(--accent-ink); }
+.vsuvka .parta { margin: 0; }
+@keyframes vsuvka-obal { from { opacity: 0; } }
+@keyframes vsuvka-karta { from { opacity: 0; transform: translateY(20px) scale(.97); } }
+@media (prefers-reduced-motion: reduce) { .vsuvka-obal, .vsuvka { animation: none; } }
+.vysvetleni { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.vysvetleni li { display: grid; grid-template-columns: auto 1fr; gap: 2px 10px; align-items: center; }
+.vysvetleni .druhy { display: inline-flex; gap: 3px; grid-row: span 2; }
+.vysvetleni small { color: var(--muted); }
+
+/* ---------- tlačítko „?“ a vysvětlení slova ---------- */
+.otaznik { flex: none; width: 2.4rem; height: 2.4rem; border-radius: 50%; border: 2px solid var(--accent); background: var(--panel); color: var(--accent); font-family: "Baloo 2", sans-serif; font-size: 1.4rem; font-weight: 800; line-height: 1; display: grid; place-items: center; padding: 0; cursor: pointer; box-shadow: 0 2px 0 color-mix(in srgb, var(--accent) 35%, transparent); }
+.otaznik:hover { background: var(--accent); color: var(--accent-ink); }
+.otaznik-okno h2 { font-size: 1.35rem; }
+.volba-slova { display: flex; flex-wrap: wrap; gap: 6px; }
+.volba-slova button { display: inline-flex; flex-direction: column; align-items: flex-start; gap: 0; border: 2px solid var(--line); background: var(--panel); color: var(--ink); border-radius: 12px; padding: 5px 12px 6px; font-size: 1rem; position: relative; cursor: pointer; }
+.volba-slova button small { color: var(--muted); font-size: .75rem; }
+.volba-slova button i { position: absolute; top: -8px; right: -6px; font-style: normal; font-size: .7rem; font-weight: 700; width: 1.4em; height: 1.4em; border-radius: 50%; display: grid; place-items: center; background: var(--ok); color: #fff; }
+.volba-slova button.v-odhaleno i { background: var(--bad); }
+.volba-slova button.na-rade { border-style: dashed; }
+.volba-slova button[aria-selected="true"] { border-color: var(--ink); border-style: solid; background: color-mix(in srgb, var(--accent) 10%, var(--panel)); }
+.obsah-vysvetleni { display: flex; flex-direction: column; gap: 8px; border-top: 2px dashed var(--line); padding-top: 12px; }
+.obsah-vysvetleni p { margin: 0; line-height: 1.45; }
+.obsah-vysvetleni .verdikt { display: flex; gap: 8px; align-items: center; font-size: 1.1rem; }
+.obsah-vysvetleni .vlastni { background: var(--hint-bg); border-radius: 10px; padding: 8px 10px; }
+.obsah-vysvetleni .rada { font-weight: 700; }
+.obsah-vysvetleni .otazky { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 4px 12px; }
+.obsah-vysvetleni .otazky li { display: flex; gap: 6px; align-items: flex-start; }
+.obsah-vysvetleni .otazky small { color: var(--muted); white-space: nowrap; }
+.pravidlo-druhu { background: color-mix(in srgb, var(--line) 30%, var(--panel)); border-radius: 12px; padding: 10px 12px; display: flex; flex-direction: column; gap: 6px; }
+.pravidlo-druhu ul { margin: 0; padding-left: 1.1em; display: flex; flex-direction: column; gap: 4px; }
+.pravidlo-druhu .veta-vsuvky { font-size: 1.05rem; }
+.pravidlo-druhu small { color: var(--muted); display: block; }
+.otaznik-pocet { margin: 0 0 8px; }
+/* s tlačítkem „?“ se lišta nesmí roztáhnout: tečky se zalomí, na úzkém displeji se zmenší mezery */
+.tecky { min-width: 0; flex-wrap: wrap; row-gap: 4px; }
+@media (max-width: 480px) { .hud { gap: 8px; } .otaznik { width: 2.1rem; height: 2.1rem; font-size: 1.2rem; } }
+/* úzký telefon: 5 košů/věží vedle sebe se nesmí roztáhnout přes okraj */
+.kose.male { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.kose.male button { min-width: 0; overflow-wrap: break-word; }
+@media (max-width: 400px) { .kose.male { gap: 4px; } .kose.male button { font-size: .66rem; padding: 6px 1px; letter-spacing: -.01em; } }

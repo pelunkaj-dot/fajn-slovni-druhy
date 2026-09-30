@@ -50,12 +50,12 @@ export function ukazSbirku(koren, { st, dostupne, zpet }) {
 // ---------- Pro rodiče ----------
 let odemceno = false; // platí do zavření stránky
 
-export function ukazRodice(koren, { st, hrac, ulozit, zpet }) {
+export function ukazRodice(koren, { st, hrac, vsuvky = [], ulozit, zpet }) {
   const obal = obsah => {
     koren.innerHTML = `<section class="rodice"><div class="hud"><button type="button" class="zpet">← Mapa</button></div>${obsah}</section>`;
     koren.querySelector('.zpet').onclick = () => { zvuk('klik'); zpet(); };
   };
-  const znovu = () => ukazRodice(koren, { st, hrac, ulozit, zpet });
+  const znovu = () => ukazRodice(koren, { st, hrac, vsuvky, ulozit, zpet });
 
   if (!stat.maHeslo(st)) {
     obal(`
@@ -112,7 +112,7 @@ export function ukazRodice(koren, { st, hrac, ulozit, zpet }) {
     return;
   }
 
-  obal(prehled(st, hrac));
+  obal(prehled(st, hrac, vsuvky));
   koren.querySelector('.zmenit-heslo').onclick = () => {
     delete st.rodic.hash;
     delete st.rodic.sul;
@@ -121,7 +121,7 @@ export function ukazRodice(koren, { st, hrac, ulozit, zpet }) {
   };
 }
 
-function prehled(st, hrac) {
+function prehled(st, hrac, vsuvky) {
   const ted = Date.now();
   const zvolil = hrac === 'holka' ? 'zvolila' : hrac === 'kluk' ? 'zvolil' : 'zvolil(a)';
   const dny = stat.posledniDny(st, 28, ted);
@@ -229,6 +229,7 @@ function prehled(st, hrac) {
         ${vyvoj}
       </div>
     </div>
+    ${vysvetleni(st, vsuvky)}
     <div class="karta-sbirky">
       <h3>Poslední chyby</h3>
       <p class="vysvetlivka">Posledních ${stat.CHYB} slov, ve kterých se dítě spletlo. Hodí se k procvičení spolu.</p>
@@ -236,4 +237,23 @@ function prehled(st, hrac) {
     </div>
     <p class="vysvetlivka">Všechna data jsou uložená jen v tomto zařízení a prohlížeči. Souhrn po dnech se drží ${stat.DNU} dní.</p>
     <p><button type="button" class="odkaz zmenit-heslo">Změnit heslo</button></p>`;
+}
+
+// Didaktické vsuvky, které hra dítěti ukázala (když se mu něco opakovaně pletlo).
+function vysvetleni(st, vsuvky) {
+  const nazvy = new Map(vsuvky.map(v => [v.id, v]));
+  const ukazane = Object.entries(st.vsuvky || {}).sort((a, b) => b[1].kdy - a[1].kdy);
+  const druhy = id => id.slice(2).split('-').map(d => cislo(+d)).join(' ');
+  return `
+    <div class="karta-sbirky">
+      <h3>Vysvětlení</h3>
+      <p class="vysvetlivka">Když se dítěti něco opakovaně plete, hra se zastaví, vysvětlí rozdíl a dá mu malý úkol na ověření.</p>
+      ${(() => { const o = st.otaznik || {}; const n = (o.naRade || 0) + (o.vyresene || 0);
+        return `<p class="otaznik-pocet">Samo si vysvětlení otevřelo (tlačítko ?): <b>${n}×</b>${n ? ` – ke slovu na řadě ${o.naRade || 0}×, k už vyřešenému slovu ${o.vyresene || 0}×` : ''}.</p>`; })()}
+      ${ukazane.length ? `<ul class="vysvetleni">${ukazane.map(([id, x]) => `<li>
+        <span class="druhy">${druhy(id)}</span>
+        <span class="nazev">${esc(nazvy.get(id)?.nadpis || id)}</span>
+        <small>${x.n}× · úkol správně ${x.ok}× · naposledy ${MESICE(x.kdy)}</small>
+      </li>`).join('')}</ul>` : '<p class="prazdne">Hra zatím sama nic vysvětlovat nemusela.</p>'}
+    </div>`;
 }

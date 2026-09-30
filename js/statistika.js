@@ -9,7 +9,7 @@ export const MAX_SEZENI = 30 * 60e3; // delší sezení (zapomenutá hra) se po�
 const DEN = 864e5;
 
 export function novaStatistika() {
-  return { dny: {}, okno: {}, celkem: {}, zameny: {}, chyby: [], hvezdy: {}, odznaky: {}, rada: 0, nejRada: 0, spravne: 0, serie: 0, rodic: { obnoveno: [] } };
+  return { dny: {}, okno: {}, celkem: {}, zameny: {}, chyby: [], hvezdy: {}, odznaky: {}, rada: 0, nejRada: 0, spravne: 0, serie: 0, vsuvky: {}, otaznik: { naRade: 0, vyresene: 0 }, rodic: { obnoveno: [] } };
 }
 
 // Doplní chybějící části (starší uložený stav, nové položky v budoucnu).
@@ -80,6 +80,20 @@ export function serie(st, kontext, ted = Date.now()) {
   denSt(st, ted).serie += 1;
   if (kontext.svet) st.hvezdy[kontext.svet] = (st.hvezdy[kontext.svet] || 0) + (kontext.hvezdy || 0);
   return kontrolaOdznaku(st, kontext, ted);
+}
+
+// Ukázaná didaktická vsuvka: kolikrát, kdy naposledy, kolikrát dítě mini-úkol zvládlo.
+export function vsuvka(st, id, ok, ted = Date.now()) {
+  const v = (st.vsuvky[id] ||= { n: 0, ok: 0, kdy: 0 });
+  v.n += 1;
+  if (ok) v.ok += 1;
+  v.kdy = ted;
+}
+
+// Dítě si samo otevřelo vysvětlení („?“): ke slovu na řadě, nebo k už vyřešenému.
+export function otaznik(st, typ) {
+  st.otaznik = { naRade: 0, vyresene: 0, ...st.otaznik };
+  st.otaznik[typ] = (st.otaznik[typ] || 0) + 1;
 }
 
 export const hvezdCelkem = st => Object.values(st.hvezdy).reduce((a, b) => a + b, 0);

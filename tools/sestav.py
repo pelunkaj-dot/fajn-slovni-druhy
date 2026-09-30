@@ -16,6 +16,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from korpus import KORPUS, KOREN, cislo_sveta, dopln_cisla, id_vety, nacti  # noqa: E402
 from predlozky import posud as posud_predlozku  # noqa: E402
 from slova import nacti_slova  # noqa: E402
+import vsuvky  # noqa: E402
 
 DATA = KOREN / 'data'
 LEMMATA = KORPUS / 'lemmata.tsv'
@@ -161,6 +162,7 @@ def main():
         print(f'  → do hry: svět {svet}: {len(vety)} vět' + ('' if len(vety) >= MIN_VET else ' (málo, svět se nezobrazí)'))
     (cil / 'svety.json').write_text(json.dumps(svety) + '\n', encoding='utf-8')
     zapis_slova(cil, a.vse, schvalene)
+    vsuvky.zapis(cil, a.vse, schvalene)
     for svet in svety:
         vety = json.loads((cil / f'svet{svet}.json').read_text(encoding='utf-8'))['vety']
         zapis(cil / f'ukazka{svet}.json', svet, vety[:UKAZKA])

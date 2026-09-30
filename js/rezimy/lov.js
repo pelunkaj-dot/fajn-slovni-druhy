@@ -2,12 +2,13 @@
 import { DRUHY, PODDRUHY, zbyvaText, nazevDruhu, mnozneDruhu } from '../druhy.js';
 import * as eng from '../engine.js';
 import * as srs from '../srs.js';
-import { esc, cislo, vysledekSerie, parta, zapisovac, textyVety } from './spolecne.js';
+import { pridejOtaznik, zeSlova } from '../otaznik.js';
+import { esc, cislo, vysledekSerie, parta, zapisovac, textyVety, moznaVsuvka } from './spolecne.js';
 import { hlaska } from '../hlasky.js';
 import { zvuk } from '../zvuky.js';
 import { efektZasahu, efektChyby, efektBodu } from '../efekty.js';
 
-export function spustLov(koren, { data, krajina = '', opakovani, hrdina, ulozit, serieHotova, konec, zaznam }) {
+export function spustLov(koren, { data, krajina = '', opakovani, hrdina, ulozit, serieHotova, konec, zaznam, vsuvka, pomoc = {} }) {
   const vety = srs.vyberVety(opakovani, data.vety, data.aktivni, eng.DELKA_SERIE);
   const vysledky = [];
   const chybnaSlova = new Map();
@@ -41,6 +42,25 @@ export function spustLov(koren, { data, krajina = '', opakovani, hrdina, ulozit,
   $('.veta').onclick = e => { const b = e.target.closest('.slovo'); if (b) zpracujKlik(+b.dataset.i); };
 
   function zastav() { cancelAnimationFrame(casovac); clearTimeout(dalsiTimeout); }
+
+  // „?“: hra se zastaví i s časem věty; naplánovaný posun na další větu počká
+  const historie = [];
+  let pauzaOd = 0, odlozeno = null;
+  pridejOtaznik($('.hud'), {
+    aktivni: data.aktivni, vsuvky: pomoc.vsuvky, pouzito: pomoc.pouzito || (() => {}),
+    naRade: () => (st && !st.hotovo ? { cil: st.cil, poddruh: st.poddruh } : null),
+    historie: () => historie,
+    zastav() {
+      cancelAnimationFrame(casovac);
+      pauzaOd = performance.now();
+      if (dalsiTimeout) { clearTimeout(dalsiTimeout); dalsiTimeout = 0; odlozeno = dalsiVeta; }
+    },
+    pokracuj() {
+      start += performance.now() - pauzaOd;
+      if (st && !st.hotovo) tik();
+      if (odlozeno) { const f = odlozeno; odlozeno = null; f(); }
+    },
+  });
 
   function vykresliVetu() {
     const v = vety[poradi];
@@ -147,6 +167,7 @@ export function spustLov(koren, { data, krajina = '', opakovani, hrdina, ulozit,
 
     for (const i of st.cile) {
       const s = st.veta.slova[i];
+      historie.push(zeSlova(st.veta, i, textJednotky(i), st.nalezene.has(i) ? 'ciste' : 'odhaleno'));
       stat.zapis(i, { d: s.d, ok: st.nalezene.has(i), text: textJednotky(i), veta: textyVety(st.veta), i });
       if (st.nalezene.has(i)) srs.uspech(opakovani, srs.klic(s));
       else { srs.chyba(opakovani, srs.klic(s)); chybnaSlova.set(srs.klic(s), s); }
@@ -180,9 +201,9 @@ export function spustLov(koren, { data, krajina = '', opakovani, hrdina, ulozit,
 
   function dalsiVeta() {
     clearTimeout(dalsiTimeout);
+    dalsiTimeout = 0;
     poradi += 1;
-    if (poradi < vety.length) vykresliVetu();
-    else vyhodnot();
+    moznaVsuvka(koren, vsuvka, hrdina, () => { if (poradi < vety.length) vykresliVetu(); else vyhodnot(); });
   }
 
   function vyhodnot() {

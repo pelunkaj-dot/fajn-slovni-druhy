@@ -24,3 +24,11 @@ export async function nactiSvet(n, plna) {
   if (!Array.isArray(svet.vety) || !Array.isArray(svet.aktivni)) throw new Error('Data světa mají špatný formát.');
   return svet;
 }
+
+// Didaktické vsuvky (schválené Janem): [{ id, druhy, nadpis, pravidlo, priklady, ukol, moznosti }]
+export async function nactiVsuvky() {
+  try {
+    const r = await fetch('data/vsuvky.json');
+    return r.ok ? await r.json() : [];
+  } catch { return []; }
+}

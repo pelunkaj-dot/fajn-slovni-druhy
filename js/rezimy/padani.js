@@ -3,12 +3,13 @@
 import { DRUHY } from '../druhy.js';
 import * as eng from '../engine.js';
 import * as srs from '../srs.js';
-import { esc, cislo, vysledekSerie, parta, zapisovac, textyVety } from './spolecne.js';
+import { pridejOtaznik, zeSlova } from '../otaznik.js';
+import { esc, cislo, vysledekSerie, parta, zapisovac, textyVety, moznaVsuvka, bezVsuvky } from './spolecne.js';
 import { hlaska } from '../hlasky.js';
 import { zvuk } from '../zvuky.js';
 import { efektZasahu, efektChyby, efektBodu } from '../efekty.js';
 
-export function spustPadani(koren, { data, slova, krajina = '', opakovani, hrdina, ulozit, serieHotova, konec, zaznam }) {
+export function spustPadani(koren, { data, slova, krajina = '', opakovani, hrdina, ulozit, serieHotova, konec, zaznam, vsuvka, pomoc = {} }) {
   const vybrana = srs.vyberSlova(opakovani, slova || [], eng.DELKA_PADANI);
   const stat = zapisovac(zaznam); // klíčem je pořadí slova v sérii
   const p = eng.novePadani(vybrana);
@@ -45,10 +46,29 @@ export function spustPadani(koren, { data, slova, krajina = '', opakovani, hrdin
   $('.dalsi').onclick = () => dalsiSlovo();
   const klavesy = e => {
     if (!koren.contains($('.padani'))) { document.removeEventListener('keydown', klavesy); return; }
+    if (!bezVsuvky()) return;
     const d = e.key === '0' ? 10 : +e.key;
     if (d && data.aktivni.includes(d)) zpracujTip(d);
   };
   document.addEventListener('keydown', klavesy);
+
+  // „?“: slovo přestane padat; naplánovaný krok počká
+  const historie = [];
+  let zastaveno = false, odlozeno = null, dalsiKrok = null;
+  const naplanuj = (f, ms) => { dalsiKrok = f; dalsiTimeout = setTimeout(() => { dalsiTimeout = 0; f(); }, ms); };
+  pridejOtaznik($('.hud'), {
+    aktivni: data.aktivni, vsuvky: pomoc.vsuvky, pouzito: pomoc.pouzito || (() => {}),
+    naRade: () => (faze === 'pada' || faze === 'pauza' ? { t: eng.padajici(p).t } : null),
+    historie: () => historie,
+    zastav() {
+      zastaveno = true;
+      if (dalsiTimeout) { clearTimeout(dalsiTimeout); dalsiTimeout = 0; odlozeno = dalsiKrok; }
+    },
+    pokracuj() {
+      zastaveno = false;
+      if (odlozeno) { const f = odlozeno; odlozeno = null; f(); }
+    },
+  });
 
   function zastav() {
     cancelAnimationFrame(casovac); clearTimeout(dalsiTimeout);
@@ -77,7 +97,7 @@ export function spustPadani(koren, { data, slova, krajina = '', opakovani, hrdin
   }
 
   function tik(ted) {
-    if (faze === 'pada') {
+    if (faze === 'pada' && !zastaveno) {
       y += (ted - posledni) / 1000 / doba;
       if (y >= 1) { y = 1; nakresli(); zpracujDopad(); return; }
       nakresli();
@@ -113,7 +133,8 @@ export function spustPadani(koren, { data, slova, krajina = '', opakovani, hrdin
       koren.querySelector(`.kose button[data-d="${s.d}"]`).classList.add('spravny');
       if (Math.random() < 0.4) rekni(hlaska(hrdina, 'zasah'), 'radost');
       faze = 'mezi';
-      dalsiTimeout = setTimeout(dalsiSlovo, 450);
+      historie.push({ t: s.t, d: s.d, veta: null, vysledek: vysl });
+      naplanuj(dalsiSlovo, 450);
       return;
     }
     slovoEl.classList.remove('vedle'); void slovoEl.offsetWidth; slovoEl.classList.add('vedle');
@@ -144,6 +165,7 @@ export function spustPadani(koren, { data, slova, krajina = '', opakovani, hrdin
   // Odpověď se ukáže a hra počká, až si ji hráč přečte.
   function odhal(s, i) {
     faze = 'ceka';
+    historie.push({ t: s.t, d: s.d, veta: null, vysledek: 'odhaleno' });
     oznac(s.d, 'odhaleno');
     koren.querySelectorAll('.tecky li')[i].className = 'odhaleno';
     koren.querySelectorAll('.kose button').forEach(b => { b.disabled = +b.dataset.d !== s.d; b.classList.toggle('spravny', +b.dataset.d === s.d); });
@@ -177,10 +199,10 @@ export function spustPadani(koren, { data, slova, krajina = '', opakovani, hrdin
       vysledekSerie(koren, { vysledky: p.vysledky, body, chybnaSlova, hrdina, serieHotova, konec, delka: eng.DELKA_PADANI, jednotka: ['slovo', 'slova', 'slov'] });
       return;
     }
-    spustSlovo();
+    moznaVsuvka(koren, vsuvka, hrdina, spustSlovo);
   }
 
   if (!vybrana.length) { koren.innerHTML = '<p class="chyba">V tomto světě zatím nejsou žádná slova.</p>'; return; }
   rekni(hlaska(hrdina, 'uvodPadani'));
-  dalsiTimeout = setTimeout(spustSlovo, 900);
+  naplanuj(spustSlovo, 900);
 }
