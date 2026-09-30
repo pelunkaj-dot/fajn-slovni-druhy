@@ -60,10 +60,10 @@ export function vysledekSerie(koren, { vysledky, body, chybnaSlova, hrdina, seri
   koren.innerHTML = `
     <section class="vysledek">
       <div class="parta"></div>
-      <h2>${svetDokoncen ? 'Svět dokončen!' : uspesna ? 'Nová oblast je tvoje!' : 'Série dokončena'}</h2>
+      <h2>${svetDokoncen ? 'Svět dokončen!' : uspesna ? 'Stavba povyrostla!' : 'Série dokončena'}</h2>
       ${hvezdyHtml(hvezdy, true)}
       <p class="procenta"><b>${procent} %</b> úspěšnost</p>
-      <p>${svetDokoncen ? 'Na mapě se objevily skryté oblasti.' : uspesna ? 'Na mapě ti přibyl kousek území.' : `Na novou oblast potřebuješ aspoň ${Math.round(eng.PRAH_USPECHU * 100)} %. Zkus další sérii!`}</p>
+      <p>${svetDokoncen ? 'Stavba je hotová! Na mapě se objevil plán ozdob.' : uspesna ? 'Na mapě přibyl další díl stavby.' : `Na další díl stavby potřebuješ aspoň ${Math.round(eng.PRAH_USPECHU * 100)} %. Zkus další sérii!`}</p>
       <ul class="statistika">
         <li><b>${pocet('ciste')}</b> ${tvar(pocet('ciste'), ...jednotka)} bez chyby</li>
         <li><b>${pocet('chyba')}</b> s chybou</li>
