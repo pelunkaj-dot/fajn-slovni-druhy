@@ -136,7 +136,7 @@ export const ODZNAKY = [
   { id: 'tri-hvezdy', nazev: 'Tři hvězdy', popis: 'Získej v sérii tři hvězdy.', znak: '★', splneno: (st, k) => k.hvezdy === 3 },
   { id: 'rada10', nazev: 'Deset v řadě', popis: '10 správných odpovědí za sebou.', znak: '10', splneno: st => st.nejRada >= 10 },
   { id: 'rada25', nazev: 'Pětadvacet v řadě', popis: '25 správných odpovědí za sebou.', znak: '25', splneno: st => st.nejRada >= 25 },
-  { id: 'uzemi', nazev: 'Dobyvatel', popis: 'Získej první kousek území.', znak: '◆', splneno: (st, k) => !!k.uspesna },
+  { id: 'uzemi', nazev: 'Stavitel', popis: 'Postav první díl stavby.', znak: '⌂', splneno: (st, k) => !!k.uspesna },
   ...[1, 2, 3, 4, 5].map(n => ({ id: `svet${n}`, nazev: `Svět ${n} dobyt`, popis: `Dokonči svět ${n}.`, znak: String(n), splneno: (st, k) => (k.dokoncene || []).includes(n) })),
   { id: 'vsechny-svety', nazev: 'Pán všech světů', popis: 'Dokonči všech pět světů.', znak: '♛', splneno: st => [1, 2, 3, 4, 5].every(n => st.odznaky[`svet${n}`]) },
   { id: 'dny3', nazev: 'Tři dny v kuse', popis: 'Hraj tři dny za sebou.', znak: '3d', splneno: (st, k, ted) => dnyVKuse(st, ted) >= 3 },

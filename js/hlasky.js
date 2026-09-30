@@ -33,9 +33,9 @@ export const HLASKY = {
     vsuvkaChyba: ['Ještě ne. Přečti si vysvětlení a pak jedeme dál.', 'Vedle. Ale teď už víš proč!'],
     odhaleniLov: ['Příště je najdeš ty, ne já!', 'Podívej se na ně pořádně a zapamatuj si je!'],
     odhaleniMost: ['Zapamatuj si to! Jedeme dál.', 'Tohle si pamatuj. Pokračujeme!'],
-    serieUspech: ['Hurá! Další kus území je náš!', '{Zvládl|Zvládla} jsi to jako profík!', 'Vítězství! Mapa se zase zvětšila.', 'Tak to bylo mistrovské!'],
+    serieUspech: ['Hurá! Stavba zase povyrostla!', '{Zvládl|Zvládla} jsi to jako profík!', 'Vítězství! Na mapě přibyl další díl.', 'Tak to bylo mistrovské!'],
     serieNeuspech: ['Tentokrát nic. Ale příště to vyhrajeme!', 'To nevadí. I mistři někdy prohrají. Jdeme znovu!', 'Příště to dáme, slibuju!'],
-    oslavaSveta: ['Svět je náš! Jsi hvězda!', 'Celý svět! Tohle se jen tak někomu nepovede. Teda kromě mě.', 'Dokázali jsme to! Celý svět je dobytý!', 'Mistrovský kousek! A objevily se skryté oblasti. Jdeme je prozkoumat?'],
+    oslavaSveta: ['Svět je náš! Jsi hvězda!', 'Celý svět! Tohle se jen tak někomu nepovede. Teda kromě mě.', 'Dokázali jsme to! Stavba stojí!', 'Mistrovský kousek! A teď stavbu ještě ozdobíme. Jdeme na to?'],
   },
   'Terezka': {
     pozdravPrvni: ['Ahoj! Já jsem Terezka. Budeme spolu hledat slova. Moc se těším!'],
@@ -61,9 +61,9 @@ export const HLASKY = {
     vsuvkaChyba: ['Nevadí. Přečti si vysvětlení a zkusíme to ve hře.', 'Tentokrát ne, ale teď už víš, jak na to.'],
     odhaleniLov: ['Příště je najdeš i bez mé pomoci.', 'Příště je určitě najdeš {sám|sama}.', 'Dobře si je prohlédni. Příště už je najdeš.'],
     odhaleniMost: ['Zapamatujeme si to a jdeme dál.', 'Nevadí, teď už to víš. Pokračujeme.'],
-    serieUspech: ['Hurá, nová oblast je naše!', '{Zvládl|Zvládla} jsi to krásně!', 'To se nám povedlo! Mapa zase vyrostla.', 'Jsem moc ráda, další kus území je náš!'],
+    serieUspech: ['Hurá, stavba povyrostla!', '{Zvládl|Zvládla} jsi to krásně!', 'To se nám povedlo! Na mapě přibyl další díl.', 'Jsem moc ráda, stavíme dál!'],
     serieNeuspech: ['Tentokrát to nevyšlo, ale nic se neděje. Zkusíme to znovu?', 'Každá série tě něco naučí. Příště to bude lepší.', 'Nevadí. Já jsem taky ze začátku chybovala.'],
-    oslavaSveta: ['Hurá! Celý svět je náš! Jsem na tebe moc pyšná.', '{Zvládl|Zvládla} jsi celý svět! To je nádhera.', 'Dokázali jsme to! A podívej, objevily se skryté oblasti!', 'To je úžasné! Tenhle svět jsme spolu zvládli.'],
+    oslavaSveta: ['Hurá! Celý svět je náš! Jsem na tebe moc pyšná.', '{Zvládl|Zvládla} jsi celý svět! To je nádhera.', 'Dokázali jsme to! A podívej, stavbu můžeme ještě ozdobit!', 'To je úžasné! Tenhle svět jsme spolu zvládli.'],
   },
 };
 
@@ -112,6 +112,6 @@ HLASKY['Nikdo'] = {
   chyba1: ['Zkus to znovu.'], chyba2: ['Zkus to znovu, nebo použij nápovědu.'],
   napoveda: ['Nápověda:'], odhaleniLov: [''], odhaleniMost: [''],
   vsuvka: ['Tohle se ti opakovaně plete. Podívej se na rozdíl.'], vsuvkaSpravne: ['Správně.'], vsuvkaChyba: ['Není to správně.'],
-  serieUspech: ['Získáváš novou oblast.'], serieNeuspech: ['Na novou oblast to tentokrát nestačilo.'],
+  serieUspech: ['Stavba má další díl.'], serieNeuspech: ['Na další díl stavby to tentokrát nestačilo.'],
   oslavaSveta: ['Svět je dokončený.'],
 };

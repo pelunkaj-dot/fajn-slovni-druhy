@@ -16,6 +16,7 @@ import { efektZasahu } from './efekty.js';
 import * as statistika from './statistika.js';
 import { ukazSbirku, ukazRodice } from './prehled.js';
 import * as vsuvky from './vsuvky.js';
+import { STAVBY, stavbaSvg, stavbaPopis } from './stavby.js';
 
 const KLIC = 'fajn-slovni-druhy:v1';
 const MOTIVY = { light: 'Světlý', dark: 'Tmavý', girl: 'Dívčí' };
@@ -164,8 +165,8 @@ function nakresliSilnici() {
 }
 addEventListener('resize', () => { clearTimeout(nakresliSilnici.t); nakresliSilnici.t = setTimeout(nakresliSilnici, 150); });
 
-// Po návratu z úspěšné série se nové oblasti „dobudou“ (zvuk + efekt), po dokončení světa se odkryjí skryté.
-// st.videno = kolik oblastí už hráč na mapě viděl.
+// Po návratu z úspěšné série se nové díly stavby „dostaví“ (zvuk + efekt), po dokončení se ukáže plán ozdob.
+// st.uzemi = počet postavených dílů (název z doby, kdy to bylo území), st.videno = kolik jich hráč už na mapě viděl.
 let casovaceMapy = [];
 function animujPostup() {
   casovaceMapy.forEach(clearTimeout);
@@ -181,6 +182,23 @@ function animujPostup() {
     if (!karta) continue;
     pozdeji(() => karta.scrollIntoView({ behavior: 'smooth', block: 'center' }), cas - 500);
     const dlazdice = i => { const el = karta.querySelector(`.uzemi i[data-i="${i}"]`); return el && el.isConnected ? el : null; };
+    if (STAVBY[n]) {
+      // stavba: díly se postupně „dostaví“, po dokončení se ukáže plán ozdob
+      const dil = k => { const el = karta.querySelector(`.stavba-sveta .dil[data-krok="${k}"]`); return el && el.isConnected ? el : null; };
+      for (let k = od + 1; k <= st.uzemi; k++) {
+        pozdeji(() => { const el = dil(k); if (!el) return; el.classList.remove('ceka'); el.classList.add('nova'); zvuk('uzemi'); efektZasahu(el, n); }, cas);
+        cas += 700;
+      }
+      pozdeji(() => {
+        const popis = karta.querySelector('.stavba-popis');
+        if (popis && popis.isConnected) popis.innerHTML = stavbaPopis(n, st.uzemi);
+        if (od < DOKONCENI && st.uzemi >= DOKONCENI) {
+          karta.querySelectorAll('.stavba-sveta .dil.skryto').forEach(el => { el.classList.remove('skryto'); el.classList.add('plan', 'odkryta'); });
+          zvuk('odkryti');
+        }
+      }, cas);
+      continue;
+    }
     for (let i = od; i < st.uzemi; i++) {
       pozdeji(() => { const el = dlazdice(i); if (!el) return; el.classList.add('moje', 'nova'); zvuk('uzemi'); efektZasahu(el, n); }, cas);
       cas += 500;
@@ -222,7 +240,11 @@ function kartaSveta(n, s) {
         <p class="hvezdy" aria-label="Obtížnost ${s.hvezdy} z 5">${'★'.repeat(s.hvezdy)}<span>${'★'.repeat(5 - s.hvezdy)}</span></p>
         <p class="komu">${s.komu}</p>
         <p>${s.popis}</p>
-        ${hratelny(n) ? `
+        ${hratelny(n) && STAVBY[n] ? `
+          <div class="stavba-sveta">${stavbaSvg(n, st.uzemi, videno)}</div>
+          <p class="stavba-popis">${stavbaPopis(n, Math.min(st.uzemi, videno))}</p>
+          <p class="ziskane-hvezdy" aria-label="Získané hvězdy: ${stav.stat.hvezdy[n] || 0}">★ ${stav.stat.hvezdy[n] || 0}</p>` : ''}
+        ${hratelny(n) && !STAVBY[n] ? `
           <div class="uzemi" role="img" aria-label="Dobyté území ${procent} %">${oblasti}</div>
           <p class="ziskane-hvezdy" aria-label="Získané hvězdy: ${stav.stat.hvezdy[n] || 0}">★ ${stav.stat.hvezdy[n] || 0}</p>
           <p class="stav">${dokonceno ? 'Svět dokončen! Objevily se skryté oblasti.' : `Území ${procent} %, svět dokončíš při ${Math.round(DOKONCENI / OBLASTI * 100)} %`}</p>` : ''}

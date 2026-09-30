@@ -5,13 +5,14 @@
 const MIN = 60e3, DEN = 864e5;
 export const INTERVALY = [0, 10 * MIN, DEN, 3 * DEN, 7 * DEN, 21 * DEN];
 const NEDAVNE = 15; // tolik posledních vět se neopakuje
+const NEDAVNA_SLOVA = 60; // tolik naposledy hraných slov (asi 3 série) dostane přestávku
 
 export function klic(slovo) {
   return `${(slovo.l || slovo.t).toLowerCase()}|${slovo.d}`;
 }
 
 export function novyStav() {
-  return { polozky: {}, nedavne: [] };
+  return { polozky: {}, nedavne: [], nedavnaSlova: [] };
 }
 
 export function uspech(stav, k, ted = Date.now()) {
@@ -57,6 +58,19 @@ export function zapamatujVetu(stav, id) {
   stav.nedavne = [id, ...stav.nedavne.filter(x => x !== id)].slice(0, NEDAVNE);
 }
 
+// Slova hraná v posledních sériích (Padající slova, Obrana hradu).
+export function zapamatujSlova(stav, klice) {
+  const nove = [...new Set(klice)];
+  stav.nedavnaSlova = [...nove, ...(stav.nedavnaSlova || []).filter(k => !nove.includes(k))].slice(0, NEDAVNA_SLOVA);
+}
+
+// Nedávno hrané slovo má dostat přestávku – kromě slova s chybou, které se má brzy vrátit.
+export function maPrestavku(stav, k, ted = Date.now()) {
+  if (!(stav.nedavnaSlova || []).includes(k)) return false;
+  const p = stav.polozky[k];
+  return !(p && p.box === 0 && p.chyby > 0 && ted >= p.dalsi);
+}
+
 // Který druh ve větě lovit: ten, jehož slova jsou nejvíc na řadě.
 export function vyberCil(stav, veta, aktivni, nahoda = Math.random, ted = Date.now()) {
   const skore = {};
@@ -73,10 +87,13 @@ export function vyberPoddruh(veta, cil, nahoda = Math.random) {
   return p.length ? p[Math.floor(nahoda() * p.length)] : '';
 }
 
-// Padající slova: vybere n slov ({t, d}) – přednost mají slova na řadě, pořadí se zamíchá.
+// Padající slova: vybere n různých slov ({t, d}) – přednost mají slova na řadě,
+// nedávno hraná slova (bez chyby) přijdou na řadu až po ostatních; pořadí se zamíchá.
 export function vyberSlova(stav, slova, n, nahoda = Math.random, ted = Date.now()) {
-  const vybrana = slova
-    .map(s => ({ s, k: naleha(stav, klic(s), ted) + nahoda() * 1.5 }))
+  const videno = new Set();
+  const ruzna = slova.filter(s => { const k = `${s.t.toLowerCase()}|${s.d}`; if (videno.has(k)) return false; videno.add(k); return true; });
+  const vybrana = ruzna
+    .map(s => ({ s, k: naleha(stav, klic(s), ted) + nahoda() * 1.5 - (maPrestavku(stav, klic(s), ted) ? 10 : 0) }))
     .sort((a, b) => b.k - a.k)
     .slice(0, n)
     .map(x => x.s);

@@ -23,9 +23,12 @@ const HRAD = `<svg class="hrad" viewBox="0 0 60 56" aria-hidden="true">
 export function spustObranu(koren, { data, slova, krajina = '', opakovani, hrdina, ulozit, serieHotova, konec, zaznam, vsuvka, pomoc = {} }) {
   const veVetach = !slova;
   const vybrana = veVetach
-    ? eng.jednotkyZVet(srs.vyberVety(opakovani, data.vety, data.aktivni, eng.DELKA_OBRANY), data.aktivni, s => srs.naleha(opakovani, srs.klic(s)))
+    // o pár vět víc: věty, ve kterých by se slovo opakovalo, se vynechají
+    ? eng.jednotkyZVet(srs.vyberVety(opakovani, data.vety, data.aktivni, eng.DELKA_OBRANY + 6), data.aktivni,
+      s => srs.naleha(opakovani, srs.klic(s)) - (srs.maPrestavku(opakovani, srs.klic(s)) ? 10 : 0)).slice(0, eng.DELKA_OBRANY)
     : srs.vyberSlova(opakovani, slova, eng.DELKA_OBRANY);
   const klic = s => srs.klic(s.slovo || s);
+  srs.zapamatujSlova(opakovani, vybrana.map(klic));
   const stat = zapisovac(zaznam); // klíčem je id slova na cestě
   // ve světech 3–5 má jednotka odkaz na větu (kontext pro rodiče)
   const odp = (s, ok, zvoleno = null) => ({ d: s.d, ok, zvoleno, text: s.t, veta: s.veta ? textyVety(s.veta) : null, i: s.veta ? s.i : null });
