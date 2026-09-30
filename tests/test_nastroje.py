@@ -117,3 +117,13 @@ class TestNahled(unittest.TestCase):
         kod = '\n'.join(nahled.modul(m) for m in nahled.PORADI)
         self.assertNotRegex(kod, r'(?m)^\s*import ')
         self.assertNotRegex(kod, r'const \{[^}]* as [^}]*\}')
+
+
+class TestZalozniBarvy(unittest.TestCase):
+    def test_kazdy_color_mix_ma_zalohu(self):
+        # starší tablety color-mix() neumí – před každou takovou deklarací musí být záloha
+        import zalozni_barvy
+        css = zalozni_barvy.CSS.read_text(encoding='utf-8')
+        self.assertEqual(zalozni_barvy.zpracuj(css), css, 'spusť python tools/zalozni_barvy.py')
+        self.assertEqual(zalozni_barvy.nahrad('color-mix(in srgb, var(--c) 14%, var(--panel))'), 'var(--panel)')
+        self.assertEqual(zalozni_barvy.nahrad('0 4px 0 color-mix(in srgb, var(--a) 70%, #000)'), '0 4px 0 var(--a)')

@@ -49,9 +49,9 @@ ukol: Babička sedí [vedle]/7 dědečka . | Vedle koho? Vedle dědečka – př
 
 == v-7-8 | 7 8
 nadpis: Před jménem, nebo mezi?
-pravidlo: Předložka stojí před jménem a říká, kde nebo s čím něco je: v lese, na stole, s kamarádem. Spojka spojuje dvě slova nebo dvě věty: a, i, nebo, ale, protože.
-priklad: Houby rostou [v]/7 lese . | V čem rostou? V lese – předložka.
-priklad: Mám psa [a]/8 kočku . | A spojuje dvě slova – spojka.
+pravidlo: Předložka patří ke jménu a říká, kde nebo s čím něco je: v lese, na stole, s kamarádem. Pozor: mezi předložku a jméno se může vejít ještě jiné slovo: v našem lese, na starém stole. Spojka spojuje dvě slova nebo dvě věty: a, i, nebo, ale, protože.
+priklad: [V]/7 našem lese rostou houby . | V čem rostou? V našem lese – předložka patří ke jménu lese.
+priklad: Mám černého psa [a]/8 bílou kočku . | A spojuje psa a kočku – spojka.
 ukol: Půjdeme do parku , [nebo]/8 na hřiště ? | Nebo spojuje dvě možnosti – je to spojka.
 
 == v-8-9 | 8 9
@@ -77,9 +77,9 @@ ukol: [Ten]/3 dort upekla babička . | Ten jen ukazuje na dort – je to zájmen
 
 == v-1-6 | 1 6
 nadpis: Kdy? nebo Co?
-pravidlo: Slova ráno, večer, doma, venku mohou být příslovce i podstatná jména. Když se na ně ptáš kdy? nebo kde? a stojí u slovesa, je to příslovce. Když je to věc, o které se mluví, a má u sebe třeba přídavné jméno (krásné ráno, každý večer), je to podstatné jméno.
-priklad: [Ráno]/6 vstávám do školy . | Kdy vstávám? Ráno – příslovce.
-priklad: Bylo krásné [ráno]/1 . | Jaké ráno? Krásné – mluví se o ránu, je to podstatné jméno.
+pravidlo: Slova ráno a večer mohou být příslovce i podstatná jména. Když stojí samo u slovesa a ptáš se na něj kdy?, je to příslovce. Když má u sebe další slovo, které k němu patří (každé ráno, celý večer), je to podstatné jméno.
+priklad: [Ráno]/6 vstávám do školy . | Kdy vstávám? Ráno – stojí samo u slovesa, příslovce.
+priklad: Každé [ráno]/1 vstávám do školy . | Které ráno? Každé – k ránu patří slovo každé, je to podstatné jméno.
 ukol: [Večer]/6 si čtu pohádku . | Kdy si čtu? Večer – příslovce.
 
 == v-1-4 | 1 4
@@ -155,10 +155,10 @@ moznosti: 6 2
 
 == v-7 | 7
 nadpis: Předložka
-pravidlo: Předložka stojí před podstatným jménem nebo zájmenem a nikdy nestojí sama: v, na, do, pod, nad, u, s, z, k, za, před.
+pravidlo: Předložka patří k podstatnému jménu nebo zájmenu a nikdy nestojí sama: v, na, do, pod, nad, u, s, z, k, za, před. Mezi předložku a jméno se může vejít přídavné jméno: na zelené louce, pod velkým stolem.
 priklad: Míč je [pod]/7 stolem . | Pod stojí před jménem stolem – předložka.
-priklad: Jdu [k]/7 babičce . | K stojí před jménem babičce – předložka.
-ukol: Hrnek stojí [na]/7 poličce . | Na stojí před jménem poličce – je to předložka.
+priklad: [Na]/7 zelené louce se pasou krávy . | Na patří ke jménu louce, přídavné jméno zelené stojí mezi nimi – předložka.
+ukol: [Na]/7 poličce stojí hrnek . | Na stojí před jménem poličce – je to předložka.
 moznosti: 7 8
 
 == v-8 | 8

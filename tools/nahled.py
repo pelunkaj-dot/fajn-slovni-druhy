@@ -33,8 +33,11 @@ def main(cil, vse=False):
     html = (KOREN / 'index.html').read_text(encoding='utf-8')
     telo = html.split('<body>', 1)[1].split('</body>', 1)[0]
     telo = re.sub(r'<script type="module".*?</script>', '', telo, flags=re.S)
-    fonty = re.search(r'<link rel="stylesheet" href="https://fonts[^>]+>', html)[0]
     css = (KOREN / 'css' / 'style.css').read_text(encoding='utf-8')
+    # Web má písma u sebe (fonts/). Náhled na claude.ai je jeden soubor: písma bere z Google Fonts
+    # (jediný povolený zdroj písem v Artifactu), místní @font-face se vynechají.
+    css = re.sub(r"@font-face \{[^}]*\}[^\n]*\n", '', css)
+    fonty = '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Baloo+2:wght@600;800&display=swap">'
     js = '\n'.join(modul(m) for m in PORADI)
     if vse:
         for a, b in [("parametry.get('mode') === 'full'", 'true')]:
