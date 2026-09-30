@@ -282,7 +282,7 @@
 0278| Ona/3 píše/5 dopis/1 kamarádce/1 .
 0279| On/3 staví/5 domeček/1 pro/7 ptáky/1 .
 0280| Vy/3 zpíváte/5 krásně/6 .
-0281| Na/7 hřišti/1 hraje/5 deset/4 kluků/1 .
+0281| Na/7 hřišti/1 si/3 hraje/5 deset/4 kluků/1 .
 0282| Sedmá/4 kapitola/1 je/5 napínavá/2 .
 0283| Terezka/1 bydlí/5 v/7 pátém/4 patře/1 .
 0284| Matýsek/1 skočil/5 nejdál/6 .

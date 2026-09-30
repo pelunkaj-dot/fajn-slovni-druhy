@@ -192,5 +192,15 @@
 {"id":"s3-0194","jevy":[],"slova":[{"t":"Město","d":1},{"t":"má","d":5},{"t":"milion","d":4},{"t":"obyvatel","d":1,"i":"."}]},
 {"id":"s3-0195","jevy":[],"slova":[{"t":"Třikrát","d":4},{"t":"denně","d":6},{"t":"krmím","d":5},{"t":"rybičky","d":1,"i":"."}]},
 {"id":"s3-0196","jevy":[],"slova":[{"t":"Na","d":7},{"t":"louce","d":1},{"t":"se","d":3},{"t":"pase","d":5},{"t":"sto","d":4},{"t":"ovcí","d":1,"i":"."}]},
-{"id":"s3-0197","jevy":[],"slova":[{"t":"Ptáci","d":1},{"t":"odletěli","d":5},{"t":"na","d":7},{"t":"jih","d":1,"i":"."}]}
+{"id":"s3-0197","jevy":[],"slova":[{"t":"Ptáci","d":1},{"t":"odletěli","d":5},{"t":"na","d":7},{"t":"jih","d":1,"i":"."}]},
+{"id":"s3-0213","jevy":[],"slova":[{"t":"Na","d":7},{"t":"trhu","d":1},{"t":"jsme","d":5,"g":1},{"t":"nakoupili","d":5,"g":1},{"t":"zeleninu","d":1,"i":"."}]},
+{"id":"s3-0214","jevy":[],"slova":[{"t":"Zapomněla","d":5,"g":1},{"t":"jsem","d":5,"g":1},{"t":"si","d":3},{"t":"pravítko","d":1,"i":"."}]},
+{"id":"s3-0222","jevy":[],"slova":[{"t":"Odpoledne","d":6},{"t":"si","d":3},{"t":"budu","d":5,"g":1},{"t":"číst","d":5,"g":1,"i":"."}]},
+{"id":"s3-0282","jevy":[],"slova":[{"t":"Vlak","d":1},{"t":"projel","d":5},{"t":"kolem","d":6,"v":true,"n":"Zeptej se: kudy projel?","i":"."}]},
+{"id":"s3-0284","jevy":[],"slova":[{"t":"Kolem","d":6,"v":true,"n":"Zeptej se: kde poletuje?"},{"t":"poletuje","d":5},{"t":"motýl","d":1,"i":"."}]},
+{"id":"s3-0286","jevy":[],"slova":[{"t":"Na","d":7},{"t":"silnici","d":1},{"t":"dávejte","d":5},{"t":"pozor","d":1,"v":true,"n":"Zeptej se: dávejte co?","i":"."}]},
+{"id":"s3-0287","jevy":[],"slova":[{"t":"Pozor","d":10,"v":true,"n":"Je to výkřik, nebo věc?","i":","},{"t":"zlý","d":2},{"t":"pes","d":1,"i":"!"}]},
+{"id":"s3-0297","jevy":[],"slova":[{"t":"V","d":7},{"t":"knihovně","d":1},{"t":"je","d":5},{"t":"tisíc","d":4},{"t":"knih","d":1,"i":"."}]},
+{"id":"s3-0300","jevy":[],"slova":[{"t":"Pozor","d":10,"v":true,"n":"Je to výkřik, nebo věc?","i":","},{"t":"vysoké","d":2},{"t":"napětí","d":1,"i":"!"}]},
+{"id":"s3-0301","jevy":[],"slova":[{"t":"Pozor","d":10,"v":true,"n":"Je to výkřik, nebo věc?","i":","},{"t":"mokrá","d":2},{"t":"podlaha","d":1,"i":"!"}]}
 ]}

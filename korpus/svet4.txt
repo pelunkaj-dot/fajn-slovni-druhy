@@ -257,7 +257,7 @@
 0222| Dědeček/1 nosí/5 brýle/1 , protože/8 špatně/6 vidí/5 .
 # --- várka 3: když ---
 0223| Když/8 sněží/5 , bobujeme/5 na/7 kopci/1 .
-0224| Když/8 přijdu/5 ze/7 školy/1 , napíšu/5 úkoly/1 .
+0224| Když/8 přijdu/5 ze/7 školy/1 , píšu/5 si/3 úkoly/1 .
 0225| Pes/1 štěká/5 , když/8 někdo/3 zvoní/5 .
 0226| Když/8 jsem/5+ byla/5+ malá/2 , bála/5+2 jsem/5+2 se/3 tmy/1 .
 0227| Když/8 je/5 zima/1 , nosíme/5 čepice/1 .
@@ -283,7 +283,7 @@
 0244| Je/5 mazaný/2 jako/8 liška/1 .
 0245| Než/8 odejdeš/5 , zhasni/5 světlo/1 .
 0246| Počkej/5 , než/8 přestane/5 pršet/5 .
-0247| Babička/1 je/5 starší/2 než/8 dědeček/1 .
+0247| Babička/1 je/5 mladší/2 než/8 dědeček/1 .
 0248| Spí/5 jako/8 dudek/1 .
 # --- várka 3: jestli, zda, pokud ---
 0249| Nevím/5 , jestli/8 máme/5 doma/6 mléko/1 .
