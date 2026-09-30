@@ -209,3 +209,104 @@
 0206| V/7 krabici/1 spí/5 pět/4 koťat/1 .
 0207| Dnes/6 je/5 venku/6 hezky/6 .
 0208| Osm/4 kluků/1 hraje/5 fotbal/1 .
+# --- várka 3 ---
+0209| Dnes/6 jdeme/5 na/7 výstavu/1 .
+0210| Mňau/10 , volá/5 hladové/2 kotě/1 .
+0211| V/7 zahradě/1 rostou/5 čtyři/4 jabloně/1 .
+0212| Prý/9 zítra/6 bude/5 pěkně/6 .
+0213| Kéž/9 najdeme/5 poklad/1 !
+0214| My/3 máme/5 velkou/2 zahradu/1 .
+0215| Ty/3 kreslíš/5 krásně/6 .
+0216| Na/7 poličce/1 stojí/5 pět/4 hrnků/1 .
+0217| Terezka/1 přišla/5 první/4 .
+0218| Ahoj/10 , babičko/1 !
+0219| Hurá/10 , zítra/6 jedeme/5 k/7 moři/1 !
+0220| Nikdo/3 nezná/5 odpověď/1 .
+0221| Někdo/3 zvoní/5 u/7 dveří/1 .
+0222| Něco/3 voní/5 v/7 kuchyni/1 .
+0223| Oni/3 bydlí/5 v/7 Ostravě/1 .
+0224| Venku/6 fouká/5 silný/2 vítr/1 .
+0225| Tady/6 bydlí/5 můj/3 kamarád/1 .
+0226| Bum/10 , praskl/5 balónek/1 .
+0227| Fuj/10 , tady/6 to/3 smrdí/5 !
+0228| Ano/9 , přijdu/5 zítra/6 .
+0229| Ne/9 , dnes/6 nepůjdu/5 ven/6 .
+0230| Dva/4 psi/1 běhají/5 po/7 louce/1 .
+0231| Druhá/4 třída/1 zpívá/5 koledy/1 .
+0232| Několik/4 dětí/1 čeká/5 u/7 školy/1 .
+0233| Mnoho/4 ptáků/1 odlétá/5 na/7 jih/1 .
+0234| Babička/1 má/5 šest/4 vnoučat/1 .
+0235| Matýsek/1 snědl/5 dvě/4 jablka/1 .
+0236| Každý/3 žák/1 dostal/5 diplom/1 .
+0237| Všichni/3 kamarádi/1 přišli/5 včas/6 .
+0238| Tvůj/3 pes/1 štěká/5 hlasitě/6 .
+0239| Její/3 panenka/1 má/5 modré/2 šaty/1 .
+0240| Naše/3 třída/1 jede/5 do/7 muzea/1 .
+0241| Vaše/3 zahrada/1 je/5 krásná/2 .
+0242| Ten/3 kluk/1 běhá/5 rychle/6 .
+0243| Ta/3 kočka/1 spí/5 celý/2 den/1 .
+0244| Tamta/3 hora/1 je/5 vysoká/2 .
+0245| Kdo/3 maluje/5 obrázek/1 ?
+0246| Co/3 hledáš/5 pod/7 stolem/1 ?
+0247| Kde/6 je/5 můj/3 sešit/1 ?
+0248| Kdy/6 začíná/5 škola/1 ?
+0249| Proč/6 je/5 obloha/1 modrá/2 ?
+0250| Kam/6 jdeš/5 ?
+0251| Hop/10 , skočil/5 zajíc/1 přes/7 potok/1 .
+0252| Haf/10 , haf/10 , vítá/5 nás/3 pes/1 .
+0253| Kykyryký/10 , kokrhá/5 kohout/1 .
+0254| Au/10 , píchla/5 mě/3 včela/1 .
+0255| Pst/10 , tatínek/1 spí/5 !
+0256| Jé/10 , to/3 je/5 krásný/2 dárek/1 !
+0257| Brzy/6 přijde/5 jaro/1 .
+0258| Pomalu/6 padá/5 sníh/1 .
+0259| Nahoře/6 na/7 kopci/1 stojí/5 rozhledna/1 .
+0260| Dole/6 pod/7 mostem/1 teče/5 řeka/1 .
+0261| Včera/6 pršelo/5 celý/2 den/1 .
+0262| Pozítří/6 přijede/5 dědeček/1 .
+0263| Za/7 plotem/1 štěká/5 pes/1 .
+0264| Nad/7 lesem/1 letí/5 čáp/1 .
+0265| Před/7 domem/1 stojí/5 červené/2 auto/1 .
+0266| Mezi/7 knihami/1 leží/5 dopis/1 .
+0267| Bez/7 deštníku/1 zmokneš/5 .
+0268| Matýsek/1 dostal/5 od/7 babičky/1 knihu/1 .
+0269| Pojedeme/5 vlakem/1 , nebo/8 autobusem/1 ?
+0270| Terezka/1 je/5 malá/2 , ale/8 silná/2 .
+0271| Pes/1 a/8 kočka/1 spí/5 spolu/6 .
+0272| Kéž/9 zítra/6 sněží/5 !
+0273| Prý/9 má/5 Terezka/1 nové/2 kolo/1 .
+0274| Moje/3 babička/1 bydlí/5 na/7 vesnici/1 .
+0275| Jejich/3 kočka/1 má/5 pět/4 koťat/1 .
+0276| Náš/3 učitel/1 hraje/5 na/7 kytaru/1 .
+0277| Já/3 čtu/5 pohádky/1 .
+0278| Ona/3 píše/5 dopis/1 kamarádce/1 .
+0279| On/3 staví/5 domeček/1 pro/7 ptáky/1 .
+0280| Vy/3 zpíváte/5 krásně/6 .
+0281| Na/7 hřišti/1 si/3 hraje/5 deset/4 kluků/1 .
+0282| Sedmá/4 kapitola/1 je/5 napínavá/2 .
+0283| Terezka/1 bydlí/5 v/7 pátém/4 patře/1 .
+0284| Matýsek/1 skočil/5 nejdál/6 .
+0285| Tady/6 roste/5 mech/1 .
+0286| Tam/6 je/5 náš/3 dům/1 .
+0287| Zítra/6 jede/5 Terezka/1 na/7 tábor/1 .
+0288| Letadlo/1 přistálo/5 hladce/6 .
+0289| Maminka/1 mluví/5 potichu/6 .
+0290| Venku/6 je/5 tma/1 .
+0291| Hej/10 , podej/5 mi/3 míč/1 !
+0292| Ach/10 , to/3 je/5 smutné/2 .
+0293| Cink/10 , cinkají/5 zvonky/1 .
+0294| Matýsek/1 a/8 jeho/3 bratr/1 hrají/5 šachy/1 .
+0295| Ve/7 sboru/1 zpívá/5 dvacet/4 dětí/1 .
+0296| Terezka/1 cvičí/5 dvakrát/4 týdně/6 .
+0297| Kdo/3 má/5 hlad/1 ?
+0298| Co/3 je/5 v/7 krabici/1 ?
+0299| Proč/6 pláče/5 miminko/1 ?
+0300| Kde/6 bydlí/5 ježek/1 ?
+0301| Nikde/6 nejsou/5 moje/3 klíče/1 .
+0302| Nikdy/6 nezapomenu/5 na/7 prázdniny/1 .
+0303| Pořád/6 prší/5 .
+0304| Maminka/1 upekla/5 dvanáct/4 buchet/1 .
+0305| Ne/9 , to/3 není/5 pravda/1 .
+0306| Hurá/10 , přišlo/5 jaro/1 !
+0307| Prý/9 v/7 lese/1 roste/5 mnoho/4 hub/1 .
+0308| Dnes/6 je/5 čtvrtek/1 .

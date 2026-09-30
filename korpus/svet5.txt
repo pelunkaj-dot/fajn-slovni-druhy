@@ -113,3 +113,120 @@
 # --- všechno dohromady ---
 0097| Ten/3:ukazovaci jarní/2:mekke den/1 byl/5 krásný/2:tvrde .
 0098| Tvůj/3:privlastnovaci letní/2:mekke klobouk/1 je/5 v/7 mé/3:privlastnovaci skříni/1 .
+# --- várka 2: přídavná jména přivlastňovací ---
+0099| Sousedův/2:privlastnovaci kocour/1 chytil/5 myš/1 .
+0100| Tetina/2:privlastnovaci zahrada/1 voní/5 levandulí/1 .
+0101| Strýcovo/2:privlastnovaci auto/1 je/5 modré/2:tvrde .
+0102| Matčina/2:privlastnovaci kytice/1 stojí/5 na/7 stole/1 .
+0103| Kamarádův/2:privlastnovaci pes/1 umí/5 aportovat/5 .
+0104| Sestřina/2:privlastnovaci panenka/1 má/5 dlouhé/2:tvrde vlasy/1 .
+0105| Dědečkova/2:privlastnovaci houpačka/1 visí/5 na/7 dubu/1 .
+0106| Terezčin/2:privlastnovaci obrázek/1 visí/5 ve/7 třídě/1 .
+0107| Babiččino/2:privlastnovaci cukroví/1 je/5 výborné/2:tvrde .
+0108| Tatínkův/2:privlastnovaci kabát/1 visí/5 v/7 předsíni/1 .
+# --- várka 2: přídavná jména měkká ---
+0109| Podzimní/2:mekke listí/1 šustí/5 pod/7 nohama/1 .
+0110| Jarní/2:mekke louka/1 kvete/5 .
+0111| Horní/2:mekke patro/1 je/5 prázdné/2:tvrde .
+0112| Zadní/2:mekke kolo/1 je/5 splasklé/2:tvrde .
+0113| Vánoční/2:mekke stromek/1 svítí/5 .
+0114| Školní/2:mekke hřiště/1 je/5 nové/2:tvrde .
+0115| Noční/2:mekke obloha/1 je/5 plná/2:tvrde hvězd/1 .
+0116| Zítřejší/2:mekke výlet/1 bude/5 zábavný/2:tvrde .
+0117| Kočičí/2:mekke ocas/1 je/5 huňatý/2:tvrde .
+0118| Psí/2:mekke bouda/1 stojí/5 na/7 dvoře/1 .
+# --- várka 2: přídavná jména tvrdá ---
+0119| Mořská/2:tvrde voda/1 je/5 slaná/2:tvrde .
+0120| Veselý/2:tvrde klaun/1 rozdává/5 balónky/1 .
+0121| Chytrá/2:tvrde liška/1 přelstila/5 havrana/1 .
+0122| Dlouhá/2:tvrde cesta/1 vede/5 lesem/1 .
+0123| Malé/2:tvrde štěně/1 spí/5 v/7 košíku/1 .
+0124| Terezka/1 nosí/5 žluté/2:tvrde holínky/1 .
+0125| Silný/2:tvrde vítr/1 shodil/5 starý/2:tvrde plot/1 .
+0126| Zralé/2:tvrde třešně/1 jsou/5 sladké/2:tvrde .
+0127| Matýsek/1 postavil/5 vysokou/2:tvrde věž/1 .
+0128| Tichá/2:tvrde noc/1 je/5 temná/2:tvrde .
+# --- várka 2: zájmena osobní ---
+0129| Já/3:osobni kreslím/5 a/8 ty/3:osobni zpíváš/5 .
+0130| Tatínek/1 nám/3:osobni přečetl/5 pohádku/1 .
+0131| Pozvali/5+ jsme/5+ je/3:osobni na/7 oslavu/1 .
+0132| Ona/3:osobni hraje/5 na/7 klavír/1 .
+0133| Poděkuj/5 jí/3:osobni za/7 dárek/1 .
+0134| Babička/1 mu/3:osobni upletla/5 šálu/1 .
+0135| Vy/3:osobni jste/5 naši/3:privlastnovaci hosté/1 .
+# --- várka 2: zájmena zvratná ---
+0136| Kočka/1 se/3:zvratne myje/5 .
+0137| Matýsek/1 si/3:zvratne kreslí/5 do/7 sešitu/1 .
+0138| Děti/1 se/3:zvratne těší/5 na/7 prázdniny/1 .
+0139| Terezka/1 si/3:zvratne zaplétá/5 cop/1 .
+0140| Ptáček/1 se/3:zvratne schoval/5 v/7 keři/1 .
+0141| Vezmi/5 si/3:zvratne svačinu/1 s/7 sebou/3:zvratne .
+# --- várka 2: zájmena přivlastňovací ---
+0142| Tvůj/3:privlastnovaci obrázek/1 je/5 krásný/2:tvrde .
+0143| Naše/3:privlastnovaci kočka/1 má/5 koťata/1 .
+0144| Vaše/3:privlastnovaci třída/1 vyhrála/5 soutěž/1 .
+0145| Moje/3:privlastnovaci sestra/1 chodí/5 do/7 první/4:radova třídy/1 .
+0146| Jeho/3:privlastnovaci kolo/1 je/5 rychlé/2:tvrde .
+0147| Terezka/1 půjčila/5 svou/3:privlastnovaci knihu/1 kamarádce/1 .
+0148| Matýsek/1 hledá/5 svého/3:privlastnovaci psa/1 .
+# --- várka 2: zájmena ukazovací ---
+0149| Ten/3:ukazovaci obrázek/1 visí/5 nakřivo/6 .
+0150| Tato/3:ukazovaci kniha/1 patří/5 mně/3:osobni .
+0151| To/3:ukazovaci je/5 můj/3:privlastnovaci kamarád/1 .
+0152| Chci/5 takovou/3:ukazovaci čepici/1 .
+0153| Tamta/3:ukazovaci hora/1 je/5 vysoká/2:tvrde .
+0154| Tento/3:ukazovaci vlak/1 jede/5 do/7 Brna/1 .
+# --- várka 2: zájmena tázací ---
+0155| Kdo/3:tazaci přinesl/5 ty/3:ukazovaci květiny/1 ?
+0156| Co/3:tazaci máš/5 v/7 tašce/1 ?
+0157| Jakou/3:tazaci barvu/1 má/5 tvoje/3:privlastnovaci kolo/1 ?
+0158| Čí/3:tazaci jsou/5 tyto/3:ukazovaci boty/1 ?
+0159| Kterou/3:tazaci knihu/1 čteš/5 ?
+0160| Komu/3:tazaci patří/5 ten/3:ukazovaci míč/1 ?
+0161| S/7 kým/3:tazaci půjdeš/5 do/7 kina/1 ?
+# --- várka 2: zájmena vztažná ---
+0162| Mám/5 psa/1 , který/3:vztazne umí/5 plavat/5 .
+0163| Holka/1 , která/3:vztazne vyhrála/5 , je/5 moje/3:privlastnovaci sestřenice/1 .
+0164| Kolo/1 , které/3:vztazne jsem/5+ dostal/5+ , je/5 červené/2:tvrde .
+0165| To/3:ukazovaci je/5 hřiště/1 , na/7 kterém/3:vztazne hrajeme/5 fotbal/1 .
+0166| Kluk/1 , kterého/3:vztazne jsem/5+ potkal/5+ , bydlí/5 v/7 naší/3:privlastnovaci ulici/1 .
+0167| Našli/5+ jsme/5+ jeskyni/1 , ve/7 které/3:vztazne bydlí/5 netopýři/1 .
+0168| Knihu/1 , kterou/3:vztazne mi/3:osobni půjčíš/5 , ti/3:osobni vrátím/5 zítra/6 .
+# --- várka 2: zájmena neurčitá ---
+0169| Někdo/3:neurcite zaklepal/5 na/7 dveře/1 .
+0170| Něco/3:neurcite zašustilo/5 v/7 listí/1 .
+0171| Nějaký/3:neurcite pes/1 štěká/5 za/7 plotem/1 .
+0172| Někdo/3:neurcite snědl/5 moji/3:privlastnovaci svačinu/1 .
+0173| V/7 trávě/1 něco/3:neurcite šustí/5 .
+0174| Nějaká/3:neurcite paní/1 se/3:zvratne ptá/5 na/7 cestu/1 .
+# --- várka 2: zájmena záporná ---
+0175| Nikdo/3:zaporne nezvedl/5 telefon/1 .
+0176| Nic/3:zaporne se/3:zvratne nestalo/5 .
+0177| Žádný/3:zaporne pes/1 nekousal/5 .
+0178| Matýsek/1 nemá/5 žádné/3:zaporne bonbony/1 .
+0179| Ve/7 škole/1 nikdo/3:zaporne nebyl/5 .
+0180| Nikomu/3:zaporne to/3:ukazovaci neříkej/5 .
+# --- várka 2: číslovky základní ---
+0181| Na/7 dvoře/1 běhá/5 pět/4:zakladni slepic/1 .
+0182| Terezce/1 je/5 osm/4:zakladni let/1 .
+0183| Matýsek/1 má/5 dva/4:zakladni bratry/1 .
+0184| V/7 krabici/1 je/5 dvanáct/4:zakladni pastelek/1 .
+0185| Po/7 rybníce/1 plavou/5 čtyři/4:zakladni kachny/1 .
+# --- várka 2: číslovky řadové ---
+0186| Terezka/1 doběhla/5 druhá/4:radova .
+0187| První/4:radova vagon/1 je/5 prázdný/2:tvrde .
+0188| Bydlíme/5 ve/7 třetím/4:radova patře/1 .
+0189| Pátý/4:radova den/1 jsme/5+ jeli/5+ domů/6 .
+0190| Matýsek/1 chodí/5 do/7 čtvrté/4:radova třídy/1 .
+# --- várka 2: číslovky druhové ---
+0191| Terezka/1 má/5 troje/4:druhova šaty/1 .
+0192| Dostal/5+ jsem/5+ dvoje/4:druhova ponožky/1 .
+0193| Tatínek/1 koupil/5 dvoje/4:druhova sáňky/1 .
+0194| Babička/1 upekla/5 trojí/4:druhova cukroví/1 .
+0195| V/7 předsíni/1 stojí/5 patery/4:druhova boty/1 .
+# --- várka 2: číslovky násobné ---
+0196| Zvon/1 odbil/5 dvakrát/4:nasobna .
+0197| Čtyřikrát/4:nasobna jsem/5+ oběhl/5+ hřiště/1 .
+0198| Třikrát/4:nasobna denně/6 krmíme/5 kočku/1 .
+0199| Dvakrát/4:nasobna měř/5 , jednou/4:nasobna řež/5 .
+0200| Terezka/1 zazpívala/5 písničku/1 dvakrát/4:nasobna .

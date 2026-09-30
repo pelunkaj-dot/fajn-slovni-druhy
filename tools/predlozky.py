@@ -34,12 +34,18 @@ def zacatek(slovo):
     return s[:1], s[1:2]
 
 
+# ustálená spojení, kde je neslabičná podoba správně i před s, z, v, k (vzít „s sebou“)
+VYJIMKY_NESLABICNE = {('s', 'sebou')}
+
+
 def posud(predlozka, slovo):
     """Vrátí (úroveň, zpráva) nebo None."""
     p = predlozka.lower()
     prvni, druha = zacatek(slovo)
     # skupina souhlásek; před „tr, pr, kl…“ (druhá souhláska r, l) se předložka nemění: v trávě, v Praze
     shluk = prvni not in SAMOHLASKY and druha and druha not in SAMOHLASKY and druha not in 'rl'
+    if (p, slovo.lower()) in VYJIMKY_NESLABICNE:
+        return None
     if p in POVINNE:
         if prvni in POVINNE[p]:
             return 'CHYBA', f'„{predlozka} {slovo}“ → „{predlozka}e {slovo}“'
