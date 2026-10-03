@@ -112,7 +112,7 @@ class TestNahled(unittest.TestCase):
     def test_vsechny_moduly_v_nahledu(self):
         # náhled skládá moduly podle seznamu PORADI – nový soubor v js/ se nesmí zapomenout
         import nahled
-        js = {str(p.relative_to(nahled.KOREN / 'js').with_suffix('')) for p in (nahled.KOREN / 'js').rglob('*.js')}
+        js = {p.relative_to(nahled.KOREN / 'js').with_suffix('').as_posix() for p in (nahled.KOREN / 'js').rglob('*.js')}
         self.assertEqual(js, set(nahled.PORADI))
         kod = '\n'.join(nahled.modul(m) for m in nahled.PORADI)
         self.assertNotRegex(kod, r'(?m)^\s*import ')

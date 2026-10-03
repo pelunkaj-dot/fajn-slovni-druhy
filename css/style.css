@@ -698,3 +698,7 @@ body { background:
 @keyframes mlha-pas { from { transform: translateX(-30px); } to { transform: translateX(30px); } }
 .stavba-sveta .plan .plamen, .stavba-sveta .plan .ohnostroj { animation: none; }
 @media (prefers-reduced-motion: reduce) { .stavba-sveta .hotovo .plamen, .stavba-sveta .hotovo .ohnostroj, .stavba-sveta .mlha-pas { animation: none; } .stavba-sveta .hotovo .ohnostroj { opacity: 1; } }
+
+/* Odkaz z dema do plné FajnCvičebny. */
+.demo-cta { display: inline-block; align-self: center; text-align: center; background: var(--accent); color: var(--accent-ink); border-radius: 14px; font-weight: 800; font-size: 1.2rem; padding: 16px 28px; text-decoration: none; box-shadow: 0 4px 0 var(--accent); }
+.demo-cta:focus-visible { outline: 3px solid var(--text); outline-offset: 4px; }

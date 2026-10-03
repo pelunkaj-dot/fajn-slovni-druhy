@@ -197,7 +197,7 @@ export function spustPadani(koren, { data, slova, krajina = '', opakovani, hrdin
     ulozit();
     if (p.hotovo) {
       zastav();
-      vysledekSerie(koren, { vysledky: p.vysledky, body, chybnaSlova, hrdina, serieHotova, konec, delka: eng.DELKA_PADANI, jednotka: ['slovo', 'slova', 'slov'] });
+      vysledekSerie(koren, { vysledky: p.vysledky, body, chybnaSlova, hrdina, serieHotova, konec, delka: data.delkaSerie ? p.slova.length : eng.DELKA_PADANI, jednotka: ['slovo', 'slova', 'slov'] });
       return;
     }
     moznaVsuvka(koren, vsuvka, hrdina, spustSlovo);

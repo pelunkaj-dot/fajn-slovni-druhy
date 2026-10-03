@@ -12,7 +12,7 @@ import { efektZasahu, efektChyby, efektBodu } from '../efekty.js';
 
 export function spustMost(koren, { data, krajina = '', opakovani, hrdina, ulozit, serieHotova, konec, zaznam, vsuvka, pomoc = {} }) {
   const pocetSlov = v => v.slova.filter(s => data.aktivni.includes(s.d)).length;
-  const vybrane = srs.vyberVety(opakovani, data.vety, data.aktivni, eng.DELKA_SERIE);
+  const vybrane = srs.vyberVety(opakovani, data.vety, data.aktivni, data.delkaSerie ?? eng.DELKA_SERIE);
   const nejdelsi = vybrane.reduce((a, v) => (pocetSlov(v) > pocetSlov(a) ? v : a), vybrane[0]);
   const vety = [...vybrane.filter(v => v !== nejdelsi), nejdelsi].filter(Boolean);
   const vysledky = [];
@@ -247,7 +247,7 @@ export function spustMost(koren, { data, krajina = '', opakovani, hrdina, ulozit
     poradi += 1;
     moznaVsuvka(koren, vsuvka, hrdina, () => {
       if (poradi < vety.length) vykresliVetu();
-      else vysledekSerie(koren, { vysledky, body, chybnaSlova, hrdina, serieHotova, konec });
+      else vysledekSerie(koren, { vysledky, body, chybnaSlova, hrdina, serieHotova, konec, delka: data.delkaSerie ?? eng.DELKA_SERIE });
     });
   }
 

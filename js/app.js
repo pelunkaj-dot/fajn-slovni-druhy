@@ -18,6 +18,8 @@ import { ukazSbirku, ukazRodice } from './prehled.js';
 import * as vsuvky from './vsuvky.js';
 import { STAVBY, stavbaSvg, stavbaPopis } from './stavby.js';
 
+const DEMO = document.documentElement.dataset.demo === 'true';
+const dokonceneDemo = new Set();
 const KLIC = 'fajn-slovni-druhy:v1';
 const MOTIVY = { light: 'Světlý', dark: 'Tmavý', girl: 'Dívčí' };
 const HRDINOVE = ['Terezka', 'Matýsek'];
@@ -30,7 +32,7 @@ let SLOVA = {};    // slova pro Padající slova podle světa (jen světy 1–2)
 // Obrana hradu jde všude: ve světech 1–2 se samostatnými slovy, ve vyšších se slovy z vět.
 const rezimySveta = n => Object.entries(REZIMY).filter(([k]) => k !== 'padani' || SLOVA[n]);
 const parametry = new URLSearchParams(location.search);
-const PLNA = parametry.get('mode') === 'full';
+const PLNA = !DEMO && parametry.get('mode') === 'full';
 
 const app = document.getElementById('app');
 // url() v CSS proměnné by se bral vůči css/style.css – proto úplná adresa vůči stránce
@@ -38,6 +40,7 @@ const cssUrl = cesta => `url("${new URL(cesta, document.baseURI).href}")`;
 const cache = {};
 
 function nacti() {
+  if (DEMO) return {};
   try { return JSON.parse(localStorage.getItem(KLIC)) || {}; } catch { return {}; }
 }
 const stav = { hrdina: HRDINOVE[0], postavicky: true, zvuk: true, motiv: 'light', rezim: 'lov', svety: {}, opakovani: srs.novyStav(), ...nacti() };
@@ -49,6 +52,7 @@ stav.stat = statistika.doplnit(stav.stat);
 nastavHrace(stav.hrac);
 
 function ulozit() {
+  if (DEMO) return; // Demo nemění ani neukládá dlouhodobý postup plné hry.
   try { localStorage.setItem(KLIC, JSON.stringify(stav)); } catch { /* bez úložiště se postup neuchová */ }
 }
 
@@ -88,7 +92,7 @@ function mapa() {
   if (!stav.hrac) { otazkaHrac(); return; }
   app.innerHTML = `
     <section class="mapa">
-      ${PLNA ? '' : '<p class="ukazka">Ukázková verze: z každého světa si zahraješ malý výběr vět. Plnou verzi najdeš ve FajnCvičebně.</p>'}
+      ${DEMO ? '<p class="ukazka">Demo: 12 vět ve 3 obtížnostech, v každé 4 věty. Vyzkoušej si všechny herní režimy.</p>' : PLNA ? '' : '<p class="ukazka">Ukázková verze: z každého světa si zahraješ malý výběr vět. Plnou verzi najdeš ve FajnCvičebně.</p>'}
       <div class="volba-hrdiny" role="group" aria-label="S kým vyrazíš?">
         ${stav.postavicky ? `<span>S kým vyrazíš?</span>
         ${HRDINOVE.map(h => `<button type="button" data-h="${h}" aria-pressed="${stav.hrdina === h}">${avatar(h)}${h}</button>`).join('')}` : ''}
@@ -107,7 +111,7 @@ function mapa() {
         ${VYHLED}
         <svg class="silnice" aria-hidden="true"><path class="okraj"/><path class="povrch"/><path class="stred"/></svg>
         <ol class="svety">
-          ${Object.entries(SVETY).map(([n, s]) => kartaSveta(+n, s)).join('')}
+          ${Object.entries(SVETY).filter(([n]) => !DEMO || DOSTUPNE.includes(+n)).map(([n, s]) => kartaSveta(+n, s)).join('')}
         </ol>
       </div>
     </section>`;
@@ -133,7 +137,7 @@ function mapa() {
     mapa();
   });
   app.querySelector('.otevri-sbirku').onclick = () => { zvuk('vyber'); ukazSbirku(app, { st: stav.stat, dostupne: DOSTUPNE, zpet: mapa }); };
-  app.querySelector('.pro-rodice').onclick = () => { zvuk('klik'); ukazRodice(app, { st: stav.stat, hrac: stav.hrac, vsuvky: VSUVKY, ulozit, zpet: mapa }); };
+  app.querySelector('.pro-rodice').onclick = () => { zvuk('klik'); if (DEMO) { ukazRodiceDemo(); return; } ukazRodice(app, { st: stav.stat, hrac: stav.hrac, vsuvky: VSUVKY, ulozit, zpet: mapa }); };
   app.querySelectorAll('.svety button[data-svet]').forEach(b => b.onclick = () => { zvuk('start'); hraj(+b.dataset.svet, b.dataset.rezim || ''); });
   delete app.dataset.svet;
   app.style.removeProperty('--foto');
@@ -141,6 +145,17 @@ function mapa() {
   nakresliSilnici();
   if (document.fonts) document.fonts.ready.then(nakresliSilnici);
   animujPostup();
+}
+
+function ukazRodiceDemo() {
+  app.innerHTML = `<section class="vysledek">
+    <h2>Přehled pro rodiče je součástí plné verze.</h2>
+    <p>V plné verzi můžete sledovat průběh procvičování, co dítě už zvládá a kde ještě chybuje. Snadno tak poznáte, čemu věnovat další pozornost.</p>
+    <a class="demo-cta" href="https://fajndoucko.cz/fajncvicebna/" target="_blank" rel="noopener">Chci plnou verzi</a>
+    <div class="ovladani"><button type="button" class="mapa">← Mapa</button></div>
+  </section>`;
+  app.querySelector('.mapa').onclick = mapa;
+  app.querySelector('.mapa').focus();
 }
 
 // Klikatá cesta krajinou: vede od zastávky ke zastávce (kulaté značky na kartách světů).
@@ -298,6 +313,7 @@ async function hraj(n, rezim = '') {
     },
     vsuvka: {
       dalsi() {
+        if (DEMO) return null; // Mini-úkoly by přidávaly další věty nad rámec dvanácti.
         const v = vsuvky.vyber(pametVsuvek, VSUVKY, cache[n].aktivni);
         if (v) vsuvky.ukazano(pametVsuvek, v);
         return v;
@@ -315,7 +331,8 @@ async function hraj(n, rezim = '') {
       const odznaky = [...odznakyBehem, ...statistika.serie(stav.stat, { svet: n, hvezdy, uspesna, bezZtraty, dokoncene })];
       odznakyBehem = [];
       ulozit();
-      return { dokonceno: predtim < DOKONCENI && st.uzemi >= DOKONCENI, odznaky };
+      if (DEMO) dokonceneDemo.add(n);
+      return { demo: DEMO ? { pocet: dokonceneDemo.size } : null, dokonceno: predtim < DOKONCENI && st.uzemi >= DOKONCENI, odznaky };
     },
     konec(v) { ukonciSezeni(); if (v && v.znovu) hraj(n, rezim); else mapa(); },
   });
@@ -337,4 +354,12 @@ ukazZvuk();
 document.addEventListener('pointerdown', () => { if (stav.zvuk) odemkni(); }, { once: true });
 nastavMotiv(MOTIVY[parametry.get('theme')] ? parametry.get('theme') : stav.motiv);
 ulozit();
-Promise.all([nactiSeznam(), nactiSlova(PLNA), nactiVsuvky()]).then(([s, slova, v]) => { DOSTUPNE = Object.keys(s).map(Number); SLOVA = slova; VSUVKY = v; mapa(); });
+async function nactiDemo() {
+  const r = await fetch('data/demo.json');
+  if (!r.ok) throw new Error('Demo se nepodařilo načíst. Zkus stránku načíst znovu.');
+  const svety = await r.json();
+  Object.assign(cache, svety);
+  const slova = Object.fromEntries([1, 2].map(n => [n, svety[n].slova]));
+  return [Object.fromEntries(Object.entries(svety).map(([n, s]) => [n, s.vety.length])), slova, []];
+}
+(DEMO ? nactiDemo() : Promise.all([nactiSeznam(), nactiSlova(PLNA), nactiVsuvky()])).then(([s, slova, v]) => { DOSTUPNE = Object.keys(s).map(Number); SLOVA = slova; VSUVKY = v; mapa(); }).catch(e => { app.innerHTML = '<p class="chyba"></p>'; app.querySelector('.chyba').textContent = e.message; });

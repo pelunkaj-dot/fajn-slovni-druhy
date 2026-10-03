@@ -53,17 +53,17 @@ export const odznakHtml = (o, ziskany = true) =>
 export function vysledekSerie(koren, { vysledky, body, chybnaSlova, hrdina, serieHotova, konec, delka = eng.DELKA_SERIE, jednotka = ['věta', 'věty', 'vět'], bezZtraty = false }) {
   const uspesna = eng.serieUspesna(vysledky, delka);
   const hvezdy = hvezdyZa(vysledky, delka);
-  const { dokonceno: svetDokoncen, odznaky = [] } = serieHotova(uspesna, { hvezdy, bezZtraty });
+  const { dokonceno: svetDokoncen, odznaky = [], demo = null } = serieHotova(uspesna, { hvezdy, bezZtraty });
   const procent = Math.round(eng.uspesnost(vysledky) * 100);
   const pocet = t => vysledky.filter(v => v === t).length;
   const opakovat = [...chybnaSlova.values()];
   koren.innerHTML = `
     <section class="vysledek">
       <div class="parta"></div>
-      <h2>${svetDokoncen ? 'Svět dokončen!' : uspesna ? 'Stavba povyrostla!' : 'Série dokončena'}</h2>
+      <h2>${demo ? 'Ukázka dokončena!' : svetDokoncen ? 'Svět dokončen!' : uspesna ? 'Stavba povyrostla!' : 'Série dokončena'}</h2>
       ${hvezdyHtml(hvezdy, true)}
       <p class="procenta"><b>${procent} %</b> úspěšnost</p>
-      <p>${svetDokoncen ? 'Stavba je hotová! Na mapě se objevil plán ozdob.' : uspesna ? 'Na mapě přibyl další díl stavby.' : `Na další díl stavby potřebuješ aspoň ${Math.round(eng.PRAH_USPECHU * 100)} %. Zkus další sérii!`}</p>
+      <p>${demo ? `Tohle byla malá ukázka Fajn Slovních druhů. Vyzkoušeno ${demo.pocet} ze 3 obtížností. V plné FajnCvičebně tě čeká mnohem více vět, více obtížností a dlouhodobé procvičování.` : svetDokoncen ? 'Stavba je hotová! Na mapě se objevil plán ozdob.' : uspesna ? 'Na mapě přibyl další díl stavby.' : `Na další díl stavby potřebuješ aspoň ${Math.round(eng.PRAH_USPECHU * 100)} %. Zkus další sérii!`}</p>
       <ul class="statistika">
         <li><b>${pocet('ciste')}</b> ${tvar(pocet('ciste'), ...jednotka)} bez chyby</li>
         <li><b>${pocet('chyba')}</b> s chybou</li>
@@ -72,8 +72,9 @@ export function vysledekSerie(koren, { vysledky, body, chybnaSlova, hrdina, seri
       </ul>
       ${odznaky.length ? `<div class="nove-odznaky"><p>${odznaky.length === 1 ? 'Nový odznak!' : 'Nové odznaky!'}</p>${odznaky.map(o => odznakHtml(o)).join('')}</div>` : ''}
       ${opakovat.length ? `<p>Tahle slova se ti brzy vrátí:</p><p class="opakovat">${opakovat.map(s => `<span>${cislo(s.d)} ${esc(s.t)}</span>`).join('')}</p>` : ''}
+      ${demo ? '<a class="demo-cta" href="https://fajndoucko.cz/fajncvicebna/" target="_blank" rel="noopener">Chci plnou verzi</a>' : ''}
       <div class="ovladani">
-        <button type="button" class="znovu">Další série</button>
+        <button type="button" class="znovu">${demo ? 'Zkusit znovu' : 'Další série'}</button>
         <button type="button" class="mapa">Na mapu</button>
       </div>
     </section>`;

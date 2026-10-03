@@ -325,7 +325,7 @@ export function spustObranu(koren, { data, slova, krajina = '', opakovani, hrdin
     if (veVetach) vybrana.forEach(j => srs.zapamatujVetu(opakovani, j.veta.id));
     ulozit();
     // při ztrátě hradu je výsledků méně než slov v sérii, takže série není úspěšná
-    vysledekSerie(koren, { vysledky: o.vysledky, body, chybnaSlova, hrdina, serieHotova, konec, delka: eng.DELKA_OBRANY, jednotka: ['slovo', 'slova', 'slov'], bezZtraty: o.zivoty === eng.ZIVOTY && o.vysledky.length === eng.DELKA_OBRANY });
+    vysledekSerie(koren, { vysledky: o.vysledky, body, chybnaSlova, hrdina, serieHotova, konec, delka: data.delkaSerie ? vybrana.length : eng.DELKA_OBRANY, jednotka: ['slovo', 'slova', 'slov'], bezZtraty: o.zivoty === eng.ZIVOTY && o.vysledky.length === eng.DELKA_OBRANY });
   }
 
   if (!vybrana.length) { koren.innerHTML = '<p class="chyba">V tomto světě zatím nejsou žádná slova.</p>'; return; }

@@ -9,7 +9,7 @@ import { zvuk } from '../zvuky.js';
 import { efektZasahu, efektChyby, efektBodu } from '../efekty.js';
 
 export function spustLov(koren, { data, krajina = '', opakovani, hrdina, ulozit, serieHotova, konec, zaznam, vsuvka, pomoc = {} }) {
-  const vety = srs.vyberVety(opakovani, data.vety, data.aktivni, eng.DELKA_SERIE);
+  const vety = srs.vyberVety(opakovani, data.vety, data.aktivni, data.delkaSerie ?? eng.DELKA_SERIE);
   const vysledky = [];
   const chybnaSlova = new Map();
   const stat = zapisovac(zaznam);
@@ -207,7 +207,7 @@ export function spustLov(koren, { data, krajina = '', opakovani, hrdina, ulozit,
   }
 
   function vyhodnot() {
-    vysledekSerie(koren, { vysledky, body, chybnaSlova, hrdina, serieHotova, konec });
+    vysledekSerie(koren, { vysledky, body, chybnaSlova, hrdina, serieHotova, konec, delka: data.delkaSerie ?? eng.DELKA_SERIE });
   }
 
   if (!vety.length) { koren.innerHTML = '<p class="chyba">V tomto světě zatím nejsou žádné věty.</p>'; return; }
